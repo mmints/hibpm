@@ -20,9 +20,9 @@ class Automaton{
     
 public:
     
-    vector<vector<int>> *transitionsTo;
-    vector<vector<list<int>>> *incoming;
-    int initialState;
+    vector<vector<int> > *transitionsTo;
+    vector<vector< list<int> > > *incoming;
+    int initialState = 0;
     vector<bool> areFinalStates;
     list<int> finalStates;
      
@@ -32,8 +32,13 @@ public:
     
     void addTransition(int stateFrom, int stateTo, int viaSymbol);
     void addFinal(int state);
-
+    
     void print();
+    
+    Automaton* product(Automaton *a1, Automaton *a2);
+    
+    
+    
 };
 
 #endif /* Automaton_hpp */

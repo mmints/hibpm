@@ -17,15 +17,18 @@ int main(int argc, const char * argv[]) {
     int states =4 , symbols = 2;
 
         
-    Automaton a(states, symbols);
+    Automaton a(states, symbols), b(states, symbols), c(states, symbols)  ;
     
     for (int i=0; i < states; i++) {
         for (int j = 0; j< symbols; j++) {
             a.addTransition(i, j, 1);
         }
     }
-    a.print();
+   // a.print();
+   
+    Automaton *rr = a.product(&a, &a);
     
+    rr->print();
       
     return 0;
 }
