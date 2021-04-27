@@ -84,23 +84,26 @@ Automaton* Automaton::product(Automaton *a1, Automaton *a2){
         cy = (*it)->nState.second;
 //        
         for (int a = 0; a < sigmaS; a++) {
-//           
+//
             int x1 = a1->transitionsTo->at(cx)[a],
                 x2 = a2->transitionsTo->at(cy)[a];
+//            //TODO consider case that X1,X2 = -1
 //            
-//            
-            if (mat[x1][x2] == -1) {
-                controlStates++;
-                mat[x1][x2] = controlStates;
-                c = new cell;
-                c->init(x1, x2, sigmaS);
-                nStates.push_back(c);
+            if (x1 != -1 && x2 != -1){
+            
+                if(mat[x1][x2] == -1) {
+                    controlStates++;
+                    mat[x1][x2] = controlStates;
+                    c = new cell;
+                    c->init(x1, x2, sigmaS);
+                    nStates.push_back(c);
+                }
+////
+            unsigned long pairDecod = mat[x1][x2];
+//
+            (*it)->transitions[a] = pairDecod;
+//
             }
-////
-//            unsigned long pairDecod = mat[x1][x2];
-////
-//            (*it)->transitions[a] = pairDecod;
-////
         }
         
     }
@@ -109,34 +112,34 @@ Automaton* Automaton::product(Automaton *a1, Automaton *a2){
     
     Automaton *result = new Automaton(controlStates+1, sigmaS);
     
-//    int i = 0;
-//    for (list<cell*>::iterator it = nStates.begin(); it != nStates.end() ; it++) {
+    int i = 0;
+    for (list<cell*>::iterator it = nStates.begin(); it != nStates.end() ; it++) {
+
+        int x =(*it)->nState.first,
+        y = (*it)->nState.second;
 //
-//        int x =(*it)->nState.first,
-//        y = (*it)->nState.second;
-////
+
+        cout << x << ":" << y << "\n";
+        int state = mat[x][y];
 //
-//        cout << x << ":" << y << "\n";
-//        int state = mat[x][y];
-////
-//        cout << state<< "\n";
-//        if (a1->areFinalStates[(*it)->nState.first] && a2->areFinalStates[(*it)->nState.second] &&
-//            !result->areFinalStates[state]) {
-//            result->addFinal(state);
-//        }
+        cout << state<< "\n";
+        if (a1->areFinalStates[(*it)->nState.first] && a2->areFinalStates[(*it)->nState.second] &&
+            !result->areFinalStates[state]) {
+            result->addFinal(state);
+        }
+
+        for (int a = 0; a < sigmaS; a++) {
+            cout << a << "--" << sigmaS <<  "\n";
+            cout << (*it)->transitions.size() << "------\n";
+            if((*it)->transitions[a] >= 0){
+                result->addTransition(state, (*it)->transitions[a], a);
+            }
+        }
 //
-//        for (int a = 0; a < sigmaS; a++) {
-//            cout << a << "--" << sigmaS <<  "\n";
-//            cout << (*it)->transitions.size() << "------\n";
-//            if((*it)->transitions[a] >= 0){
-//                result->addTransition(state, (*it)->transitions[a], a);
-//            }
-//        }
-////
-//        i++;
-////
-////
-//    }
+        i++;
+//
+//
+    }
     
     return result;
     
