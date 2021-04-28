@@ -14,7 +14,7 @@ int main(int argc, const char * argv[]) {
     // insert code here...
     
     
-    int states =4 , symbols = 2;
+    int states =2 , symbols = 2;
 
         
     Automaton a(states, symbols), b(states, symbols), c(states, symbols)  ;
@@ -24,11 +24,14 @@ int main(int argc, const char * argv[]) {
             a.addTransition(i, j, 1);
         }
     }
-   // a.print();
+
+    a.addFinal(0);
+    a.reduceHopcrof();
+    a.print();
    
-    Automaton *rr = a.product(&a, &a);
+
     
-    rr->print();
+   
       
     return 0;
 }
