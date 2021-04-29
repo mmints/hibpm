@@ -1,4 +1,23 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.20) # Currently the newest version of CMake
 
+project(declare_parser)
+
+# Find Libs
 find_package(BISON)
 find_package(FLEX)
+
+# Set Targest
+# Will this be done automatically with Flex and Bison?
+BISON_TARGET(DeclareParser parser.yy ${CMAKE_CURRENT_BINARY_DIR}/parser.cc) 
+FLEX_TARGET(DeclareScanner scanner.ll  ${CMAKE_CURRENT_BINARY_DIR}/lexer.cc)
+ADD_FLEX_BISON_DEPENDENCY(DeclareScanner DeclareParser)
+
+include_directories(${CMAKE_CURRENT_BINARY_DIR}) # For now no source directory
+
+add_executable(declare_parser
+   declare_parser.cc
+   ${BISON_DeclareParser_OUTPUTS}
+   ${FLEX_DeclareScanner_OUTPUTS}
+)
+target_link_libraries(declare_parser ${LDFLAGS}) # In the CMake documentation it's said that the variable should be FLEX_LIBRARIES.
+                                                 # But in my case I'm using the variable which I've set in the .zshrc and it seems to work.
