@@ -38,6 +38,7 @@ public:
     Automaton* product(Automaton *a1, Automaton *a2);
     
     Automaton* reduceHopcrof();
+    bool isEmptyMinusEmptString()
     
     
 };
