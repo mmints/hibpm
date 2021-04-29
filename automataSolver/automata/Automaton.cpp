@@ -357,6 +357,28 @@ Automaton* Automaton::reduceHopcrof() {
 
 }
 
+bool Automaton::isEmptyMinusEmptString() {
+
+    if(this->finalStates.size() == 0){
+        return true;
+    }
+
+    if (this->finalStates.size()==1 && this->areFinalStates[0]){
+
+        for( int a = 0; a <  this->transitionsTo[0].size(); a++){
+
+            if(this->incoming[0][a].size() > 0){
+                return false;
+            }
+
+        }
+        return true;
+    }
+
+
+    return false;
+}
+
 void Automaton::print() {
 
 	for (int i = 0; i < this->transitionsTo->size(); i++) {
