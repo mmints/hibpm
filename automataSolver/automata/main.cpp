@@ -26,10 +26,26 @@ int main(int argc, const char * argv[]) {
     }
 
     a.addFinal(0);
-    a.reduceHopcrof();
-    a.print();
+   // a.product(&a, &a)->print();
+    a.semi_product(&a, &a)->print();
+    b.reduceHopcrof();
+    b.print();
+   // a.reduceHopcrof();
+    //a.print();
+    
+    
+    
    
-
+    list<int> ll;
+    ll.push_back(2);
+    int *x = &ll.front();
+    (*x) = 3;
+    
+    cout << ll.front() << endl;
+    
+    if (!NULL) {
+        cout << "OK" << endl;
+    }
     
    
       
