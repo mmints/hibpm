@@ -127,6 +127,8 @@ Automaton* Automaton::semi_product(Automaton *a1, Automaton *a2) {
     
     for (list<cellPaired>::iterator it = nStates.begin(); it != nStates.end(); it++) {
         if(!it->useful){
+            mat[it->nState.first][it->nState.second]->useful = false;
+            mat[it->nState.first][it->nState.second] = NULL;
             nStates.erase(it);
         }
     }
@@ -151,15 +153,15 @@ Automaton* Automaton::semi_product(Automaton *a1, Automaton *a2) {
             
             if(targetPair.first != -1 && targetPair.second != -1){
                 
-                if( mat[targetPair.first][targetPair.second]->useful){
+                if( mat[targetPair.first][targetPair.second] &&  mat[targetPair.first][targetPair.second]->useful){
                     
                     if(mat[targetPair.first][targetPair.second]->mapping == -1){
                         mat[targetPair.first][targetPair.second]->mapping = ++controllMap;
                     }
                    
-                    if (mat[targetPair.first][targetPair.second]->mapping < nStates.size()) {
+                    //if (mat[targetPair.first][targetPair.second]->mapping < nStates.size()) {
                         atRes->addTransition(it->mapping, mat[targetPair.first][targetPair.second]->mapping, a);
-                    }
+                    //}
                     
                     
                 }
