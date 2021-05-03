@@ -44,191 +44,10 @@ void Automaton::addFinal(int state) {
     }
 }
 
-Automaton* Automaton::semi_product(Automaton *a1, Automaton *a2) {
-    
-    unsigned long
-        sizeA1 = a1->transitionsTo->size(),
-        sizeA2 = a2->transitionsTo->size();
-            
-    if(sizeA1 == 0 || sizeA2 == 0){
-        return new Automaton(0,0);
-    }
-    
-     int sigmaS = a1->transitionsTo->at(0).size();
-    
-    vector<vector<cellPaired* > > mat(sizeA1,
-                        vector<cellPaired*>(sizeA2,NULL));
-    
-    list<pair<int, int> > finalVisited;
-    
-       
-    
-    //cellPaired *c = new cellPaired(0,0, sigmaS);
-    
-    list<cellPaired> nStates;
-    nStates.push_back(cellPaired(0,0,sigmaS));
-    mat[0][0] = &nStates.front();
-    
-    //mat[0][0].stacked = true;
-    
-    if(a1->areFinalStates[0] && a2->areFinalStates[0]){
-        finalVisited.push_back(pair<int, int>(0,0));
-        mat[0][0]->useful = true;
-    }
-    
-    //int controlStates = 0;
-    
-    for (list<cellPaired>::iterator it = nStates.begin(); it != nStates.end();
-         it++) {
-        
-        int cx = (it)->nState.first,
-            cy = (it)->nState.second;
-        //
-        for (int a = 0; a < sigmaS; a++) {
-            //
-            int x1 = a1->transitionsTo->at(cx)[a],
-                x2 = a2->transitionsTo->at(cy)[a];
-            
-            if (x1 != -1 && x2 != -1) {
-                
-                if (!mat[x1][x2]) {
-                    //controlStates++;
-                    //mat[x1][x2].mapping = controlStates;
-                    //c = new cell(x1, x2, sigmaS);
-                    //c->init(x1, x2, sigmaS);
-                    nStates.push_back(cellPaired(x1, x2, sigmaS));
-                    mat[x1][x2] = &nStates.back();
-                    if (a1->areFinalStates[x1] && a2->areFinalStates[x2] ) {
-                        finalVisited.push_back(pair<int,int>(x1,x2));
-                        mat[x1][x2]->useful = true;
-                    }
-                }
-                ////
-//                int pairDecod = mat[x1][x2].mapping;
-//                //
-//                (*it)->transitions[a] = pairDecod;
-                it->transitions[a].first = x1;
-                it->transitions[a].second = x2;
-//                //
-            }
-        }
-        
-    }
-    
-    //remove useless states
-    
-    //vector<vector<pair<bool, bool> > > matControl(sizeA1,vector<pair<bool,bool>>(sizeA2, pair<bool, bool>(false, false)) );
-    
-    bool res = recCheck(*mat[0][0], mat);
-    
-    if (!res) {
-        return new Automaton(0, a1->transitionsTo[0].size());
-    }
-    
-    for (list<cellPaired>::iterator it = nStates.begin(); it != nStates.end(); it++) {
-        if(!it->useful){
-            mat[it->nState.first][it->nState.second]->useful = false;
-            mat[it->nState.first][it->nState.second] = NULL;
-            nStates.erase(it);
-        }
-    }
-    
-    Automaton *atRes = new Automaton(nStates.size(), sigmaS);
-    
-    int controllMap = 0;
-    mat[0][0]->mapping = 0;
-    
-    
-    for (list<cellPaired>::iterator it = nStates.begin(); it != nStates.end(); it++) {
-        
-        if(it->mapping == -1 && it->useful){
-            it->mapping = ++controllMap;
-        }
-        
-        //add transitions
-        
-        for (int a = 0 ; a <sigmaS ; a++) {
-            
-            pair<int, int> targetPair = it->transitions[a];
-            
-            if(targetPair.first != -1 && targetPair.second != -1){
-                
-                if( mat[targetPair.first][targetPair.second] &&  mat[targetPair.first][targetPair.second]->useful){
-                    
-                    if(mat[targetPair.first][targetPair.second]->mapping == -1){
-                        mat[targetPair.first][targetPair.second]->mapping = ++controllMap;
-                    }
-                   
-                    //if (mat[targetPair.first][targetPair.second]->mapping < nStates.size()) {
-                        atRes->addTransition(it->mapping, mat[targetPair.first][targetPair.second]->mapping, a);
-                    //}
-                    
-                    
-                }
-                
-            }
-        }
-        
-        
-    }
-    
-    for (list<pair<int, int> >::iterator it = finalVisited.begin(); it != finalVisited.end(); it++) {
-        
-        atRes->addFinal(mat[it->first][it->second]->mapping);
-        
-    }
-    
-    if (nStates.size() == 1) {
-        for (int a = 0; a < sigmaS; a++) {
-            if (atRes->transitionsTo->at(0)[a] != -1) {
-                return atRes;
-            }
-        }
-    }
-        
-    atRes->transitionsTo->resize(0);
-    return atRes;
-}
 
-bool Automaton::recCheck( Automaton::cellPaired &currentCel, vector<vector<cellPaired*> > &mat){
-    
-    currentCel.visited = true;
-      
-        
-    for (int a = 0; a < currentCel.transitions.size(); a++) {
-        
-        pair<int, int> child = currentCel.transitions[a];
-        if(child.first != -1 && child.second != -1 && !mat[child.first][child.second]->visited &&  recCheck(*mat[child.first][child.second], mat)){
-            mat[child.first][child.second]->useful = true;
-            //return true;
-        }
-        
-    }
-    
-    return currentCel.useful;
-    
-    
-}
 
-void Automaton::removeUselessStates(){
-    
-    //start backtrascking from final ones
-    
-    for (list<int>::iterator  itF = this->finalStates.begin(); itF != this->finalStates.end(); itF++) {
-        
-        
-        
-    }
-    
-    
-}
 
-//bool Automaton::recCheck(pair<int, int> pos, vector<vector<pair<bool, bool> > > &parseMat, ){
-//    
-//    
-//    
-//    return true;
-//}
+
 
 Automaton* Automaton::product(Automaton *a1, Automaton *a2) {
     
@@ -292,7 +111,7 @@ Automaton* Automaton::product(Automaton *a1, Automaton *a2) {
         
     }
     
-    Automaton * result = new Automaton(controlStates + 1, sigmaS);
+    Automaton *result = new Automaton(controlStates + 1, sigmaS);
     
     int i = 0;
     for (list<cell*>::iterator it = nStates.begin(); it != nStates.end();
@@ -545,7 +364,148 @@ Automaton* Automaton::reduceHopcrof() {
     
 }
 
+bool Automaton::checkUseful(int x, int y, vector<vector<triplett> > &mat){
+    
+    if (mat[x][y].visited) {
+        return mat[x][y].useful;
+    }
+    
+    mat[x][y].visited = true;
+    
+    for (int a = 0; a < mat[x][y].scell->transition.size(); a++) {
+        
+        int cx, cy;
+        
+        cx = mat[x][y].scell->transition[a].first;
+        cy = mat[x][y].scell->transition[a].second;
+        
+        if(cx >= 0 && cy <= 0){
+            
+            if (checkUseful(cx, cy, mat)) {
+                mat[x][y].useful = true;
+            }
+            
+        }
+        
+        
+    }
+    
+    
+    return mat[x][y].useful;
+}
+
+
+Automaton Automaton::full_product(Automaton &a1, Automaton &a2){
+    
+    
+    list<simpleCell> stack;
+    
+    vector<vector<triplett> > mat(a1.transitionsTo->size(), vector<triplett>(a2.transitionsTo->size(), triplett()));
+    
+    int sigmaS = a1.transitionsTo->at(0).size();
+    
+    stack.push_back(simpleCell(0,0,sigmaS));
+    
+    //mat[0][0].assingMapping(0);
+    mat[0][0].stacked = true;
+    mat[0][0].scell = &stack.back();
+    
+    for (list<simpleCell>::iterator it = stack.begin(); it != stack.end(); it++) {
+           
+        
+        
+        for (int a = 0; a < sigmaS; a++) {
+            
+            int cx, cy;
+            cx = a1.transitionsTo->at(it->cx)[a];
+            cy = a2.transitionsTo->at(it->cx)[a];
+            
+            it->transition[a].first = cx;
+            it->transition[a].second = cy;
+            
+            if (cx >= 0 && cy >= 0) {
+                
+                if (!mat[cx][cy].stacked) {
+                    mat[cx][cy].stacked = true;
+                    stack.push_back(simpleCell(cx, cy, sigmaS));
+                    mat[cx][cy].scell = &stack.back();
+                }
+                
+                
+                if (a1.areFinalStates[cx] && a2.areFinalStates[cy]) {
+                    mat[cx][cy].useful = true;
+                }
+                
+            }
+                        
+            
+        }
+        
+    }
+    
+    // parse to remove useless states
+    checkUseful(0, 0, mat);
+    
+    for (list<simpleCell>::iterator it = stack.begin(); it != stack.end(); it ++) {
+        
+        if (!mat[it->cx][it->cy].useful) {
+            stack.erase(it);
+        }
+        
+    }
+    
+    
+    int controlMap = 0;
+    
+    Automaton res(stack.size(), sigmaS);
+    
+    for (list<simpleCell>::iterator it = stack.begin(); it != stack.end(); it ++) {
+     
+        if (!mat[it->cx][it->cy].mapped) {
+            mat[it->cx][it->cy].assingMapping(controlMap);
+            controlMap++;
+        }
+        
+        if (a1.areFinalStates[it->cx] && a2.areFinalStates[it->cy]) {
+            res.addFinal(mat[it->cx][it->cy].mapping);
+        }
+        
+        for (int a = 0; a < sigmaS; a++) {
+            
+            int cx, cy;
+            
+            cx = it->transition[a].first;
+            cy = it->transition[a].second;
+            
+            if(cx >= 0 && cy >= 0 && mat[cx][cy].useful){
+                
+                if(!mat[cx][cy].mapped){
+                    mat[cx][cy].assingMapping(controlMap);
+                    controlMap++;
+                }
+                
+                
+                res.addTransition(mat[it->cx][it->cy].mapping, mat[cx][cy].mapping, a);
+                
+                
+            }
+        }
+        
+        
+    }
+    
+    
+    return res;
+}
+
+
+
+
 bool Automaton::isEmptyMinusEmptString() {
+    
+    if (this->transitionsTo->size() == 0) {
+        return true;
+    }
     
     if(this->finalStates.size() == 0){
         return true;

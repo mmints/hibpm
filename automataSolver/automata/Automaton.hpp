@@ -20,6 +20,36 @@ class Automaton{
     
 public:
     
+    struct simpleCell{
+        int cx, cy;
+        vector<pair<int, int>> transition;
+        
+        simpleCell(int x, int y, int sigmaS){
+            cx = x;
+            cy = y;
+            transition.resize(sigmaS, pair<int, int>(-1,-1));
+        }
+    };
+    
+    struct triplett{
+        simpleCell *scell = NULL;
+        int mapping;
+        bool visited, useful, stacked, mapped;
+        
+        triplett(){
+            mapping = 0;
+            mapped = false;
+            visited = false;
+            useful = false;
+            stacked = false;
+        }
+        void assingMapping(int m){
+            mapping = m;
+            mapped = true;
+        }
+        
+    };
+    
     struct triple{
         int mapping =-1;
         bool stacked = false, useful = false;
@@ -55,7 +85,9 @@ public:
         cellPaired(int x, int y, unsigned long vsize) {
             nState.first = x;
             nState.second = y;
+            
             transitions.resize(vsize, pair<int, int>(-1,-1));
+            
             visited = false;
             useful = false;
             mapping = -1;
@@ -87,13 +119,13 @@ public:
     
     Automaton* reduceHopcrof();
     bool isEmptyMinusEmptString();
-    Automaton* semi_product(Automaton *a1, Automaton *a2);
+        
+    Automaton full_product(Automaton &a1, Automaton &a2);
     
 private:
     
-    
-    void removeUselessStates();
-    bool recCheck( Automaton::cellPaired &currentCel, vector<vector<cellPaired*> > &mat);
+        
+    bool checkUseful(int x, int y, vector<vector<triplett> > &mat);
 };
 
 #endif /* Automaton_hpp */
