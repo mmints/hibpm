@@ -4,8 +4,6 @@
 // These are adapter functions that are used to implement the DCLARE rules
 // as Automata as defined in the AutomataSolver/Automaton.
 
-// The input type is char becausw
-
 // x occurs at least once
 void participation(const char* x);
 
