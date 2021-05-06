@@ -8,14 +8,14 @@ find_package(FLEX)
 
 # Set Targest
 # Will this be done automatically with Flex and Bison?
-BISON_TARGET(DeclareParser parser.yy ${CMAKE_CURRENT_BINARY_DIR}/parser.cc) 
-FLEX_TARGET(DeclareScanner scanner.ll  ${CMAKE_CURRENT_BINARY_DIR}/lexer.cc)
+BISON_TARGET(DeclareParser parser.y ${CMAKE_CURRENT_BINARY_DIR}/parser.c) 
+FLEX_TARGET(DeclareScanner scanner.l  ${CMAKE_CURRENT_BINARY_DIR}/lexer.c)
 ADD_FLEX_BISON_DEPENDENCY(DeclareScanner DeclareParser)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR}) # For now no source directory
 
 add_executable(declare_parser
-   main.cc
+   main.c
    ${BISON_DeclareParser_OUTPUTS}
    ${FLEX_DeclareScanner_OUTPUTS}
 )

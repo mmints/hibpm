@@ -43,9 +43,10 @@
 "("    { printf("OP\n"); }
 ")"    { printf("CL\n"); }
 "'"    { printf("QUOTE \n"); }
+"\""    { printf("QUOTE \n"); }
 ","    { printf("COMMA\n"); }
 
-([a-zA-Z](?:_[a-zA-Z]+)) { printf("VAR %s\n", yytext); }
+([a-zA-Z0-9]+(?:_?[a-zA-Z0-9]+)*) { printf("VAR %s\n", yytext); }
 
 \n     { printf("NEWLINE\n"); }
 [ \t]  { }
