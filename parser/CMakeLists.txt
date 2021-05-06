@@ -15,7 +15,7 @@ ADD_FLEX_BISON_DEPENDENCY(DeclareScanner DeclareParser)
 include_directories(${CMAKE_CURRENT_BINARY_DIR}) # For now no source directory
 
 add_executable(declare_parser
-   declare_parser.cc
+   main.cc
    ${BISON_DeclareParser_OUTPUTS}
    ${FLEX_DeclareScanner_OUTPUTS}
 )
