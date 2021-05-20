@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20) # Currently the newest version of CMake
+cmake_minimum_required(VERSION 3.19) # Currently the newest version of CMake
 
 project(declare_parser)
 
