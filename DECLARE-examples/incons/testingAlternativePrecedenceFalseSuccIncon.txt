@@ -1,0 +1,3 @@
+Precedence('O_Sent', 'W_Callafteroffers')
+Succession('A_Complete', 'O_Sent')
+NotSuccession('W_Callafteroffers', 'O_Sent')

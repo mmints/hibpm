@@ -1,0 +1,3 @@
+AlternateResponse('A', 'B')
+Succession('B', 'C')
+NotSuccession('A', 'C')

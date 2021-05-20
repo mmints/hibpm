@@ -1,0 +1,4 @@
+NotSuccession('W_Callafteroffers', 'O_Sent')
+ChainPrecedence('W_Callafteroffers', 'O_Sent')
+Participation('A_Concept')
+ChainSuccession('O_Sent', 'A_Concept')

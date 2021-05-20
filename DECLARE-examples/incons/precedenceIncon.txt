@@ -1,0 +1,4 @@
+Precedence('a','b')
+AlternatePrecedence('b','c')
+ChainPrecedence('c','d')
+NotSuccession('a','d')

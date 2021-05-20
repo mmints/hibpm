@@ -1,0 +1,2 @@
+NotSuccession("W_Callafteroffers", "O_Sent")
+ChainSuccession("W_Callafteroffers", "O_Sent")

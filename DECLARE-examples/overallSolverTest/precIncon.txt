@@ -1,0 +1,5 @@
+Participation('D')
+ChainPrecedence('c', 'D')
+AlternateSuccession('B', 'c')
+AlternatePrecedence('A','B')
+NotSuccession('A', 'D')

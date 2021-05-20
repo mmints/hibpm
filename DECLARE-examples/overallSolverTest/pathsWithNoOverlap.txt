@@ -1,0 +1,5 @@
+Participation('O_Sent')
+Init('O_CreateOffer')
+Succession('O_Sent', 'O_Accepted')
+Response('O_CreateOffer','W_Assesspotentialfraud')
+NotCoExistence('W_Assesspotentialfraud', 'O_Accepted')

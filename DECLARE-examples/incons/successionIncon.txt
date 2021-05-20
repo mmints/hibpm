@@ -1,0 +1,4 @@
+Succession('a','b')
+AlternateSuccession('b','c')
+ChainSuccession('c','d')
+NotSuccession('a','d')

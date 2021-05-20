@@ -1,0 +1,2 @@
+ChainResponse('a','b')
+NotChainResponse('a','b')
