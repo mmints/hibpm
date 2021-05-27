@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.19) # Currently the newest version of CMake
 project(declare_parser)
 
 # Find Libs
-find_package(BISON)
-find_package(FLEX)
+find_package(BISON REQUIRED)
+find_package(FLEX REQUIRED)
 
 # Set Targest
 # Will this be done automatically with Flex and Bison?
@@ -12,7 +12,7 @@ BISON_TARGET(DeclareParser parser.y ${CMAKE_CURRENT_BINARY_DIR}/parser.c)
 FLEX_TARGET(DeclareScanner scanner.l  ${CMAKE_CURRENT_BINARY_DIR}/lexer.c)
 ADD_FLEX_BISON_DEPENDENCY(DeclareScanner DeclareParser)
 
-include_directories(${CMAKE_CURRENT_BINARY_DIR}) # For now no source directory
+include_directories(${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_SOURCE_DIR}) # For now no source directory
 
 add_executable(declare_parser
    main.c
