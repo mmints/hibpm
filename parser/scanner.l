@@ -32,12 +32,7 @@
 "'"    { return QUOTE; }
 ","    { return COMMA; }
 
-([a-zA-Z0-9]+(?:_?[a-zA-Z0-9]+)*) { printf("----- \n yytext: %s \n ----- \n", yytext);
-                                    yylval.text = yytext;
-                                    printf("----- \n yylval.text: %s \n ----- \n", yylval.text);
-                                    // yylval.size = strlen(yytext);
-                                    // printf("----- \n yylval.size: %i \n ----- \n", yylval.size);
-
+([a-zA-Z0-9]+(?:_?[a-zA-Z0-9]+)*) { yylval.text = yytext;
                                     return VAR; }
 
 \n     { return EOL; }
@@ -50,6 +45,5 @@
 
 "\""   { return QUOTE; }
 Participation('O_CreateOffer')
-
 
 */
