@@ -1,0 +1,3 @@
+AlternatePrecedence('B', 'A')
+Succession('B', 'C')
+NotSuccession('A', 'C')

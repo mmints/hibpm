@@ -1,0 +1,3 @@
+Succession('O_Cancelled', 'W_Validateapplication')
+
+NotCoExistence('A_Accepted', 'W_Validateapplication')

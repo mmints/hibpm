@@ -1,0 +1,3 @@
+AlternatePrecedence('O_Cancelled', 'A_Concept')
+Succession('O_Sent', 'A_Concept') 
+NotSuccession('O_Sent', 'O_Cancelled')

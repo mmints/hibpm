@@ -1,0 +1,4 @@
+Response('a','b')
+AlternateResponse('b','c')
+ChainResponse('c','d')
+NotSuccession('a','d')

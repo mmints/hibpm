@@ -1,0 +1,11 @@
+# IDE
+.vscode/
+.idea/
+
+# MacOS
+.DS_Store
+
+# General
+build/
+cmake-build-debug/
+cmake-build-release/

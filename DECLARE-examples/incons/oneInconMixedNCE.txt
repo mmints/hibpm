@@ -1,0 +1,5 @@
+Response('a','c')
+AlternatePrecedence('b','c')
+ChainSuccession('b','d')
+NotCoExistence('a','d')
+NotSuccession('a','d')
