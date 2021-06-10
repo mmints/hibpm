@@ -11,10 +11,14 @@ int yyerror();
 }
 
 /* declare tokens */
+
+/* Unary */
 %token PARTICIPATION
 %token AT_MOST_ONE
 %token INIT
 %token END
+
+/* Binary */
 %token RESPONDED_EXISTENCE
 %token RESPONSE
 %token ALTERNATED_RESPONSE
@@ -30,6 +34,7 @@ int yyerror();
 %token NOT_SUCCESSION
 %token NOT_CO_EXISTENCE
 
+/* General Chars used in DECLARE definitions */
 %token OP CL QUOTE COMMA EOL
 
 %token <text> VAR

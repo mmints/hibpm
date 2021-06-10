@@ -1,8 +1,4 @@
-#ifndef DECLARE_RULES
-#define DECLARE_RULES
-
-// These are adapter functions that are used to implement the DCLARE rules
-// as Automata as defined in the AutomataSolver/Automaton.
+#pragma once
 
 // x occurs at least once
 void participation(const char* x);
@@ -57,5 +53,3 @@ void notSuccession(const char* x, const char* y);
 
 // x and y cannot jointly occur
 void notCoExistence(const char* x, const char* y);
-
-#endif
