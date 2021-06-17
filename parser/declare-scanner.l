@@ -7,7 +7,7 @@
 #include "parser.hh"
 
 // defines YY_DECL to declare the calling sequence for yylex to match what the parser expects
-#define YY_DECL int yylex(yy::declare::semantic_type *yylval, yy::declare::location_type *yylloc, declare_ctx &ctx)
+#define YY_DECL int yylex(yy::declare::semantic_type *yylval, yy::declare::location_type *yylloc, hibpm::Declare &ctx)
 
 // make location include the current token
 // defines YY_USER_ACTION, the macro invoked before the action for each token, to set the location based on the length of the token

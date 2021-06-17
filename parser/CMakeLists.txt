@@ -15,11 +15,11 @@ ADD_FLEX_BISON_DEPENDENCY(DeclareScanner DeclareParser)
 include_directories(${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_SOURCE_DIR}) # For now no source directory
 
 add_executable(declare_parser
+        main.cpp
+        Declare/Declare.hh
+        Declare/Declare.cpp
    ${BISON_DeclareParser_OUTPUTS}
    ${FLEX_DeclareScanner_OUTPUTS}
-    main.cpp
-    Declare/Declare.hh
-    Declare/Declare.cpp
 )
 
 target_link_libraries(declare_parser ${LDFLAGS}) # In the CMake documentation it's said that the variable should be FLEX_LIBRARIES.

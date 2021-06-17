@@ -14,8 +14,8 @@
 #include "Declare/Declare.hh"
 %}
 
-%parse-param { declare_ctx &ctx }
-%lex-param { declare_ctx &ctx }
+%parse-param { hibpm::Declare &ctx }
+%lex-param { hibpm::Declare &ctx }
 
 %union {
     std::string event_name_val;
@@ -38,7 +38,7 @@
 %{
 extern int yylex(yy::declare::semantic_type *yylval, // Custom yylex declaration
         yy::declare::location_type* yylloc,
-        declare_ctx &ctx);
+        hibpm::Declare &ctx);
 %}
 
 %initial-action {
