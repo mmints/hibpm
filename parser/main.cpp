@@ -1,5 +1,12 @@
+/** Declare Parser Demonstration
+ *
+ * This program is a simple demo of the parsing process from a Declare-file
+ * to a Declare data structure. In future this data structure is used as data
+ * input for different solvers.
+ */
+
 #include <iostream>
-#include "Declare.hh"
+#include "Declare/Declare.hh"
 
 int main() {
 

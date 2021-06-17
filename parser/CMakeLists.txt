@@ -18,8 +18,8 @@ add_executable(declare_parser
 #   ${BISON_DeclareParser_OUTPUTS}
 #   ${FLEX_DeclareScanner_OUTPUTS}
     main.cpp
-    Declare.hh
-    Declare.cpp
+    Declare/Declare.hh
+    Declare/Declare.cpp
 )
 
 target_link_libraries(declare_parser ${LDFLAGS}) # In the CMake documentation it's said that the variable should be FLEX_LIBRARIES.
