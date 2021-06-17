@@ -1,49 +1,40 @@
 /* Include the Bison Parser Header for Tokens */
-%{
-# include <string.h>
-# include "parser.h"
-%}
 
 %option noyywrap
 
+%{
+#include "Declare/Declare.hh"
+#include "parser.hh"
+
+// defines YY_DECL to declare the calling sequence for yylex to match what the parser expects
+#define YY_DECL int yylex(yy::declare::semantic_type *yylval, yy::declare::location_type *yylloc, declare_ctx &ctx)
+
+// make location include the current token
+// defines YY_USER_ACTION, the macro invoked before the action for each token, to set the location based on the length of the token
+# define YY_USER_ACTION yylloc->columns (yyleng);
+typedef yy::declare::token token;
+%}
+
 %%
 
-"Participation"         { return PARTICIPATION; }
-"AtMostOne"             { return AT_MOST_ONE; }
-"Init"                  { return INIT; }
-"End"                   { return END; }
-"RespondedExistence"    { return RESPONDED_EXISTENCE; }
-"Response"              { return RESPONSE; }
-"AlternatedResponse"    { return ALTERNATED_RESPONSE; }
-"ChainResponse"         { return CHAIN_RESPONSE; }
-"Precedence"            { return PRECEDENCE; }
-"AlternatedPrecedence"  { return ALTERNATED_PRECEDENCE; }
-"ChainPrecedence"       { return CHAIN_PRECEDENCE; }
-"CoExistence"           { return CO_EXISTENCE; }
-"Succession"            { return SUCCESSION; }
-"AlternatedSuccession"  { return ALTERNATED_SUCCESSION; }
-"ChainSuccession"       { return CHAIN_SUCCESSION; }
-"NotChainSuccession"    { return NOT_CHAIN_SUCCESSION; }
-"NotSuccession"         { return NOT_SUCCESSION; }
-"NotCoExistence"        { return NOT_CO_EXISTENCE; }
+%{
+// start where previous token ended
+yylloc->step ();
+%}
 
-"("    { return OP; }
-")"    { return CL; }
-"'"    { return QUOTE; }
-","    { return COMMA; }
+"Participation"         { return token::PARTICIPATION; }
 
-([a-zA-Z0-9]+(?:_?[a-zA-Z0-9]+)*) { yylval.text = yytext;
-                                    return VAR; }
+"RespondedExistence"    { return token::RESPONDED_EXISTENCE; }
+
+"("    { return token::OP; }
+")"    { return token::CL; }
+"'"    { return token::QUOTE; }
+","    { return token::COMMA; }
+
+([a-zA-Z0-9]+(?:_?[a-zA-Z0-9]+)*) { yylval->event_name_val = yytext; return token::VAR }
 
 \n     { return EOL; }
 [ \t]  { }
 .      { printf("Mystery character %s\n", yytext); }
 
 %%
-
-/*
-
-"\""   { return QUOTE; }
-Participation('O_CreateOffer')
-
-*/

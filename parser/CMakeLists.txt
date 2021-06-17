@@ -8,15 +8,15 @@ find_package(FLEX REQUIRED)
 
 # Set Targets
 # Will this be done automatically with Flex and Bison?
-BISON_TARGET(DeclareParser parser.y ${CMAKE_CURRENT_BINARY_DIR}/parser.c) 
-FLEX_TARGET(DeclareScanner scanner.l  ${CMAKE_CURRENT_BINARY_DIR}/lexer.c)
+BISON_TARGET(DeclareParser declare-parser.yy ${CMAKE_CURRENT_BINARY_DIR}/parser.cpp)
+FLEX_TARGET(DeclareScanner declare-scanner.l  ${CMAKE_CURRENT_BINARY_DIR}/lexer.c)
 ADD_FLEX_BISON_DEPENDENCY(DeclareScanner DeclareParser)
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_SOURCE_DIR}) # For now no source directory
 
 add_executable(declare_parser
-#   ${BISON_DeclareParser_OUTPUTS}
-#   ${FLEX_DeclareScanner_OUTPUTS}
+   ${BISON_DeclareParser_OUTPUTS}
+   ${FLEX_DeclareScanner_OUTPUTS}
     main.cpp
     Declare/Declare.hh
     Declare/Declare.cpp
