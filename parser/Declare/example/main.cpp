@@ -6,7 +6,7 @@
  */
 
 #include <iostream>
-#include "Declare/Declare.hh"
+#include "../Declare.hh" // Not optimal set CMake, but for now it's ok for the example
 
 int main() {
 
