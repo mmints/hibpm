@@ -12,7 +12,7 @@
 %{
 #include <iostream>
 #include <string>
-#include "Declare/Declare.hh"
+#include "Declare/Declare.hpp"
 #include "location.hh" // This is said by the generated files
 
 // Turns a char* (in this case yytext) into a string and removes all unecessary chars following by the value.

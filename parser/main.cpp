@@ -1,7 +1,5 @@
-# include "Declare/Declare.hh" // Context Header
-# include "declare.tab.hh" // Parser Header
-
-// WIP
+#include "Declare/Declare.hpp" // Context Header
+#include "declare-parser.hpp" // Parser Header
 
 namespace yy
 {

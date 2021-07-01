@@ -3,8 +3,8 @@
 %option noyywrap
 
 %{
-#include "Declare/Declare.hh"
-#include "declare.tab.hh"
+#include "Declare/Declare.hpp"
+#include "declare-parser.hpp"
 
 // defines YY_DECL to declare the calling sequence for yylex to match what the parser expects
 #define YY_DECL int yylex(yy::declare::semantic_type *yylval, yy::declare::location_type *yylloc, hibpm::Declare &ctx)

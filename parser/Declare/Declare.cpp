@@ -1,4 +1,4 @@
-#include "Declare.hh"
+#include "Declare.hpp"
 #include "iostream"
 
 namespace hibpm {
