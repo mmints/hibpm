@@ -23,13 +23,15 @@ yylloc->step ();
 %}
 
 "Participation"         { return token::PARTICIPATION; }
+"AtMostOne"             { return token::AT_MOST_ONE; }
+"Init"                  { return token::INIT; }
+"End"                   { return token::END; }
 
 "RespondedExistence"    { return token::RESPONDED_EXISTENCE; }
 
 "("    { return token::OP; }
 ")"    { return token::CL; }
 "'"    { return token::QUOTE; }
-"\""    { return token::D_QUOTE; }
 ","    { return token::COMMA; }
 
 ([a-zA-Z0-9]+(?:_?[a-zA-Z0-9]+)*) { yylval->event_name_val = yytext; return token::VAR; }

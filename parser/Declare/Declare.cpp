@@ -20,6 +20,13 @@ namespace hibpm {
         }
     }
 
+    void Declare::addRule(RuleType type, std::string event_val) {
+        Event event {event_val};
+        Rule rule {type, std::vector<Event>{event}};
+        addRule(rule);
+    }
+
+
     std::vector<Rule> Declare::getRules() {
         return m_rules;
     }

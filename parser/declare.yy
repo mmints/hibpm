@@ -25,8 +25,8 @@ std::string convertCharToString(const std::string &delimiter, char *s)
 %}
 
 /* Use the Declare Data Structure Class as context for the parser. */
-%parse-param { hibpm::Declare &ctx }
-%lex-param { hibpm::Declare &ctx }
+%parse-param { hibpm::Declare &daclare_ctx }
+%lex-param { hibpm::Declare &daclare_ctx }
 
 /* The value that should be headed over to the main program. */
 %union {
@@ -38,12 +38,28 @@ std::string convertCharToString(const std::string &delimiter, char *s)
 
 /* Unary */
 %token PARTICIPATION
+%token AT_MOST_ONE
+%token INIT
+%token END
 
 /* Binary */
 %token RESPONDED_EXISTENCE
+%token RESPONSE
+%token ALTERNATED_RESPONSE
+%token CHAIN_RESPONSE
+%token PRECEDENCE
+%token ALTERNATED_PRECEDENCE
+%token CHAIN_PRECEDENCE
+%token CO_EXISTENCE
+%token SUCCESSION
+%token ALTERNATED_SUCCESSION
+%token CHAIN_SUCCESSION
+%token NOT_CHAIN_SUCCESSION
+%token NOT_SUCCESSION
+%token NOT_CO_EXISTENCE
 
 /* General Chars used in DECLARE definitions */
-%token OP CL QUOTE D_QUOTE COMMA EOL
+%token OP CL QUOTE COMMA EOL
 
 %token <event_name_val> VAR
 
@@ -51,7 +67,7 @@ std::string convertCharToString(const std::string &delimiter, char *s)
 %{
 extern int yylex(yy::declare::semantic_type *yylval, // Custom yylex declaration
         yy::declare::location_type* yylloc,
-        hibpm::Declare &ctx);
+        hibpm::Declare &daclare_ctx);
 %}
 
 %initial-action {
@@ -65,11 +81,18 @@ exp: exp exp
  | rule
  ;
 
-rule: PARTICIPATION OP QUOTE VAR QUOTE CL EOL { std::string str = convertCharToString("'", $4); std::cout << "Rule: PARTICIPATION " << "Event: " << str << std::endl; }
-  | PARTICIPATION OP D_QUOTE VAR D_QUOTE CL EOL { std::string str = convertCharToString("\"",$4); std::cout << "Double Quote Rule: PARTICIPATION " << "Event: " << str << std::endl; }
+rule: PARTICIPATION OP QUOTE VAR QUOTE CL EOL { std::string val = convertCharToString("'", $4);
+                                                daclare_ctx.addRule(hibpm::PARTICIPATION, val);
+                                              }
 ;
 
-rule: RESPONDED_EXISTENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string str4 = convertCharToString("'",$4); std::string str8 = convertCharToString("'",$8); std::cout << "Rule: RESPONDED_EXISTENCE " << "Events: " << str4 << " and " << str8 << std::endl; }
+rule: RESPONDED_EXISTENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
+                                                                            std::string val_2 = convertCharToString("'",$8);
+                                                                            hibpm::Event event_1 {val_1};
+                                                                            hibpm::Event event_2 {val_2};
+                                                                            hibpm::Rule rule {hibpm::RESPONDED_EXISTENCE, std::vector<hibpm::Event>{event_1, event_2}};
+                                                                            daclare_ctx.addRule(rule);
+                                                                          }
 ;
 
 %%

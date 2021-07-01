@@ -51,6 +51,9 @@ namespace hibpm
         ~Declare() = default;
 
         void addRule(const Rule& rule);
+        void addRule(RuleType type, std::string event_val);
+        void addRule(RuleType type, Event event_1, Event event_2);
+
         std::vector<Rule> getRules();
         std::vector<Event> getEvents();
 

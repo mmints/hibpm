@@ -14,5 +14,11 @@ int main()
     std::cout << "> ";
     yy::declare parser(declare_ctx); // make a declare parser
     int v = parser.parse(); // and run it
-    return 0; // What is v?
+
+    std::cout << "All Events: " << std::endl;
+    for (const auto& e : declare_ctx.getEvents()) {
+        std::cout << e.name << std::endl;
+    }
+
+    return v; // What is v?
 }
