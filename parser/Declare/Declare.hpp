@@ -52,7 +52,7 @@ namespace hibpm
 
         void addRule(const Rule& rule);
         void addRule(RuleType type, std::string event_val);
-        void addRule(RuleType type, Event event_1, Event event_2);
+        void addRule(RuleType type, std::string event_val_1, std::string event_val_2);
 
         std::vector<Rule> getRules();
         std::vector<Event> getEvents();
