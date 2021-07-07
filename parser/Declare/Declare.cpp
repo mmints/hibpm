@@ -21,12 +21,14 @@ namespace hibpm {
     }
 
     void Declare::addRule(RuleType type, std::string event_val) {
+        // TODO: Check if the incoming type is unary
         Event event {event_val};
         Rule rule {type, std::vector<Event>{event}};
         addRule(rule);
     }
 
     void Declare::addRule(RuleType type, std::string event_val_1, std::string event_val_2) {
+        // TODO: Check if the incoming type is unary
         Event event_1 {event_val_1};
         Event event_2 {event_val_2};
         Rule rule {type, std::vector<Event>{event_1, event_2}};

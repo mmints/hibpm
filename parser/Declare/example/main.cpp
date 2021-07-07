@@ -6,7 +6,7 @@
  */
 
 #include <iostream>
-#include "../Declare.hh" // Not optimal set CMake, but for now it's ok for the example
+#include "../Declare.hpp" // Not optimal set CMake, but for now it's ok for the example
 
 int main() {
 
@@ -27,6 +27,10 @@ int main() {
     declare.addRule(rule);
     declare.addRule(rule2);
     declare.addRule(rule2);
+
+    declare.addRule(hibpm::INIT, "U_A");
+    declare.addRule(hibpm::RESPONDED_EXISTENCE, "B_1", "B_2");
+
 
     std::cout << "All Events: " << std::endl;
     for (const auto& e : declare.getEvents()) {
