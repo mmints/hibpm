@@ -28,6 +28,19 @@ yylloc->step ();
 "End"                   { return token::END; }
 
 "RespondedExistence"    { return token::RESPONDED_EXISTENCE; }
+"Response"              { return token::RESPONSE; }
+"AlternateResponse"     { return token::ALTERNATED_RESPONSE; }
+"ChainSuccession"       { return token::CHAIN_RESPONSE; }
+"Precedence"            { return token::PRECEDENCE; }
+"AlternatePrecedence"   { return token::ALTERNATED_PRECEDENCE; }
+"ChainPrecedence"       { return token::CHAIN_PRECEDENCE; }
+"CoExistence"           { return token::CO_EXISTENCE; }
+"Succession"            { return token::SUCCESSION; }
+"AlternateSuccession"   { return token::ALTERNATED_SUCCESSION; }
+"ChainSuccession"       { return token::CHAIN_SUCCESSION; }
+"NotChainSuccession"    { return token::NOT_CHAIN_SUCCESSION; }
+"NotSuccession"         { return token::NOT_SUCCESSION; }
+"NotCoExistence"        { return token::NOT_CO_EXISTENCE; }
 
 "("    { return token::OP; }
 ")"    { return token::CL; }

@@ -25,8 +25,8 @@ std::string convertCharToString(const std::string &delimiter, char *s)
 %}
 
 /* Use the Declare Data Structure Class as context for the parser. */
-%parse-param { hibpm::Declare &daclare_ctx }
-%lex-param { hibpm::Declare &daclare_ctx }
+%parse-param { hibpm::Declare &declare_ctx }
+%lex-param { hibpm::Declare &declare_ctx }
 
 /* The value that should be headed over to the main program. */
 %union {
@@ -67,7 +67,7 @@ std::string convertCharToString(const std::string &delimiter, char *s)
 %{
 extern int yylex(yy::declare::semantic_type *yylval, // Custom yylex declaration
         yy::declare::location_type* yylloc,
-        hibpm::Declare &daclare_ctx);
+        hibpm::Declare &declare_ctx);
 %}
 
 %initial-action {
@@ -81,17 +81,111 @@ exp: exp exp
  | rule
  ;
 
+/* Unary Rules */
+
 rule: PARTICIPATION OP QUOTE VAR QUOTE CL EOL { std::string val = convertCharToString("'", $4);
-                                                daclare_ctx.addRule(hibpm::PARTICIPATION, val);
+                                                declare_ctx.addRule(hibpm::PARTICIPATION, val);
                                               }
 ;
 
+rule: AT_MOST_ONE OP QUOTE VAR QUOTE CL EOL { std::string val = convertCharToString("'", $4);
+                                                declare_ctx.addRule(hibpm::AT_MOST_ONE, val);
+                                              }
+;
+
+rule: INIT OP QUOTE VAR QUOTE CL EOL { std::string val = convertCharToString("'", $4);
+                                                declare_ctx.addRule(hibpm::INIT, val);
+                                              }
+;
+
+rule: END OP QUOTE VAR QUOTE CL EOL { std::string val = convertCharToString("'", $4);
+                                                declare_ctx.addRule(hibpm::END, val);
+                                              }
+;
+
+/* Binary Rules */
+
 rule: RESPONDED_EXISTENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            hibpm::Event event_1 {val_1};
-                                                                            hibpm::Event event_2 {val_2};
-                                                                            hibpm::Rule rule {hibpm::RESPONDED_EXISTENCE, std::vector<hibpm::Event>{event_1, event_2}};
-                                                                            daclare_ctx.addRule(rule);
+                                                                            declare_ctx.addRule(hibpm::RESPONDED_EXISTENCE, val_1, val_2);
+                                                                          }
+;
+
+rule: RESPONSE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
+                                                                            std::string val_2 = convertCharToString("'",$8);
+                                                                            declare_ctx.addRule(hibpm::RESPONSE, val_1, val_2);
+                                                                          }
+;
+
+rule: ALTERNATED_RESPONSE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
+                                                                            std::string val_2 = convertCharToString("'",$8);
+                                                                            declare_ctx.addRule(hibpm::ALTERNATED_RESPONSE, val_1, val_2);
+                                                                          }
+;
+
+rule: CHAIN_RESPONSE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
+                                                                            std::string val_2 = convertCharToString("'",$8);
+                                                                            declare_ctx.addRule(hibpm::CHAIN_RESPONSE, val_1, val_2);
+                                                                          }
+;
+
+rule: PRECEDENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
+                                                                            std::string val_2 = convertCharToString("'",$8);
+                                                                            declare_ctx.addRule(hibpm::PRECEDENCE, val_1, val_2);
+                                                                          }
+;
+
+rule: ALTERNATED_PRECEDENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
+                                                                            std::string val_2 = convertCharToString("'",$8);
+                                                                            declare_ctx.addRule(hibpm::ALTERNATED_PRECEDENCE, val_1, val_2);
+                                                                          }
+;
+
+rule: CHAIN_PRECEDENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
+                                                                            std::string val_2 = convertCharToString("'",$8);
+                                                                            declare_ctx.addRule(hibpm::CHAIN_PRECEDENCE, val_1, val_2);
+                                                                          }
+;
+
+rule: CO_EXISTENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
+                                                                            std::string val_2 = convertCharToString("'",$8);
+                                                                            declare_ctx.addRule(hibpm::CO_EXISTENCE, val_1, val_2);
+                                                                          }
+;
+
+rule: SUCCESSION OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
+                                                                            std::string val_2 = convertCharToString("'",$8);
+                                                                            declare_ctx.addRule(hibpm::SUCCESSION, val_1, val_2);
+                                                                          }
+;
+
+rule: ALTERNATED_SUCCESSION OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
+                                                                            std::string val_2 = convertCharToString("'",$8);
+                                                                            declare_ctx.addRule(hibpm::ALTERNATED_SUCCESSION, val_1, val_2);
+                                                                          }
+;
+
+rule: CHAIN_SUCCESSION OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
+                                                                            std::string val_2 = convertCharToString("'",$8);
+                                                                            declare_ctx.addRule(hibpm::CHAIN_SUCCESSION, val_1, val_2);
+                                                                          }
+;
+
+rule: NOT_CHAIN_SUCCESSION OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
+                                                                            std::string val_2 = convertCharToString("'",$8);
+                                                                            declare_ctx.addRule(hibpm::NOT_CHAIN_SUCCESSION, val_1, val_2);
+                                                                          }
+;
+
+rule: NOT_SUCCESSION OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
+                                                                            std::string val_2 = convertCharToString("'",$8);
+                                                                            declare_ctx.addRule(hibpm::NOT_SUCCESSION, val_1, val_2);
+                                                                          }
+;
+
+rule: NOT_CO_EXISTENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
+                                                                            std::string val_2 = convertCharToString("'",$8);
+                                                                            declare_ctx.addRule(hibpm::NOT_CO_EXISTENCE, val_1, val_2);
                                                                           }
 ;
 
