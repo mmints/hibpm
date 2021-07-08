@@ -30,7 +30,7 @@ yylloc->step ();
 "RespondedExistence"    { return token::RESPONDED_EXISTENCE; }
 "Response"              { return token::RESPONSE; }
 "AlternateResponse"     { return token::ALTERNATED_RESPONSE; }
-"ChainSuccession"       { return token::CHAIN_RESPONSE; }
+"ChainResponse"       { return token::CHAIN_RESPONSE; }
 "Precedence"            { return token::PRECEDENCE; }
 "AlternatePrecedence"   { return token::ALTERNATED_PRECEDENCE; }
 "ChainPrecedence"       { return token::CHAIN_PRECEDENCE; }
