@@ -34,10 +34,15 @@ int main(int argc, char** argv)
  
     int v = parser.parse(); // and run it
 
+    int count = declare_ctx.getRules().size();
+    std::cout << "Count of Rules (Lines): " << std::to_string(count) << std::endl;
+
     std::cout << "All Events: " << std::endl;
     for (const auto& e : declare_ctx.getEvents()) {
         std::cout << e.name << std::endl;
     }
+
+    std::cout << "Mystery return value of the parser: " << std::to_string(v) << std::endl;
 
     return v; // What is v?
 }
