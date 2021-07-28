@@ -1,9 +1,10 @@
 cmake_minimum_required(VERSION 3.19) # Currently the newest version of CMake
-
-set(CMAKE_C_COMPILER "gcc-10")
-set(CMAKE_CXX_COMPILER "g++-10")
-
 project(declare_parser)
+
+set(CMAKE_CXX_STANDARD 17)
+
+set(CMAKE_C_COMPILER "g++-10")
+set(CMAKE_CXX_COMPILER "g++-10")
 
 # Find Libs
 find_package(BISON REQUIRED)
