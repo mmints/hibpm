@@ -1,8 +1,10 @@
-#pragma once
+#ifndef HIBPM_DECLARE_H
+#define HIBPM_DECLARE_H
 
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <iostream>
 
 namespace hibpm
 {
@@ -64,3 +66,5 @@ namespace hibpm
         bool checkEventExistence(const Event& event);
     };
 }
+
+#endif //HIBPM_DECLARE_H

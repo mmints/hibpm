@@ -12,5 +12,4 @@ project(declare-ds-example)
 add_executable(declare-ds-example
         main.cpp
         ../Declare.cpp
-        ../Declare.hpp
 )
