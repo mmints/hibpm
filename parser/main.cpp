@@ -29,7 +29,13 @@ int main(int argc, char** argv)
 {
     hibpm::Declare declare_ctx;
     yy::declare parser(declare_ctx); // make a declare parser
-    
+
+    if (!argv[1]) {
+        std::cout << "Missing Path!" << std::endl;
+        std::cout << "Enter a valid path to a declare text file." << std::endl;
+        return 1;
+    }
+
     std::string str = readFileIntoString(argv[1]);
 
     yy_scan_string(str.c_str());
@@ -46,5 +52,5 @@ int main(int argc, char** argv)
 
     std::cout << "Mystery return value of the parser: " << std::to_string(v) << std::endl;
 
-    return v; // What is v?
+    return v;
 }
