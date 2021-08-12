@@ -18,7 +18,6 @@ namespace hibpm
     class Parser
     {
     public:
-
         Parser();
         ~Parser() = default;
 
@@ -30,6 +29,5 @@ namespace hibpm
 
         void readFile(const std::string& path); // read in the file to parse
         void parse(); // Execute parsing of the file
-
     };
 }
