@@ -1,5 +1,7 @@
 #include "Solver.h"
 
+// TODO: Move this out of the parser directory
+
 int main(int argc, char** argv)
 {
     hibpm::Solver parser;
