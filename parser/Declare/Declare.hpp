@@ -36,6 +36,7 @@ namespace hibpm
     struct Event
     {
         std::string name;
+        size_t numericValue;
     };
 
     struct Rule
@@ -51,7 +52,7 @@ namespace hibpm
         Declare();
         ~Declare() = default;
 
-        void addRule(const Rule& rule);
+        void addRule(Rule& rule);
         void addRule(RuleType type, std::string event_val);
         void addRule(RuleType type, std::string event_val_1, std::string event_val_2);
 

@@ -19,9 +19,9 @@ int main(int argc, char** argv)
     int count = declareObject.getRules().size();
     std::cout << "Count of Rules (Lines): " << std::to_string(count) << std::endl;
 
-    std::cout << "All Events: " << std::endl;
+    std::cout << "All Events (count:" << declareObject.getEvents().size() << "): " << std::endl;
     for (const auto& e : declareObject.getEvents()) {
-        std::cout << e.name << std::endl;
+        std::cout << e.name << "\t Numeric Value: " << e.numericValue << std::endl;
     }
 
     return 0;

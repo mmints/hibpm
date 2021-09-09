@@ -7,13 +7,14 @@ namespace hibpm {
             m_rules{}
     {}
 
-    void Declare::addRule(const Rule &rule) {
+    void Declare::addRule(Rule &rule) {
         m_rules.push_back(rule);
 
-        for (const auto& event : rule.events)
+        for (Event& event : rule.events)
         {
             // First check if the used event in a rule are already in the
             if (! hibpm::Declare::checkEventExistence(event)) {
+                event.numericValue = m_events.size();
                 m_events.push_back(event); // And if not, add them to it
             }
         }
