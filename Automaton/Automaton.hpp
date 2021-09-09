@@ -1,23 +1,15 @@
-//
-//  Automaton.hpp
-//  declareSolver
-//
-//  Created by Jandson on 27.04.21.
-//
-
-#ifndef Automaton_hpp
-#define Automaton_hpp
+#pragma once
 
 #include <iostream>
 #include <stdio.h>
 #include <vector>
 #include <list>
+
 using namespace std;
 
-class Automaton{
-            
+namespace hibpm {
 
-    
+class Automaton{
 public:
     
     struct simpleCell{
@@ -128,4 +120,4 @@ private:
     bool checkUseful(int x, int y, vector<vector<triplett> > &mat);
 };
 
-#endif /* Automaton_hpp */
+}

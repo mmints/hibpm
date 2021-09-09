@@ -5,8 +5,10 @@
 //  Created by Jandson on 27.04.21.
 //
 
+// Just for testing?
+
 #include <iostream>
-#include "Automaton.hpp"
+#include "Automaton/Automaton.hpp"
 
 using namespace std;
 

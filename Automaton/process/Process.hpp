@@ -1,7 +1,7 @@
 #pragma once
 
 #include <stdio.h>
-#include "../automata/Automaton.hpp"
+#include "Automaton/Automaton.hpp"
 
 namespace hibpm
 {

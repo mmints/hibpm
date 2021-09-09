@@ -4,9 +4,9 @@ Prototype for removing inconsistency in declare model via remainders.
 ## Project Structure
 
 The [`parser`](/parser) directory holds all required `Bison` and `Flex` files that represents the logic and grammar
-of the Declare-Language. In [`/parser/Declare`](/parser/Declare) is a class definition of the Declare-Lang data
+of the Declare-Language. In [`/parser/Declare`](/Declare) is a class definition of the Declare-Lang data
 structure. The parser creates an object of this class. To compile this part of the project one has to execute
-the script [`build.sh`](/parser/build.sh).
+the script [`build.sh`](/build.sh).
 
 ## Meeting Log
 Here we're writing down some notes during meeting.
