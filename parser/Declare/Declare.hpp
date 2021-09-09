@@ -52,9 +52,9 @@ namespace hibpm
         Declare();
         ~Declare() = default;
 
-        void addRule(Rule& rule);
-        void addRule(RuleType type, std::string event_val);
-        void addRule(RuleType type, std::string event_val_1, std::string event_val_2);
+        // This is used in declare.yy
+        void addRule(RuleType type, const std::string& event_val);
+        void addRule(RuleType type, const std::string& event_val_1, const std::string& event_val_2);
 
         std::vector<Rule> getRules();
         std::vector<Event> getEvents();
@@ -63,6 +63,8 @@ namespace hibpm
         std::vector<Event> m_events;
         std::vector<Rule> m_rules;
 
-        bool checkEventExistence(const Event& event);
+        void addRuleAndEventsToSet(RuleType type, const std::vector<std::string>& event_names);
+        bool checkEventExistence(const std::string &event_name);
+        size_t eventNameToNumericValue(const std::string &event_name);
     };
 }
