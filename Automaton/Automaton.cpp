@@ -148,6 +148,13 @@ namespace hibpm {
             
         }
 
+        for (list<pair<int,int>>::iterator  it = finalCandidates.begin();
+            it != finalCandidates.end() ; it++) {
+
+            res.addFinal(matrix.at(it->first).at(it->second).mappedNum);
+
+        }
+
 
         return res;
     }
