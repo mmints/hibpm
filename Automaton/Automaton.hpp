@@ -62,7 +62,7 @@ public:
      
     
     Automaton(int numStates, int sigmaSize);
-    Automaton(int numStates, int sigmaSize, list<int> *finals);
+    Automaton(int numStates, int sigmaSize, list<int> &finals);
     
     void addTransition(int stateFrom, int stateTo, int viaSymbol);
     void addFinal(int state);
@@ -74,7 +74,7 @@ public:
     Automaton product(Automaton *a1, Automaton *a2);
     
     Automaton* reduceHopcrof();
-    bool isEmptyMinusEmptString();
+    bool isEmptyMinusEmptyString();
         
     Automaton full_product(Automaton &a1, Automaton &a2);
     

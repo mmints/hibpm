@@ -19,11 +19,17 @@ namespace hibpm {
 
     }
 
-    Automaton::Automaton(int numStates, int sigmaSize, list<int> *finals) {
+    Automaton::Automaton(int numStates, int sigmaSize, list<int> &finals) {
 
         Automaton(numStates, sigmaSize);
 
-        this->finalStates.insert(this->finalStates.end(), 0);
+        for (list<int>::iterator it = finals.begin();
+                it != finals.end(); it++) {
+            this->addFinal(*it);
+        }
+
+//        this->finalStates.insert(this->finalStates.end(), 0);
+
     }
 
     void Automaton::addTransition(int stateFrom, int stateTo, int viaSymbol) {
@@ -41,8 +47,6 @@ namespace hibpm {
             this->areFinalStates[state] = true;
         }
     }
-
-
 
 
     void Automaton::print() {
@@ -66,15 +70,16 @@ namespace hibpm {
 
     Automaton Automaton::product(Automaton *a1, Automaton *a2) {
 
-        struct cellMat{
+        struct cellMat {
             bool stacked, mapped;
             unsigned int mappedNum;
-            vector<pair<int,int>> sigmaTransition;
-            cellMat(int sigmaS){
+            vector<pair<int, int>> sigmaTransition;
+
+            cellMat(int sigmaS) {
                 mappedNum = -1;
                 stacked = false;
                 mappedNum = false;
-                sigmaTransition.resize(sigmaS, pair<int,int>(-1,-1));
+                sigmaTransition.resize(sigmaS, pair<int, int>(-1, -1));
             }
         };
 
@@ -85,28 +90,28 @@ namespace hibpm {
             matrix.at(i).resize(a2->numSt, cellMat(a1->sigSize));
         }
 
-        list<pair<int,int>> visitedStack(1, pair<int,int>(0,0));
-        list<pair<int,int>> finalCandidates;
+        list<pair<int, int>> visitedStack(1, pair<int, int>(0, 0));
+        list<pair<int, int>> finalCandidates;
 
         matrix.at(0).at(0).stacked = true;
 
-        for ( list<pair<int,int>>::iterator it = visitedStack.begin() ;
-                it != visitedStack.end(); it++) {
+        for (list<pair<int, int>>::iterator it = visitedStack.begin();
+             it != visitedStack.end(); it++) {
 
             int sigS = a1->sigSize;
 
-            if (a1->areFinalStates.at(it->first) && a2->areFinalStates.at(it->second)){
-                finalCandidates.push_back(pair<int,int>(it->first,it->second));
+            if (a1->areFinalStates.at(it->first) && a2->areFinalStates.at(it->second)) {
+                finalCandidates.push_back(pair<int, int>(it->first, it->second));
             }
 
             for (int a = 0; a < sigS; ++a) {
 
-                int sx= a1->transitionsTo.at(0).at(0);
+                int sx = a1->transitionsTo.at(0).at(0);
                 int sy = a2->transitionsTo.at(0).at(0);
 
-                if (sx >= 0 && sy >= 0 && !matrix.at(sx).at(sy).stacked){
+                if (sx >= 0 && sy >= 0 && !matrix.at(sx).at(sy).stacked) {
                     matrix.at(sx).at(sy).stacked = true;
-                    visitedStack.push_back(pair<int,int>(sx,sy));
+                    visitedStack.push_back(pair<int, int>(sx, sy));
                 }
 
             }
@@ -115,10 +120,10 @@ namespace hibpm {
 
         int lastN = 0;
 
-        for (list<pair<int,int>>::iterator it = visitedStack.begin() ;
-                it != visitedStack.end(); it++) {
+        for (list<pair<int, int>>::iterator it = visitedStack.begin();
+             it != visitedStack.end(); it++) {
 
-            if (!matrix.at(it->first).at(it->second).mapped){
+            if (!matrix.at(it->first).at(it->second).mapped) {
                 matrix.at(it->first).at(it->second).mapped = true;
                 matrix.at(it->first).at(it->second).mappedNum = lastN;
                 lastN++;
@@ -129,7 +134,7 @@ namespace hibpm {
 
         Automaton res(visitedStack.size(), a1->sigSize);
 
-        for (list<pair<int,int>>::iterator it = visitedStack.begin() ;
+        for (list<pair<int, int>>::iterator it = visitedStack.begin();
              it != visitedStack.end(); it++) {
 
             for (int a = 0; a < a1->sigSize; ++a) {
@@ -138,18 +143,18 @@ namespace hibpm {
 
                 int resDest = -1;
 
-                if (desA1 >= 0 && desA2 >= 0){
+                if (desA1 >= 0 && desA2 >= 0) {
                     resDest = matrix.at(desA1).at(desA2).mappedNum;
                 }
 
                 res.addTransition(matrix.at(it->first).at(it->second).mappedNum,
-                                 resDest,a );
+                                  resDest, a);
             }
-            
+
         }
 
-        for (list<pair<int,int>>::iterator  it = finalCandidates.begin();
-            it != finalCandidates.end() ; it++) {
+        for (list<pair<int, int>>::iterator it = finalCandidates.begin();
+             it != finalCandidates.end(); it++) {
 
             res.addFinal(matrix.at(it->first).at(it->second).mappedNum);
 
@@ -159,8 +164,20 @@ namespace hibpm {
         return res;
     }
 
+    bool Automaton::isEmptyMinusEmptyString() {
+        //We assume that the automaton is strongly connected from initial state 0
+        if (!this->finalStates.empty()) {
 
+            if (this->finalStates.size() > 1 || !this->areFinalStates[0]) {
+                return false;
+            } else {
+                return this->incoming.at(0).empty();
+            }
 
+        }
+
+        return true;
+    }
 
 
 }
