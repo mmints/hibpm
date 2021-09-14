@@ -22,6 +22,20 @@ public:
 
     };
 
+    struct cellMat {
+        bool stacked, mapped;
+        unsigned int mappedNum;
+        //vector<pair<int, int>> sigmaTransition;
+        list<pair<int,int>> incoming;
+
+        cellMat(int sigmaS) {
+            mappedNum = -1;
+            stacked = false;
+            mappedNum = false;
+            //sigmaTransition.resize(sigmaS, pair<int, int>(-1, -1));
+        }
+    };
+
 //    struct simpleCell{
 //        int cx, cy;
 //        vector<pair<int, int>> transition;
@@ -75,6 +89,7 @@ public:
     
     Automaton* reduceHopcrof();
     bool isEmptyMinusEmptyString();
+    list<pair<int,int>> removeUselessStates(list<pair<int,int>> &finalStates, vector<vector<cellMat>> &matRef);
         
     Automaton full_product(Automaton &a1, Automaton &a2);
     
@@ -84,6 +99,8 @@ private:
 //    bool checkUseful(int x, int y, vector<vector<triplett> > &mat);
 
         void reachFinals(Automaton *a1, Automaton *a2, list<pair<int, int>> stacked, list<pair<int, int>> finals);
+
+        bool isIn(pair<int, int> p, list<pair<int, int>> l1);
     };
 
 }

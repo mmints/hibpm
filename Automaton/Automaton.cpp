@@ -70,24 +70,13 @@ namespace hibpm {
 
     Automaton Automaton::product(Automaton *a1, Automaton *a2) {
 
-        struct cellMat {
-            bool stacked, mapped;
-            unsigned int mappedNum;
-            vector<pair<int, int>> sigmaTransition;
-
-            cellMat(int sigmaS) {
-                mappedNum = -1;
-                stacked = false;
-                mappedNum = false;
-                sigmaTransition.resize(sigmaS, pair<int, int>(-1, -1));
-            }
-        };
-
         vector<vector<cellMat>> matrix(a1->numSt);
+        //vector<vector<list<pair<int,int>>>> incoming(a1->numSt);
 
         // Initialise matrix
         for (int i = 0; i < a1->numSt; ++i) {
             matrix.at(i).resize(a2->numSt, cellMat(a1->sigSize));
+            //incoming.at(i).resize(a2->numSt);
         }
 
         list<pair<int, int>> visitedStack(1, pair<int, int>(0, 0));
@@ -109,6 +98,11 @@ namespace hibpm {
                 int sx = a1->transitionsTo.at(0).at(0);
                 int sy = a2->transitionsTo.at(0).at(0);
 
+                if (sx >= 0 && sy >= 0){
+                    matrix.at(sx).at(sy).incoming.push_back(pair<int,int>(it->first, it->second));
+                    //incoming.at(sx).at(sy).
+                }
+
                 if (sx >= 0 && sy >= 0 && !matrix.at(sx).at(sy).stacked) {
                     matrix.at(sx).at(sy).stacked = true;
                     visitedStack.push_back(pair<int, int>(sx, sy));
@@ -117,6 +111,19 @@ namespace hibpm {
             }
 
         }
+
+        //removing useless states (that is, those who do not reach final states)
+
+        list<pair<int,int>> usefullStates = this->removeUselessStates(finalCandidates,matrix);
+
+        for (list<pair<int,int>>::iterator it = visitedStack.begin(); it != visitedStack.end(); it++){
+            if (!this->isIn(*it,usefullStates)){
+                matrix.at(it->first).at(it->second).stacked = false;
+                visitedStack.erase(it);
+            }
+        }
+
+        //encoding to generate new automata prod
 
         int lastN = 0;
 
@@ -164,6 +171,16 @@ namespace hibpm {
         return res;
     }
 
+    bool Automaton::isIn(pair<int,int> p, list<pair<int,int>> l1){
+
+        for (pair<int,int> pl: l1) {
+            if (pl.first == p.first && pl.second == p.second)
+                return true;
+        }
+
+        return false;
+    }
+
     bool Automaton::isEmptyMinusEmptyString() {
         //We assume that the automaton is strongly connected from initial state 0
         if (!this->finalStates.empty()) {
@@ -178,6 +195,81 @@ namespace hibpm {
 
         return true;
     }
+
+    list<pair<int,int>> Automaton::removeUselessStates(list<pair<int, int>> &finalStates, vector<vector<cellMat>> &matRef) {
+
+        list<pair<int,int>> res(finalStates);
+        vector<vector<bool>> usefullMat(matRef.size(),vector<bool>(matRef.at(0).size(),false));
+
+        for (list<pair<int,int>>::iterator it = res.begin() ; it != res.end(); it++) {
+            usefullMat.at(it->first).at(it->second) = true;
+        }
+
+        for (list<pair<int,int>>::iterator it = res.begin() ; it != res.end(); it++) {
+
+            //usefullMat.at(it->first).at(it->second) = true;
+            for ( list<pair<int,int>>::iterator itin = matRef.at(it->first).at(it->second).incoming.begin();
+                        itin != matRef.at(it->first).at(it->second).incoming.end(); itin++) {
+
+                if (!usefullMat.at(itin->first).at(itin->second)){
+                    res.push_back(pair<int,int>(it->first, it->second));
+                    usefullMat.at(itin->first).at(itin->second) = true;
+                }
+
+            }
+
+
+        }
+
+        return res;
+
+    }
+
+
+
+//    void Automaton::removeUselessStates() {
+//        // We assume that tge automaton has at least one valid final state
+//
+//        list<int> stacked(this->finalStates.size());
+//        vector<bool> isStacked( this->numSt, false);
+//
+//        for (list<int>::iterator it = this->finalStates.begin();
+//                it != this->finalStates.end(); it++) {
+//            stacked.push_back(*it);
+//            isStacked.at(*it) = true;
+//        }
+//
+//        for (list<int>::iterator it = this->finalStates.begin();
+//             it != this->finalStates.end(); it++) {
+//
+//            for (int a = 0; a < this->sigSize; ++a) {
+//
+//                list<int> incStates = this->incoming.at(*it).at(a);
+//                for (list<int>::iterator itx = incStates.begin();
+//                        itx != incStates.end(); itx++) {
+//
+//                    if (!isStacked.at(*itx)){
+//                        isStacked.at(*itx) = true;
+//                        stacked.push_back(*itx);
+//                    }
+//
+//                }
+//
+//            }
+//
+//        }
+//
+//        // TODO reshape the atomaton removing the states tar are not in stacked;
+//
+//        vector<int> deductionMap(this->numSt,0);
+//
+//        if (stacked.size() == this->numSt){
+//            return;
+//        }
+//
+//
+//
+//    }
 
 
 }
