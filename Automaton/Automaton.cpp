@@ -225,6 +225,101 @@ namespace hibpm {
 
     }
 
+    Automaton *Automaton::reduceHopcrof() {
+
+        struct equivClass{
+            unsigned int id = 0;
+            set<int> elements;
+            equivClass(unsigned int nId){
+                this->id = nId;
+            }
+        };
+
+        list<equivClass> equivClasses;
+        vector<int> equivClassIds(this->numSt);
+
+        if (this->finalStates.size() == 0){
+            return this;
+        }
+
+        int finalId = (this->areFinalStates.at(0))?0:1;
+
+        equivClasses.push_back(equivClass(finalId)); //id for final
+        equivClasses.push_back(equivClass(1-finalId)); //id_c for non final
+
+
+        for (int i = 0; i < this->numSt; ++i) {
+            if(this->areFinalStates.at(i)){
+                equivClasses.front().elements.insert(i);
+                equivClassIds.at(i) = finalId;
+            }else{
+                equivClasses.back().elements.insert(i);
+                equivClassIds.at(i) = 1-finalId;
+            }
+        }
+
+        if (equivClasses.back().elements.empty()){
+            equivClasses.pop_back();
+        }
+
+        //starts equiv class computation
+
+        for (list<equivClass>::iterator it = equivClasses.begin() ; it != equivClasses.end() ; it++) {
+
+            set<int>::iterator itS = it->elements.begin();
+            int x = *itS;
+            //itS++;
+            equivClass auxEquivClass(equivClasses.size());
+
+            for (itS++ ; itS != it->elements.end(); itS++) {
+
+                for (int a = 0; a < this->sigSize; ++a) {
+                    int stateFirstTo = transitionsTo.at(x).at(a);
+                    int stateSecondTo = transitionsTo.at(*itS).at(a);
+
+                    if(stateFirstTo != stateSecondTo){//id different then we check, if equal then same equiv for now
+                        if (stateFirstTo == -1 || stateSecondTo == -1){//the we should separate
+                            auxEquivClass.elements.insert(*itS);
+                            it->elements.erase(itS);
+                            equivClassIds.at(*itS) = auxEquivClass.id;
+                            break;
+                        }else if(equivClassIds.at(stateFirstTo) != equivClassIds.at(stateSecondTo)){
+                            auxEquivClass.elements.insert(*itS);
+                            it->elements.erase(itS);
+                            equivClassIds.at(*itS) = auxEquivClass.id;
+                            break;
+                        }
+                    }
+
+                }
+
+            }
+
+            if (!auxEquivClass.elements.empty()){
+                equivClasses.push_back(auxEquivClass);
+            }
+
+        }
+
+        if (equivClasses.size() == this->numSt){
+            return this;
+        }
+
+        Automaton *reducedAut = new Automaton(equivClasses.size(), this->sigSize);
+
+        for (equivClass eq: equivClasses) {
+
+            for (int a = 0; a < this->sigSize; ++a) {
+                int equivState = *eq.elements.begin();
+                reducedAut->addTransition(eq.id, this->transitionsTo.at(equivState).at(a), a);
+            }
+
+        }
+
+
+        return reducedAut;
+    }
+
 
 
 //    void Automaton::removeUselessStates() {
