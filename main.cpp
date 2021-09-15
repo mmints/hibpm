@@ -1,22 +1,22 @@
 #include "Solver.h"
 
-// TODO: Move this out of the parser directory
-
 int main(int argc, char** argv)
 {
-    hibpm::Solver parser;
+    hibpm::Solver solver;
     hibpm::Declare declareObject;
+
     if (!argv[1]) {
         std::cout << "Missing Path!" << std::endl;
         std::cout << "Enter a valid path to a declare text file." << std::endl;
         std::cout << "Use default path to test file related from the build directory: /Resources/bpi_2017_kb.txt" << std::endl;
-        declareObject = parser.parseFromFile("../Resources/bpi_2017_kb.txt");
+        declareObject = solver.parseFromFile("../Resources/bpi_2017_kb.txt");
     }
     else {
-        declareObject = parser.parseFromFile(argv[1]);
+        declareObject = solver.parseFromFile(argv[1]);
     }
 
-    int count = declareObject.getRules().size();
+    // Testing Print Outs
+    auto count = declareObject.getRules().size();
     std::cout << "Count of Rules (Lines): " << std::to_string(count) << std::endl;
 
     std::cout << "Rules with numeric event values: " << std::endl;
