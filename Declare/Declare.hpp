@@ -36,7 +36,7 @@ namespace hibpm
     struct Event
     {
         std::string name;
-        size_t numericValue;
+        u_int64_t numericValue; // checking against vector length -> size_t, which is unsigned long long
     };
 
     struct Rule
@@ -65,6 +65,6 @@ namespace hibpm
 
         void addRuleAndEventsToSet(RuleType type, const std::vector<std::string>& event_names);
         bool checkEventExistence(const std::string &event_name);
-        size_t eventNameToNumericValue(const std::string &event_name);
+        u_int64_t eventNameToNumericValue(const std::string &event_name);
     };
 }

@@ -67,14 +67,15 @@ namespace hibpm {
         return false;
     }
 
-    size_t Declare::eventNameToNumericValue(const std::string &event_name) {
+    u_int64_t Declare::eventNameToNumericValue(const std::string &event_name) {
         // TODO: Optimize. This is quick and dirty implementation
-        for (int i = 0; i < m_events.size(); i++) {
+        for (u_int64_t i = 0; i < m_events.size(); i++) {
             if (event_name == m_events[i].name)
             {
                 return i;
             }
         }
+        return 0;
     }
 
 }
