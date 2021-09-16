@@ -22,7 +22,8 @@ add_executable(declare_parser
         main.cpp
         Declare/Declare.cpp
         Automaton/Automaton.cpp
-        Process/Process.cpp
+        Process/State.cpp
+        Process/Unary.cpp
         Solver.cpp
    ${BISON_DeclareParser_OUTPUTS}
    ${FLEX_DeclareScanner_OUTPUTS}
