@@ -1,43 +1,88 @@
 #pragma once
 
+#include <vector>
+
 #include "Automaton/Automaton.hpp"
 #include "Declare/Declare.hpp"
 
 namespace hibpm
 {
-    struct State
+    class State
     {
-        RuleType ruleType;
-        size_t sigmaS;
-        Automaton automaton;
+    public:
+        State(Rule &rule, size_t sigmaSize);
 
-        // Unary
-        u_int64_t eventValue;
+        Rule getRule();
+        RuleType getRuleType();
+        Automaton getAutomata();
 
-        // Binary
-        u_int64_t eventValue2;
+    private:
+        Rule m_rule;
+        size_t m_sigmaSize;
+        Automaton m_automaton;
     };
 
-    struct Unary : State{};
-    struct Binary : State{};
+    class Unary : State
+    {
+    public:
+        Unary(Rule &rule, size_t sigmaSize);
 
-    struct Participation : Unary {};
-    struct AtMostOne : Unary {};
-    struct Init : Unary {};
-    struct End : Unary {};
+        Event getEvent();
+        u_int64_t getEventNumericValue();
 
-    struct RespondedExistence : Binary {};
-    struct Response : Binary {};
-    struct AlternatedResponse : Binary {};
-    struct ChainResponse : Binary {};
-    struct Precedence : Binary {};
-    struct AlternatedPrecedence : Binary {};
-    struct ChainPrecedence : Binary {};
-    struct CoExistence : Binary {};
-    struct Succession : Binary {};
-    struct AlternateSuccession : Binary {};
-    struct ChainSuccession : Binary {};
-    struct NotChainSuccession : Binary {};
-    struct NotSuccession : Binary {};
-    struct NotCoExistence : Binary {};
+    private:
+        Event m_event;
+    };
+
+    class Binary : State
+    {
+    public:
+        Binary(Rule &rule, size_t sigmaSize);
+
+        std::vector<Event> getEvents();
+        std::vector<u_int64_t> getEventNumericValues();
+
+    private:
+        Event m_event_1;
+        Event m_event_2;
+    };
+
+    // Unary
+    class Participation : Unary{
+    public:
+        Participation(Rule &rule, size_t sigmaSize) :
+        Unary(rule, sigmaSize)
+        {}
+    };
+    class AtMostOne : Unary {
+        AtMostOne(Rule &rule, size_t sigmaSize) :
+        Unary(rule, sigmaSize)
+        {}
+    };
+    class Init : Unary {
+        Init(Rule &rule, size_t sigmaSize) :
+        Unary(rule, sigmaSize)
+        {}
+    };
+    class End : Unary {
+        End(Rule &rule, size_t sigmaSize) :
+        Unary(rule, sigmaSize)
+        {}
+    };
+
+    // Binary
+    class RespondedExistence : Binary {};
+    class Response : Binary {};
+    class AlternatedResponse : Binary {};
+    class ChainResponse : Binary {};
+    class Precedence : Binary {};
+    class AlternatedPrecedence : Binary {};
+    class ChainPrecedence : Binary {};
+    class CoExistence : Binary {};
+    class Succession : Binary {};
+    class AlternateSuccession : Binary {};
+    class ChainSuccession : Binary {};
+    class NotChainSuccession : Binary {};
+    class NotSuccession : Binary {};
+    class NotCoExistence : Binary {};
 }
