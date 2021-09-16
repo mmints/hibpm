@@ -68,14 +68,14 @@ public:
 //    };
     
 
-    unsigned int sigSize, numSt;
+    unsigned int sigSize{}, numSt{};
     vector<vector<int> > transitionsTo;
     vector<vector< list<int> > > incoming;
     //int initialState = 0;
     vector<bool> areFinalStates;
     list<int> finalStates;
      
-    
+    Automaton() = default;
     Automaton(int numStates, int sigmaSize);
     Automaton(int numStates, int sigmaSize, list<int> &finals);
     

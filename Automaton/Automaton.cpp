@@ -320,8 +320,6 @@ namespace hibpm {
         return reducedAut;
     }
 
-
-
 //    void Automaton::removeUselessStates() {
 //        // We assume that tge automaton has at least one valid final state
 //
