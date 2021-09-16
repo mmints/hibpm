@@ -16,13 +16,15 @@ namespace hibpm
         RuleType getRuleType();
         Automaton getAutomata();
 
-    private:
+    protected:
         Rule m_rule;
         size_t m_sigmaSize;
         Automaton m_automaton;
+
+        virtual void initializeAutomaton() = 0;
     };
 
-    class Unary : State
+    class Unary : public State
     {
     public:
         Unary(Rule &rule, size_t sigmaSize);
@@ -30,11 +32,11 @@ namespace hibpm
         Event getEvent();
         u_int64_t getEventNumericValue();
 
-    private:
+    protected:
         Event m_event;
     };
 
-    class Binary : State
+    class Binary : public State
     {
     public:
         Binary(Rule &rule, size_t sigmaSize);
@@ -42,32 +44,40 @@ namespace hibpm
         std::vector<Event> getEvents();
         std::vector<u_int64_t> getEventNumericValues();
 
-    private:
+    protected:
         Event m_event_1;
         Event m_event_2;
     };
 
     // Unary
-    class Participation : Unary{
+    class Participation : public Unary{
     public:
-        Participation(Rule &rule, size_t sigmaSize) :
-        Unary(rule, sigmaSize)
-        {}
+        Participation(Rule &rule, size_t sigmaSize);
+    private:
+        void initializeAutomaton() override;
     };
-    class AtMostOne : Unary {
-        AtMostOne(Rule &rule, size_t sigmaSize) :
-        Unary(rule, sigmaSize)
-        {}
+
+    class AtMostOne : public Unary {
+    public:
+        AtMostOne(Rule &rule, size_t sigmaSize);
+
+    private:
+        void initializeAutomaton() override;
     };
-    class Init : Unary {
-        Init(Rule &rule, size_t sigmaSize) :
-        Unary(rule, sigmaSize)
-        {}
+
+    class Init : public Unary {
+    public:
+        Init(Rule &rule, size_t sigmaSize);
+    private:
+        void initializeAutomaton() override;
     };
-    class End : Unary {
-        End(Rule &rule, size_t sigmaSize) :
-        Unary(rule, sigmaSize)
-        {}
+
+    class End : public Unary {
+    public:
+        End(Rule &rule, size_t sigmaSize);
+
+    private:
+        void initializeAutomaton() override;
     };
 
     // Binary
