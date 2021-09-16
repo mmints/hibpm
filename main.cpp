@@ -1,6 +1,8 @@
 #include "Solver.h"
 
-#include "Process/Process.hpp"
+// #include "Process/Process.hpp"
+#include "Process/State.hpp"
+#include "Automaton/Automaton.hpp"
 
 int main(int argc, char** argv)
 {
@@ -18,19 +20,21 @@ int main(int argc, char** argv)
     }
 
     // Get process and states
-    hibpm::Process process{declareKB};
-    std::vector<hibpm::State> states = process.getStates();
+//    hibpm::Process process{declareKB};
+//    std::vector<hibpm::State> states = process.getStates();
 
     // Testing Print Outs
     auto count = declareKB.getRules().size();
     std::cout << "Count of Rules (Lines): " << std::to_string(count) << std::endl;
 
     std::cout << "Rules with numeric event values: " << std::endl;
+    int i = 0;
     for (const auto& rule : declareKB.getRules()) {
-        std::cout << rule.type <<": Events: " << rule.events.size() << std::endl;
+        std::cout <<"Nr: " << i << "///" << rule.type <<": Events: " << rule.events.size() << std::endl;
         for (const auto& event : rule.events) {
             std::cout << event.name << " - " << event.numericValue << std::endl;
         }
+        i++;
     }
     std::cout << "______________________________________" << std::endl;
 
@@ -41,7 +45,9 @@ int main(int argc, char** argv)
 
     std::cout << "______________________________________" << std::endl;
 
-    std::cout << "Number of states in Process: " << states.size() << std::endl;
+ //   std::cout << "Number of states in Process: " << states.size() << std::endl;
+
+    hibpm::Init init(declareKB.getRules()[128], declareKB.getEvents().size());
 
     return 0;
 }
