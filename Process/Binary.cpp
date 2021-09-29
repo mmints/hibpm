@@ -17,16 +17,6 @@ namespace hibpm
     }
 
 // ------
-    Succession::Succession(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
-        Succession::initializeAutomaton();
-    }
-
-    void Succession::initializeAutomaton() {
-        // TODO: Impl
-    }
-// ------
-
-// ------
     AlternateSuccession::AlternateSuccession(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
         AlternateSuccession::initializeAutomaton();
     }
