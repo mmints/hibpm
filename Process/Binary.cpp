@@ -17,16 +17,6 @@ namespace hibpm
     }
 
 // ------
-    AlternatedResponse::AlternatedResponse(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
-        AlternatedResponse::initializeAutomaton();
-    }
-
-    void AlternatedResponse::initializeAutomaton() {
-        // TODO: Impl
-    }
-// ------
-
-// ------
     ChainResponse::ChainResponse(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
         ChainResponse::initializeAutomaton();
     }
