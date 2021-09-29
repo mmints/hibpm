@@ -14,12 +14,4 @@ namespace hibpm
     u_int64_t Unary::getEventNumericValue() {
         return m_event.numericValue;
     }
-
-    End::End(Rule &rule, size_t sigmaSize) : Unary(rule, sigmaSize) {
-        End::initializeAutomaton();
-    }
-
-    void End::initializeAutomaton() {
-        // TODO: Impl
-    }
 }

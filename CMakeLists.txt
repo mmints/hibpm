@@ -29,6 +29,7 @@ add_executable(declare_parser
         Process/Unary/Participation.cpp
         Process/Unary/AtMostOne.cpp
         Process/Unary/Init.cpp
+        Process/Unary/End.cpp
 
         Process/Binary.cpp
    ${BISON_DeclareParser_OUTPUTS}
