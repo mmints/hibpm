@@ -17,16 +17,6 @@ namespace hibpm
     }
 
 // ------
-    ChainResponse::ChainResponse(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
-        ChainResponse::initializeAutomaton();
-    }
-
-    void ChainResponse::initializeAutomaton() {
-        // TODO: Impl
-    }
-// ------
-
-// ------
     Precedence::Precedence(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
         Precedence::initializeAutomaton();
     }
