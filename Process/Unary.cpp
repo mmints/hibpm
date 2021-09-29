@@ -15,14 +15,6 @@ namespace hibpm
         return m_event.numericValue;
     }
 
-    AtMostOne::AtMostOne(Rule &rule, size_t sigmaSize) : Unary(rule, sigmaSize) {
-        AtMostOne::initializeAutomaton();
-    }
-
-    void AtMostOne::initializeAutomaton() {
-        // TODO: Impl
-    }
-
     Init::Init(Rule &rule, size_t sigmaSize) : Unary(rule, sigmaSize) {
         Init::initializeAutomaton();
     }
