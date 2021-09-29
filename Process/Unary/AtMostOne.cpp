@@ -11,11 +11,13 @@ namespace hibpm
         // (0)---|evLetter|--->(1)
         m_automaton.addTransition(0, 1, m_event.numericValue);
 
-        // (0)---|Sigma \ evLetter|--->(0)
-        // (1)---|Sigma \ evLetter|--->(1)
         for (int a = 0; a < m_sigmaSize; a++) {
-            if (a != m_event.numericValue) {
+            if (a != m_event.numericValue)
+            {
+                // (0)---|Sigma \ evLetter|--->(0)
                 m_automaton.addTransition(0, 0, a);
+
+                // (1)---|Sigma \ evLetter|--->(1)
                 m_automaton.addTransition(1, 1, a);
             }
         }
