@@ -16,15 +16,6 @@ namespace hibpm
         return {m_event_1.numericValue, m_event_2.numericValue};
     }
 
-// ------
-    Precedence::Precedence(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
-        Precedence::initializeAutomaton();
-    }
-
-    void Precedence::initializeAutomaton() {
-        // TODO: Impl
-    }
-// ------
 
 // ------
     AlternatedPrecedence::AlternatedPrecedence(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
