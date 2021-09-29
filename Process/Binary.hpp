@@ -19,18 +19,101 @@ namespace hibpm
         Event m_event_2;
     };
 
-    class RespondedExistence : Binary {};
-    class Response : Binary {};
-    class AlternatedResponse : Binary {};
-    class ChainResponse : Binary {};
-    class Precedence : Binary {};
-    class AlternatedPrecedence : Binary {};
-    class ChainPrecedence : Binary {};
-    class CoExistence : Binary {};
-    class Succession : Binary {};
-    class AlternateSuccession : Binary {};
-    class ChainSuccession : Binary {};
-    class NotChainSuccession : Binary {};
-    class NotSuccession : Binary {};
-    class NotCoExistence : Binary {};
+    class RespondedExistence : Binary {
+    public:
+        RespondedExistence(Rule &rule, size_t sigmaSize);
+    private:
+        void initializeAutomaton() override;
+    };
+
+    class Response : Binary {
+    public:
+        Response(Rule &rule, size_t sigmaSize);
+    private:
+        void initializeAutomaton() override;
+    };
+
+    class AlternatedResponse : Binary {
+    public:
+        AlternatedResponse(Rule &rule, size_t sigmaSize);
+    private:
+        void initializeAutomaton() override;
+    };
+
+    class ChainResponse : Binary {
+    public:
+        ChainResponse(Rule &rule, size_t sigmaSize);
+    private:
+        void initializeAutomaton() override;
+    };
+
+    class Precedence : Binary {
+    public:
+        Precedence(Rule &rule, size_t sigmaSize);
+    private:
+        void initializeAutomaton() override;
+    };
+
+    class AlternatedPrecedence : Binary {
+    public:
+        AlternatedPrecedence(Rule &rule, size_t sigmaSize);
+    private:
+        void initializeAutomaton() override;
+    };
+
+    class ChainPrecedence : Binary {
+    public:
+        ChainPrecedence(Rule &rule, size_t sigmaSize);
+    private:
+        void initializeAutomaton() override;
+    };
+
+    class CoExistence : Binary {
+    public:
+        CoExistence(Rule &rule, size_t sigmaSize);
+    private:
+        void initializeAutomaton() override;
+    };
+
+    class Succession : Binary {
+    public:
+        Succession(Rule &rule, size_t sigmaSize);
+    private:
+        void initializeAutomaton() override;
+    };
+
+    class AlternateSuccession : Binary {
+    public:
+        AlternateSuccession(Rule &rule, size_t sigmaSize);
+    private:
+        void initializeAutomaton() override;
+    };
+
+    class ChainSuccession : Binary {
+    public:
+        ChainSuccession(Rule &rule, size_t sigmaSize);
+    private:
+        void initializeAutomaton() override;
+    };
+
+    class NotChainSuccession : Binary {
+    public:
+        NotChainSuccession(Rule &rule, size_t sigmaSize);
+    private:
+        void initializeAutomaton() override;
+    };
+
+    class NotSuccession : Binary {
+    public:
+        NotSuccession(Rule &rule, size_t sigmaSize);
+    private:
+        void initializeAutomaton() override;
+    };
+
+    class NotCoExistence : Binary {
+    public:
+        NotCoExistence(Rule &rule, size_t sigmaSize);
+    private:
+        void initializeAutomaton() override;
+    };
 }
