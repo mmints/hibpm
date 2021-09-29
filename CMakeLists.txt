@@ -20,12 +20,16 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_SOURCE_DIR}) # For now n
 
 add_executable(declare_parser
         main.cpp
+        Solver.cpp
         Declare/Declare.cpp
         Automaton/Automaton.cpp
         Process/State.cpp
+
         Process/Unary.cpp
+        Process/Unary/Participation.cpp
+        Process/Unary/AtMostOne.cpp
+
         Process/Binary.cpp
-        Solver.cpp
    ${BISON_DeclareParser_OUTPUTS}
    ${FLEX_DeclareScanner_OUTPUTS}
 )
