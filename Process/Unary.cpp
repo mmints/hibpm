@@ -15,36 +15,32 @@ namespace hibpm
         return m_event.numericValue;
     }
 
-    // Implementation of Unary Process Types
-
-    // Constructors
     Participation::Participation(Rule &rule, size_t sigmaSize) : Unary(rule, sigmaSize) {
         Participation::initializeAutomaton();
+    }
+
+    void Participation::initializeAutomaton() {
+        // TODO: Impl
     }
 
     AtMostOne::AtMostOne(Rule &rule, size_t sigmaSize) : Unary(rule, sigmaSize) {
         AtMostOne::initializeAutomaton();
     }
 
-    Init::Init(Rule &rule, size_t sigmaSize) : Unary(rule, sigmaSize) {
-        Init::initializeAutomaton();
-    }
-
-    End::End(Rule &rule, size_t sigmaSize) : Unary(rule, sigmaSize) {
-        End::initializeAutomaton();
-    }
-
-    // Automata Implementations
-    void Participation::initializeAutomaton() {
-        // TODO: Impl
-    }
-
     void AtMostOne::initializeAutomaton() {
         // TODO: Impl
     }
 
+    Init::Init(Rule &rule, size_t sigmaSize) : Unary(rule, sigmaSize) {
+        Init::initializeAutomaton();
+    }
+
     void Init::initializeAutomaton() {
         // TODO: Impl
+    }
+
+    End::End(Rule &rule, size_t sigmaSize) : Unary(rule, sigmaSize) {
+        End::initializeAutomaton();
     }
 
     void End::initializeAutomaton() {
