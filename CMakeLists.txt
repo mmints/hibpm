@@ -23,16 +23,7 @@ add_executable(declare_parser
         Solver.cpp
         Declare/Declare.cpp
         Automaton/Automaton.cpp
-        Process/State.cpp
-
-        Process/Unary.cpp
-        Process/Unary/Participation.cpp
-        Process/Unary/AtMostOne.cpp
-        Process/Unary/Init.cpp
-        Process/Unary/End.cpp
-
-        Process/Binary.cpp
-        Process/Binary/RespondedExistence.cpp
+        Process
 
         ${BISON_DeclareParser_OUTPUTS}
         ${FLEX_DeclareScanner_OUTPUTS}
