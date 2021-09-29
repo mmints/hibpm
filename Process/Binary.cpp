@@ -16,21 +16,6 @@ namespace hibpm
         return {m_event_1.numericValue, m_event_2.numericValue};
     }
 
-
-// ------
-
-// ------
-
-// ------
-    ChainPrecedence::ChainPrecedence(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
-        ChainPrecedence::initializeAutomaton();
-    }
-
-    void ChainPrecedence::initializeAutomaton() {
-        // TODO: Impl
-    }
-// ------
-
 // ------
     CoExistence::CoExistence(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
         CoExistence::initializeAutomaton();
