@@ -15,14 +15,6 @@ namespace hibpm
         return m_event.numericValue;
     }
 
-    Participation::Participation(Rule &rule, size_t sigmaSize) : Unary(rule, sigmaSize) {
-        Participation::initializeAutomaton();
-    }
-
-    void Participation::initializeAutomaton() {
-        // TODO: Impl
-    }
-
     AtMostOne::AtMostOne(Rule &rule, size_t sigmaSize) : Unary(rule, sigmaSize) {
         AtMostOne::initializeAutomaton();
     }
