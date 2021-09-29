@@ -15,14 +15,6 @@ namespace hibpm
         return m_event.numericValue;
     }
 
-    Init::Init(Rule &rule, size_t sigmaSize) : Unary(rule, sigmaSize) {
-        Init::initializeAutomaton();
-    }
-
-    void Init::initializeAutomaton() {
-        // TODO: Impl
-    }
-
     End::End(Rule &rule, size_t sigmaSize) : Unary(rule, sigmaSize) {
         End::initializeAutomaton();
     }
