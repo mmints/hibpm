@@ -18,13 +18,7 @@ namespace hibpm
 
 
 // ------
-    AlternatedPrecedence::AlternatedPrecedence(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
-        AlternatedPrecedence::initializeAutomaton();
-    }
 
-    void AlternatedPrecedence::initializeAutomaton() {
-        // TODO: Impl
-    }
 // ------
 
 // ------
