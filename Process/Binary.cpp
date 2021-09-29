@@ -17,16 +17,6 @@ namespace hibpm
     }
 
 // ------
-    CoExistence::CoExistence(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
-        CoExistence::initializeAutomaton();
-    }
-
-    void CoExistence::initializeAutomaton() {
-        // TODO: Impl
-    }
-// ------
-
-// ------
     Succession::Succession(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
         Succession::initializeAutomaton();
     }
