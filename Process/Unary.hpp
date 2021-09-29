@@ -13,7 +13,7 @@ namespace hibpm
         Event getEvent();
         u_int64_t getEventNumericValue();
 
-    private:
+    protected:
         Event m_event; // Get the event from the given rule in constructor
     };
 

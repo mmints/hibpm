@@ -21,7 +21,7 @@ namespace hibpm
         RuleType getRuleType();
         Automaton getAutomata();
 
-    private:
+    protected:
         Rule m_rule;
         size_t m_sigmaSize;
         Automaton m_automaton;
