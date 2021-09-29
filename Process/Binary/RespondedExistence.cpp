@@ -31,5 +31,9 @@ namespace hibpm
             // (2)---| Sigma |--->(2)
             m_automaton.addTransition(2, 2, i);
         }
+
+        // final
+        m_automaton.addFinal(0);
+        m_automaton.addFinal(1);
     }
 }
