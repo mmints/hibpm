@@ -14,6 +14,7 @@ namespace hibpm
         m_automaton.addTransition(1, 2, m_event_2.numericValue);
 
         // (2)---| a |--->(1)
+        m_automaton.addTransition(2, 1, m_event_1.numericValue);
 
         for (int i = 0; i < m_sigmaSize; i++) {
             // (0)---| Sigma \ {a,b} |--->(0)
