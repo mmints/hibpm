@@ -17,16 +17,6 @@ namespace hibpm
     }
 
 // ------
-    RespondedExistence::RespondedExistence(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
-        RespondedExistence::initializeAutomaton();
-    }
-
-    void RespondedExistence::initializeAutomaton() {
-        // TODO: Impl
-    }
-// ------
-
-// ------
     Response::Response(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
         Response::initializeAutomaton();
     }

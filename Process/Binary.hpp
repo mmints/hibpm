@@ -13,7 +13,7 @@ namespace hibpm
         std::vector<Event> getEvents();
         std::vector<u_int64_t> getEventNumericValues();
 
-    private:
+    protected:
         // Get the events from the given rule in constructor
         Event m_event_1;
         Event m_event_2;
