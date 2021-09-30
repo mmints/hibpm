@@ -16,6 +16,7 @@ namespace hibpm
     {
     public:
         State(Rule &rule, size_t sigmaSize);
+        virtual ~State() = default;
 
         Rule getRule();
         RuleType getRuleType();
