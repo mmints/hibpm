@@ -3,6 +3,7 @@
 namespace hibpm
 {
     AlternatedResponse::AlternatedResponse(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
+        m_automaton = Automaton(2, sigmaSize);
         AlternatedResponse::initializeAutomaton();
     }
 

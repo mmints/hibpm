@@ -3,6 +3,7 @@
 namespace hibpm
 {
     NotCoExistence::NotCoExistence(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
+        m_automaton = Automaton(3, sigmaSize);
         NotCoExistence::initializeAutomaton();
     }
 

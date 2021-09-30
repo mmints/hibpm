@@ -3,6 +3,7 @@
 namespace hibpm
 {
     Precedence::Precedence(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
+        m_automaton = Automaton(2, sigmaSize);
         Precedence::initializeAutomaton();
     }
 
@@ -13,7 +14,7 @@ namespace hibpm
         for (int i = 0; i < m_sigmaSize; i++)
         {
             // (0)---| Sigma \ {a,b} |--->(0)
-            if (i != m_event_1.numericValue && i != m_event_b.numericValue) {
+            if (i != m_event_1.numericValue && i != m_event_2.numericValue) {
                 m_automaton.addTransition(0, 0, i);
             }
 

@@ -3,6 +3,7 @@
 namespace hibpm
 {
     NotChainSuccession::NotChainSuccession(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
+        m_automaton = Automaton(3, sigmaSize);
         NotChainSuccession::initializeAutomaton();
     }
 

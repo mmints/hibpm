@@ -3,6 +3,7 @@
 namespace hibpm
 {
     ChainSuccession::ChainSuccession(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
+        m_automaton = Automaton(4, sigmaSize);
         ChainSuccession::initializeAutomaton();
     }
 

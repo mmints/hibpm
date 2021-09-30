@@ -3,6 +3,7 @@
 namespace hibpm
 {
     CoExistence::CoExistence(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
+        m_automaton = Automaton(4, sigmaSize);
         CoExistence::initializeAutomaton();
     }
 

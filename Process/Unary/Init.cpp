@@ -3,6 +3,7 @@
 namespace hibpm
 {
     Init::Init(Rule &rule, size_t sigmaSize) : Unary(rule, sigmaSize) {
+        m_automaton = Automaton(2, sigmaSize);
         Init::initializeAutomaton();
     }
 
