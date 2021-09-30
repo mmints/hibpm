@@ -17,16 +17,6 @@ namespace hibpm
     }
 
 // ------
-    NotSuccession::NotSuccession(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
-        NotSuccession::initializeAutomaton();
-    }
-
-    void NotSuccession::initializeAutomaton() {
-        // TODO: Impl
-    }
-// ------
-
-// ------
     NotCoExistence::NotCoExistence(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
         NotCoExistence::initializeAutomaton();
     }
