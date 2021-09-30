@@ -16,17 +16,6 @@ namespace hibpm
         return {m_event_1.numericValue, m_event_2.numericValue};
     }
 
-
-// ------
-    NotChainSuccession::NotChainSuccession(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
-        NotChainSuccession::initializeAutomaton();
-    }
-
-    void NotChainSuccession::initializeAutomaton() {
-        // TODO: Impl
-    }
-// ------
-
 // ------
     NotSuccession::NotSuccession(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
         NotSuccession::initializeAutomaton();

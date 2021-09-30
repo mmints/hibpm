@@ -7,7 +7,6 @@ namespace hibpm
     }
 
     void ChainSuccession::initializeAutomaton() {
-
         // (0)---| a |--->(2)
         m_automaton.addTransition(0, 2, m_event_1.numericValue);
 
