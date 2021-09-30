@@ -15,14 +15,4 @@ namespace hibpm
     std::vector<u_int64_t> Binary::getEventNumericValues() {
         return {m_event_1.numericValue, m_event_2.numericValue};
     }
-
-// ------
-    NotCoExistence::NotCoExistence(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
-        NotCoExistence::initializeAutomaton();
-    }
-
-    void NotCoExistence::initializeAutomaton() {
-        // TODO: Impl
-    }
-// ------
 }

@@ -47,6 +47,7 @@ add_executable(declare_parser
         Process/Binary/ChainSuccession.cpp
         Process/Binary/NotChainSuccession.cpp
         Process/Binary/NotSuccession.cpp
+        Process/Binary/NotCoExistence.cpp
 
         ${BISON_DeclareParser_OUTPUTS}
         ${FLEX_DeclareScanner_OUTPUTS}
