@@ -6,6 +6,8 @@
 #include "Declare/Declare.hpp"  // Context Header
 #include "declare-parser.hpp"   // Parser Header
 
+#include "Process/Process.hpp"
+
 namespace hibpm
 {
     class Solver
@@ -17,6 +19,8 @@ namespace hibpm
          * @return Declare Object that represents the Data Structure of the language.
          */
         Declare parseFromFile(std::string path);
+
+        Process getProcess();
 
     private:
         std::string m_file; // This string holds the content of a Declare file

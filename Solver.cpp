@@ -40,4 +40,8 @@ namespace hibpm
         parse();
         return m_declare_ctx;
     }
+
+    Process Solver::getProcess() {
+        return Process(m_declare_ctx);
+    }
 }
