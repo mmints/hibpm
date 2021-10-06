@@ -1,7 +1,5 @@
 #include "Solver.h"
 
-// TODO: Move this out of the parser directory
-
 namespace yy
 {
     void declare::error(location const &loc, const std::string& s) {
