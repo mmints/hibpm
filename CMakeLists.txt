@@ -23,8 +23,8 @@ add_executable(declare_parser
         Solver.cpp
         Declare/Declare.cpp
         Automaton/Automaton.cpp
-        Process/Process.cpp
 
+        Process/Process.cpp
         Process/State.cpp
 
         Process/Unary.cpp
@@ -48,6 +48,8 @@ add_executable(declare_parser
         Process/Binary/NotChainSuccession.cpp
         Process/Binary/NotSuccession.cpp
         Process/Binary/NotCoExistence.cpp
+
+        Repair/RepairAutomata.cpp
 
         ${BISON_DeclareParser_OUTPUTS}
         ${FLEX_DeclareScanner_OUTPUTS}
