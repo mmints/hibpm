@@ -1,5 +1,7 @@
 #include "Process.hpp"
 
+#include <memory>
+
 namespace hibpm
 {
     Process::Process(hibpm::Declare &declare_kb) : m_declare_kb(declare_kb){
@@ -13,94 +15,113 @@ namespace hibpm
             {
                 // Unary
                 case PARTICIPATION: {
-                    auto *state = new Participation(rule, sigma_size);
+                    std::shared_ptr<Participation> state
+                            = std::make_shared<Participation>(rule, sigma_size);
                     m_states.push_back(state);
                     break;
                 }
                 case AT_MOST_ONE: {
-                    auto *state = new AtMostOne(rule, sigma_size);
+                    std::shared_ptr<AtMostOne> state
+                            = std::make_shared<AtMostOne>(rule, sigma_size);
+
                     m_states.push_back(state);
                     break;
                 }
                 case INIT: {
-                    auto *state = new Init(rule, sigma_size);
+                    std::shared_ptr<Init> state
+                            = std::make_shared<Init>(rule, sigma_size);
                     m_states.push_back(state);
                     break;
                 }
                 case END: {
-                    auto *state = new End(rule, sigma_size);
+                    std::shared_ptr<End> state
+                            = std::make_shared<End>(rule, sigma_size);
                     m_states.push_back(state);
                     break;
                 }
 
                     // Binary
                 case RESPONDED_EXISTENCE: {
-                    auto *state = new RespondedExistence(rule, sigma_size);
+                    std::shared_ptr<RespondedExistence> state
+                        = std::make_shared<RespondedExistence>(rule, sigma_size);
                     m_states.push_back(state);
                     break;
                 }
                 case RESPONSE: {
-                    auto *state = new Response(rule, sigma_size);
+                    std::shared_ptr<Response> state
+                            = std::make_shared<Response>(rule, sigma_size);
                     m_states.push_back(state);
                     break;
                 }
                 case ALTERNATED_RESPONSE: {
-                    auto *state = new AlternatedResponse(rule, sigma_size);
+                    std::shared_ptr<AlternatedResponse> state
+                            = std::make_shared<AlternatedResponse>(rule, sigma_size);
                     m_states.push_back(state);
                     break;
                 }
                 case CHAIN_RESPONSE: {
-                    auto *state = new ChainResponse(rule, sigma_size);
+                    std::shared_ptr<ChainResponse> state
+                            = std::make_shared<ChainResponse>(rule, sigma_size);
                     m_states.push_back(state);
                     break;
                 }
                 case PRECEDENCE: {
-                    auto *state = new Precedence(rule, sigma_size);
+                    std::shared_ptr<Precedence> state
+                            = std::make_shared<Precedence>(rule, sigma_size);
                     m_states.push_back(state);
                     break;
                 }
                 case ALTERNATED_PRECEDENCE: {
-                    auto *state = new AlternatedPrecedence(rule, sigma_size);
+                    std::shared_ptr<AlternatedPrecedence> state
+                            = std::make_shared<AlternatedPrecedence>(rule, sigma_size);
                     m_states.push_back(state);
                     break;
                 }
                 case CHAIN_PRECEDENCE: {
-                    auto *state = new ChainPrecedence(rule, sigma_size);
+                    std::shared_ptr<ChainPrecedence> state
+                            = std::make_shared<ChainPrecedence>(rule, sigma_size);
                     m_states.push_back(state);
                     break;
                 }
                 case CO_EXISTENCE: {
-                    auto *state = new CoExistence(rule, sigma_size);
+                    std::shared_ptr<CoExistence> state
+                            = std::make_shared<CoExistence>(rule, sigma_size);
                     m_states.push_back(state);
                     break;
                 }
                 case SUCCESSION: {
-                    auto *state = new Succession(rule, sigma_size);
+                    std::shared_ptr<Succession> state
+                            = std::make_shared<Succession>(rule, sigma_size);
                     m_states.push_back(state);
                     break;
                 }
                 case ALTERNATED_SUCCESSION: {
-                    auto *state = new AlternateSuccession(rule, sigma_size);
+                    std::shared_ptr<AlternateSuccession> state
+                            = std::make_shared<AlternateSuccession>(rule, sigma_size);
                     m_states.push_back(state);
                     break;
                 }
                 case CHAIN_SUCCESSION: {
-                    auto *state = new ChainSuccession(rule, sigma_size);
+                    std::shared_ptr<ChainSuccession> state
+                            = std::make_shared<ChainSuccession>(rule, sigma_size);
                     m_states.push_back(state);
                     break;
                 }
                 case NOT_CHAIN_SUCCESSION: {
-                    auto *state = new NotChainSuccession(rule, sigma_size);
+                    std::shared_ptr<NotChainSuccession> state
+                            = std::make_shared<NotChainSuccession>(rule, sigma_size);
                     m_states.push_back(state);
                     break;
                 }
                 case NOT_SUCCESSION: {
-                    auto *state = new NotSuccession(rule, sigma_size);
+                    std::shared_ptr<NotSuccession> state
+                            = std::make_shared<NotSuccession>(rule, sigma_size);
                     m_states.push_back(state);
                     break;
                 }
                 case NOT_CO_EXISTENCE: {
-                    auto *state = new NotCoExistence(rule, sigma_size);
+                    std::shared_ptr<NotCoExistence> state
+                            = std::make_shared<NotCoExistence>(rule, sigma_size);
                     m_states.push_back(state);
                     break;
                 }
@@ -108,7 +129,7 @@ namespace hibpm
         }
     }
 
-    std::vector<State*> Process::getStates() {
+    std::vector<std::shared_ptr<State>> Process::getStates() {
         return m_states;
     }
 }

@@ -14,11 +14,11 @@ namespace hibpm
     {
     public:
         explicit Process(Declare &declare_kb);
-        std::vector<State*> getStates();
+        std::vector<std::shared_ptr<State>> getStates();
 
     private:
         Declare m_declare_kb;
-        std::vector<State*> m_states;
+        std::vector<std::shared_ptr<State>> m_states;
 
         void createAllStates();
     };
