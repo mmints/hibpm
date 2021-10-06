@@ -13,95 +13,95 @@ namespace hibpm
             {
                 // Unary
                 case PARTICIPATION: {
-                    Participation state{rule, sigma_size};
-                    m_states.push_back(&state);
+                    auto *state = new Participation(rule, sigma_size);
+                    m_states.push_back(state);
                     break;
                 }
                 case AT_MOST_ONE: {
-                    AtMostOne state{rule, sigma_size};
-                    m_states.push_back(&state);
+                    auto *state = new AtMostOne(rule, sigma_size);
+                    m_states.push_back(state);
                     break;
                 }
                 case INIT: {
-                    Init state{rule, sigma_size};
-                    m_states.push_back(&state);
+                    auto *state = new Init(rule, sigma_size);
+                    m_states.push_back(state);
                     break;
                 }
                 case END: {
-                    End state{rule, sigma_size};
-                    m_states.push_back(&state);
+                    auto *state = new End(rule, sigma_size);
+                    m_states.push_back(state);
                     break;
                 }
 
                     // Binary
                 case RESPONDED_EXISTENCE: {
-                    RespondedExistence state{rule, sigma_size};
-                    m_states.push_back(&state);
+                    auto *state = new RespondedExistence(rule, sigma_size);
+                    m_states.push_back(state);
                     break;
                 }
                 case RESPONSE: {
-                    Response state{rule, sigma_size};
-                    m_states.push_back(&state);
+                    auto *state = new Response(rule, sigma_size);
+                    m_states.push_back(state);
                     break;
                 }
                 case ALTERNATED_RESPONSE: {
-                    AlternatedResponse state{rule, sigma_size};
-                    m_states.push_back(&state);
+                    auto *state = new AlternatedResponse(rule, sigma_size);
+                    m_states.push_back(state);
                     break;
                 }
                 case CHAIN_RESPONSE: {
-                    ChainResponse state{rule, sigma_size};
-                    m_states.push_back(&state);
+                    auto *state = new ChainResponse(rule, sigma_size);
+                    m_states.push_back(state);
                     break;
                 }
                 case PRECEDENCE: {
-                    Precedence state{rule, sigma_size};
-                    m_states.push_back(&state);
+                    auto *state = new Precedence(rule, sigma_size);
+                    m_states.push_back(state);
                     break;
                 }
                 case ALTERNATED_PRECEDENCE: {
-                    AlternatedPrecedence state{rule, sigma_size};
-                    m_states.push_back(&state);
+                    auto *state = new AlternatedPrecedence(rule, sigma_size);
+                    m_states.push_back(state);
                     break;
                 }
                 case CHAIN_PRECEDENCE: {
-                    ChainPrecedence state{rule, sigma_size};
-                    m_states.push_back(&state);
+                    auto *state = new ChainPrecedence(rule, sigma_size);
+                    m_states.push_back(state);
                     break;
                 }
                 case CO_EXISTENCE: {
-                    CoExistence state{rule, sigma_size};
-                    m_states.push_back(&state);
+                    auto *state = new CoExistence(rule, sigma_size);
+                    m_states.push_back(state);
                     break;
                 }
                 case SUCCESSION: {
-                    Succession state{rule, sigma_size};
-                    m_states.push_back(&state);
+                    auto *state = new Succession(rule, sigma_size);
+                    m_states.push_back(state);
                     break;
                 }
                 case ALTERNATED_SUCCESSION: {
-                    AlternateSuccession state{rule, sigma_size};
-                    m_states.push_back(&state);
+                    auto *state = new AlternateSuccession(rule, sigma_size);
+                    m_states.push_back(state);
                     break;
                 }
                 case CHAIN_SUCCESSION: {
-                    ChainSuccession state{rule, sigma_size};
-                    m_states.push_back(&state);
+                    auto *state = new ChainSuccession(rule, sigma_size);
+                    m_states.push_back(state);
                     break;
                 }
                 case NOT_CHAIN_SUCCESSION: {
-                    NotChainSuccession state{rule, sigma_size};
-                    m_states.push_back(&state);
+                    auto *state = new NotChainSuccession(rule, sigma_size);
+                    m_states.push_back(state);
                     break;
                 }
                 case NOT_SUCCESSION: {
-                    NotSuccession state{rule, sigma_size};
-                    m_states.push_back(&state);
+                    auto *state = new NotSuccession(rule, sigma_size);
+                    m_states.push_back(state);
                     break;
                 }
                 case NOT_CO_EXISTENCE: {
-                    NotCoExistence state{rule, sigma_size};
-                    m_states.push_back(&state);
+                    auto *state = new NotCoExistence(rule, sigma_size);
+                    m_states.push_back(state);
                     break;
                 }
             }

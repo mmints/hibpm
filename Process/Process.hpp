@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 #include "Automaton/Automaton.hpp"
 #include "Declare/Declare.hpp"
 #include "State.hpp"
@@ -16,7 +18,7 @@ namespace hibpm
 
     private:
         Declare m_declare_kb;
-        std::vector<State*> m_states {};
+        std::vector<State*> m_states;
 
         void createAllStates();
     };
