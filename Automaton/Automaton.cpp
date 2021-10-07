@@ -36,8 +36,9 @@ namespace hibpm {
 
         this->transitionsTo.at(stateFrom)[viaSymbol] = stateTo;
 
-        this->incoming.at(stateTo)[viaSymbol].push_back(stateFrom);
-
+        if (stateTo >= 0) {
+            this->incoming.at(stateTo)[viaSymbol].push_back(stateFrom);
+        }
     }
 
     void Automaton::addFinal(int state) {
@@ -53,7 +54,11 @@ namespace hibpm {
 
         if (this->transitionsTo.size() == 0) {
             cout << "empty automaton" << endl;
+            return;
         }
+
+        cout << "Sigma Size: " << this->sigSize << endl;
+        cout << "Number of States: " << this->numSt << endl;
 
         for (int i = 0; i < this->transitionsTo.size(); i++) {
 
@@ -63,12 +68,18 @@ namespace hibpm {
                 std::cout << this->transitionsTo.at(i)[j] << " | ";
 
             }
-            std::cout << "\n";
+            std::cout << "\n" << endl;
 
         }
     }
 
     Automaton Automaton::product(Automaton *a1, Automaton *a2) {
+        if (a1->numSt == 0) {
+            return *a1;
+        }
+        else if (a2->numSt == 0) {
+            return *a2;
+        }
 
         vector<vector<cellMat>> matrix(a1->numSt);
         //vector<vector<list<pair<int,int>>>> incoming(a1->numSt);
@@ -95,8 +106,8 @@ namespace hibpm {
 
             for (int a = 0; a < sigS; ++a) {
 
-                int sx = a1->transitionsTo.at(0).at(0);
-                int sy = a2->transitionsTo.at(0).at(0);
+                int sx = a1->transitionsTo.at(it->first).at(a);
+                int sy = a2->transitionsTo.at(it->second).at(a);
 
                 if (sx >= 0 && sy >= 0){
                     matrix.at(sx).at(sy).incoming.push_back(pair<int,int>(it->first, it->second));
@@ -152,12 +163,9 @@ namespace hibpm {
 
                 if (desA1 >= 0 && desA2 >= 0) {
                     resDest = matrix.at(desA1).at(desA2).mappedNum;
+                    res.addTransition(matrix.at(it->first).at(it->second).mappedNum, resDest, a);
                 }
-
-                res.addTransition(matrix.at(it->first).at(it->second).mappedNum,
-                                  resDest, a);
             }
-
         }
 
         for (list<pair<int, int>>::iterator it = finalCandidates.begin();
@@ -186,7 +194,11 @@ namespace hibpm {
         if (!this->finalStates.empty()) {
 
             if (this->finalStates.size() > 1 || !this->areFinalStates[0]) {
-                return false;
+                for (int i = 0; i < this->transitionsTo.at(0).size(); ++i) {
+                    if(this->transitionsTo.at(0).at(i) != -1)
+                        return false;
+                }
+                return true;
             } else {
                 return this->incoming.at(0).empty();
             }

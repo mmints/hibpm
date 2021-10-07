@@ -22,6 +22,8 @@ namespace hibpm
 
         Process getProcess();
 
+        Automaton overallProduct();
+
     private:
         std::string m_file; // This string holds the content of a Declare file
         Declare m_declare_ctx;
