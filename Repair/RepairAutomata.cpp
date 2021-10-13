@@ -36,4 +36,25 @@ namespace hibpm
 
         return res;
     }
+
+    Automaton RepairAutomata::maxRemainder(Process &process)
+    {
+        Automaton result;
+        Automaton auxProd;
+        Automaton a;
+
+        result = process.getStates().at(0)->getAutomata();
+        for (int i = 1; i < process.getStates().size(); i++)
+        {
+            // Debug Print
+            // std::cout << "Iteration: " << i << " - Automata Size: " << result.numSt << std::endl;
+            a = process.getStates().at(i)->getAutomata();
+
+            auxProd = a.product(&a, &result);
+            if(!auxProd.isEmptyMinusEmptyString()) {
+                result = auxProd;
+            }
+        }
+        return result;
+    }
 }

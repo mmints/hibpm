@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Automaton/Automaton.hpp"
+#include "Process/Process.hpp"
 
 namespace hibpm
 {
@@ -11,6 +12,7 @@ namespace hibpm
 
         list<Automaton> shrinkInc(list<Automaton> automata,
                                   list<Automaton> prevProds);
-    };
 
+        Automaton maxRemainder(Process &process);
+    };
 }
