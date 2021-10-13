@@ -3,7 +3,7 @@
 namespace hibpm
 {
     Unary::Unary(Rule &rule, size_t sigmaSize) :
-    State(rule, sigmaSize),
+    State(rule, sigmaSize, false),
     m_event(rule.events[0])
     {}
 

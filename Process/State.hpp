@@ -15,17 +15,19 @@ namespace hibpm
     class State
     {
     public:
-        State(Rule &rule, size_t sigmaSize);
+        State(Rule &rule, size_t sigmaSize, bool is_binary);
         virtual ~State() = default;
 
         Rule getRule();
         RuleType getRuleType();
         Automaton getAutomata();
+        bool isBinary();
 
     protected:
         Rule m_rule;
         size_t m_sigmaSize;
         Automaton m_automaton;
+        bool m_is_binary;
 
         virtual void initializeAutomaton() = 0;
     };

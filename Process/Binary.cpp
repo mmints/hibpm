@@ -3,7 +3,7 @@
 namespace hibpm
 {
     Binary::Binary(Rule &rule, size_t sigmaSize) :
-        State(rule, sigmaSize),
+        State(rule, sigmaSize, true),
         m_event_1(rule.events[0]),
         m_event_2(rule.events[1])
     {}
