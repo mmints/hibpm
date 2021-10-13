@@ -1,19 +1,16 @@
-//
-// Created by Jandson on 14.09.21.
-//
-
-#ifndef DECLARE_PARSER_REPAIRAUTOMATA_HPP
-#define DECLARE_PARSER_REPAIRAUTOMATA_HPP
+#pragma once
 
 #include "Automaton/Automaton.hpp"
-class RepairAutomata {
 
-public:
-    list<hibpm::Automaton> expand(list<hibpm::Automaton> automata);
-    list<hibpm::Automaton> shrinkInc(list<hibpm::Automaton> automata,
-                                     list<hibpm::Automaton> prevProds);
+namespace hibpm
+{
+    class RepairAutomata
+    {
+    public:
+        list<Automaton> expand(list<Automaton> automata);
 
-};
+        list<Automaton> shrinkInc(list<Automaton> automata,
+                                  list<Automaton> prevProds);
+    };
 
-
-#endif //DECLARE_PARSER_REPAIRAUTOMATA_HPP
+}
