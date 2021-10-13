@@ -1,7 +1,9 @@
 #pragma once
 
-#include "Automaton/Automaton.hpp"
+#include <vector>
+
 #include "Process/Process.hpp"
+#include "Automaton/Automaton.hpp"
 
 namespace hibpm
 {
@@ -15,7 +17,7 @@ namespace hibpm
 
         Automaton maxRemainder(Process &process);
 
-        void controlShrink();
+        std::vector<Automaton> controlShrink(Process& process);
 
         void controlExpand();
     };

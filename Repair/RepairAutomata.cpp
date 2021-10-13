@@ -53,4 +53,52 @@ namespace hibpm
         }
         return result;
     }
+
+    std::vector<Automaton> RepairAutomata::controlShrink(Process& process)
+    {
+        vector<shared_ptr<State>> states = process.getStates();
+        std::vector<int> S; // Symbols
+
+        // Get the first element
+        if (states[0]->isBinary()) { // Binary
+            S.push_back(states[0]->getRule().events[0].numericValue);
+            S.push_back(states[0]->getRule().events[1].numericValue);
+        }
+        else { // Unary
+            S.push_back(states[0]->getRule().events.at(0).numericValue);
+        }
+        Automaton rightProd = states[0]->getAutomata();
+        Automaton auxProd;
+        Automaton phi;
+
+        int i = states.size();
+        while (i > 1 && !rightProd.isEmptyMinusEmptyString()) // while i>1 AND L(rightProd)̸=∅
+        {
+            phi = states[i]->getAutomata();
+            auxProd = rightProd.product(&phi, &rightProd);
+
+            if (!auxProd.isEmptyMinusEmptyString()) {
+                if (states[i]->isBinary()) { // Binary
+                    S.push_back(states[i]->getRule().events[0].numericValue);
+                    S.push_back(states[i]->getRule().events[1].numericValue);
+                }
+                else { // Unary
+                    S.push_back(states[i]->getRule().events.at(0).numericValue);
+                }
+                rightProd = rightProd.product(&phi, &rightProd);
+            }
+            i--;
+        }
+
+        // Add the last element to S
+        if (!rightProd.isEmptyMinusEmptyString()) {
+            if (states[1]->isBinary()) { // Binary
+                S.push_back(states[1]->getRule().events[0].numericValue);
+                S.push_back(states[1]->getRule().events[1].numericValue);
+            }
+            else { // Unary
+                S.push_back(states[1]->getRule().events.at(0).numericValue);
+            }
+        }
+    }
 }
