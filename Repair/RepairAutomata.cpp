@@ -102,6 +102,7 @@ namespace hibpm
 
         for (int i = 1; i < states.size(); i++)
         {
+            std::cout << "Running: " << i << std::endl;
             phiAutomata = states[i]->getAutomata();
             auxProd = productAccumulator.product(&productAccumulator, &phiAutomata);
             if (!auxProd.isEmptyMinusEmptyString())
@@ -111,6 +112,7 @@ namespace hibpm
                 productAccumulator = auxProd;
             }
             else {
+                std::cout << "Setting the Kernel" << std::endl;
                 tempKernel = controlShrink(remainderComposition.solutionSet,
                                            states[i],
                                            products);
