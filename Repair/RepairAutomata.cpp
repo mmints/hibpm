@@ -54,26 +54,27 @@ namespace hibpm
         return result;
     }
 
-    std::list<shared_ptr<State>> RepairAutomata::controlShrink(Process& process)
+    std::list<shared_ptr<State>> RepairAutomata::controlShrink(vector<shared_ptr<State>> &states,
+                                                               shared_ptr<State> alpha,
+                                                               vector<Automaton> &products)
     {
-        vector<shared_ptr<State>> states = process.getStates();
         list<shared_ptr<State>> solution; // Symbols
 
         // Assign first formula to S and
-        solution.push_back(states[0]);
-        Automaton rightProd = states[0]->getAutomata();
+        solution.push_back(alpha);
+        Automaton rightProd = alpha->getAutomata();
 
         Automaton auxProd;
         Automaton phi;
 
-        int i = states.size();
-        while (i > 1 && !rightProd.isEmptyMinusEmptyString()) // while i>1 AND L(rightProd)̸=∅
+        int i = states.size() - 1;
+        while (i > 0 && !rightProd.isEmptyMinusEmptyString()) // while i>1 AND L(rightProd)̸=∅
         {
-            phi = states[i]->getAutomata();
-            auxProd = rightProd.product(&phi, &rightProd);
+            auxProd = rightProd.product(&products[i-1], &rightProd);
 
             if (!auxProd.isEmptyMinusEmptyString()) {
                 solution.push_back(states[i]);
+                phi = states[i]->getAutomata();
                 rightProd = rightProd.product(&phi, &rightProd);
             }
             i--;
@@ -83,14 +84,40 @@ namespace hibpm
         if (!rightProd.isEmptyMinusEmptyString()) {
             solution.push_back(states[0]);
         }
-
         return solution;
     }
 
-    void RepairAutomata::controlExpand()
+    RemainderComposition RepairAutomata::controlExpand(Process& process)
     {
-        std::vector<Automaton> Hs;
-        std::vector<Automaton> kernels;
+        vector<shared_ptr<State>> states = process.getStates();
+        RemainderComposition remainderComposition;
+        vector<Automaton> products; // TODO: change to list (also in the controlShrink)
 
+        Automaton auxProd;
+        Automaton phiAutomata;
+        list<shared_ptr<State>> tempKernel; // C in Algo 7
+
+        products.push_back(states[0]->getAutomata());
+        Automaton productAccumulator = states[0]->getAutomata();
+
+        for (int i = 1; i < states.size(); i++)
+        {
+            phiAutomata = states[i]->getAutomata();
+            auxProd = productAccumulator.product(&productAccumulator, &phiAutomata);
+            if (!auxProd.isEmptyMinusEmptyString())
+            {
+                remainderComposition.solutionSet.push_back(states[i]);
+                products.push_back(auxProd);
+                productAccumulator = auxProd;
+            }
+            else {
+                tempKernel = controlShrink(remainderComposition.solutionSet,
+                                           states[i],
+                                           products);
+                remainderComposition.kernelSet.push_back(tempKernel);
+                remainderComposition.hittingSet.push_back(states[i]);
+            }
+        }
+        return remainderComposition;
     }
 }
