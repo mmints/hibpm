@@ -22,7 +22,7 @@ namespace hibpm
 
         Process getProcess();
 
-        Automaton overallProduct();
+        Automaton overallProduct(Process& process);
 
     private:
         std::string m_file; // This string holds the content of a Declare file

@@ -45,23 +45,19 @@ namespace hibpm
         return Process(m_declare_ctx);;
     }
 
-    Automaton Solver::overallProduct() { // TODO -> Move to Automata Repair (MaxRemainder)
+    Automaton Solver::overallProduct(Process& process) { // TODO -> Move to Automata Repair (MaxRemainder)
 
         Automaton result;
-        Automaton auxProd;
         Automaton a;
-        Process process(m_declare_ctx);
 
-        result = process.getStates().at(0)->getAutomata();
+        result = process.getStates().at(0)->getAutomata(); // Get the first product
         for (int i = 1; i < process.getStates().size(); i++)
         {
-            std::cout << "Iteration: " << i << " - Automata Size: " << result.numSt << std::endl;
+            // Debug Print
+            // std::cout << "Iteration: " << i << " - Automata Size: " << result.numSt << std::endl;
             a = process.getStates().at(i)->getAutomata();
 
-            auxProd = a.product(&a, &result);
-            if(!auxProd.isEmptyMinusEmptyString()) {
-                result = auxProd;
-            }
+            result = a.product(&a, &result);
         }
         return result;
     }

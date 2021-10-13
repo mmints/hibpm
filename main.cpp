@@ -12,7 +12,7 @@ int main(int argc, char** argv)
     Automaton b = process.getStates().at(1)->getAutomata(); // NotChainSuccession('O_Sent', 'W_Callincompletefiles')
 
     std::cout << "Start Product" << std::endl;
-    Automaton c = solver.overallProduct();
+    Automaton c = solver.overallProduct(process);
     std::cout << "Done!" << std::endl;
 
     c.print();
