@@ -54,7 +54,7 @@ namespace hibpm
         return result;
     }
 
-    std::vector<Automaton> RepairAutomata::controlShrink(Process& process)
+    std::vector<int> RepairAutomata::controlShrink(Process& process)
     {
         vector<shared_ptr<State>> states = process.getStates();
         std::vector<int> S; // Symbols
@@ -100,5 +100,6 @@ namespace hibpm
                 S.push_back(states[1]->getRule().events.at(0).numericValue);
             }
         }
+        return S;
     }
 }

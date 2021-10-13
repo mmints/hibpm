@@ -17,7 +17,7 @@ namespace hibpm
 
         Automaton maxRemainder(Process &process);
 
-        std::vector<Automaton> controlShrink(Process& process);
+        std::vector<int> controlShrink(Process& process);
 
         void controlExpand();
     };
