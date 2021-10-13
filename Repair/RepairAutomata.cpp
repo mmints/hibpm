@@ -97,6 +97,7 @@ namespace hibpm
         Automaton phiAutomata;
         list<shared_ptr<State>> tempKernel; // C in Algo 7
 
+        remainderComposition.solutionSet.push_back(states[0]);
         products.push_back(states[0]->getAutomata());
         Automaton productAccumulator = states[0]->getAutomata();
 
