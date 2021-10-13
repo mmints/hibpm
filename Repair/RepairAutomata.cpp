@@ -12,16 +12,12 @@ namespace hibpm
         Automaton prod = (*itA);
 
         for (++itA ; itA != automata.end(); itA++ ) {
-
             Automaton stepProd = prod.product(&prod,&(*itA));
             if (!stepProd.isEmptyMinusEmptyString()){
                 prod = stepProd;
                 res.push_back(*itA);
             }
-
         }
-
-
         return res;
 
     }

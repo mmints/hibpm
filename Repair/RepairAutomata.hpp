@@ -14,5 +14,9 @@ namespace hibpm
                                   list<Automaton> prevProds);
 
         Automaton maxRemainder(Process &process);
+
+        void controlShrink();
+
+        void controlExpand();
     };
 }
