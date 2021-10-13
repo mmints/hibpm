@@ -11,7 +11,7 @@ namespace hibpm
     {
         list<shared_ptr<State>> hittingSet;
         list<list<shared_ptr<State>>> kernelSet;
-        vector<shared_ptr<State>> solutionSet; // TODO: Change to list
+        list<shared_ptr<State>> solutionSet; // TODO: Change to list
     };
 
     class RepairAutomata
@@ -24,7 +24,7 @@ namespace hibpm
 
         Automaton maxRemainder(Process &process);
 
-        list<shared_ptr<State>> controlShrink(vector<shared_ptr<State>> &states, shared_ptr<State> alpha, vector<Automaton> &products);
+        list<shared_ptr<State>> controlShrink(list<shared_ptr<State>> &states, shared_ptr<State> alpha, list<Automaton> &products);
 
         RemainderComposition controlExpand(Process& process);
     };

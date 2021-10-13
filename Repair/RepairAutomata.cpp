@@ -54,9 +54,9 @@ namespace hibpm
         return result;
     }
 
-    std::list<shared_ptr<State>> RepairAutomata::controlShrink(vector<shared_ptr<State>> &states,
+    std::list<shared_ptr<State>> RepairAutomata::controlShrink(list<shared_ptr<State>> &states,
                                                                shared_ptr<State> alpha,
-                                                               vector<Automaton> &products)
+                                                               list<Automaton> &products)
     {
         list<shared_ptr<State>> solution; // Symbols
 
@@ -67,22 +67,34 @@ namespace hibpm
         Automaton auxProd;
         Automaton phi;
 
-        int i = states.size() - 1;
-        while (i > 0 && !rightProd.isEmptyMinusEmptyString()) // while i>1 AND L(rightProd)̸=∅
+        list<Automaton>::reverse_iterator  itProd = products.rbegin();
+        list<shared_ptr<State>>::reverse_iterator itStates = states.rbegin(), itRendP = states.rend();
+
+        itRendP++;
+
+        //int i = states.size() - 1;
+
+        while(itStates != itRendP && !rightProd.isEmptyMinusEmptyString())
+        //while (i > 0 && !rightProd.isEmptyMinusEmptyString()) // while i>1 AND L(rightProd)̸=∅
         {
-            auxProd = rightProd.product(&products[i-1], &rightProd);
+            list<Automaton>::reverse_iterator itProdPrev = itProd;
+            itProd--;
+            //auxProd = rightProd.product(&products[i-1], &rightProd);
+            auxProd = rightProd.product(&(*itProdPrev), &rightProd);
 
             if (!auxProd.isEmptyMinusEmptyString()) {
-                solution.push_back(states[i]);
-                phi = states[i]->getAutomata();
+                //solution.push_back(states[i]);
+                solution.push_back((*itStates));
+                phi = (*itStates)->getAutomata();
                 rightProd = rightProd.product(&phi, &rightProd);
             }
-            i--;
+            //i--;
+            itStates--;
         }
 
         // Add the last element to S
         if (!rightProd.isEmptyMinusEmptyString()) {
-            solution.push_back(states[0]);
+            solution.push_back(states.front());
         }
         return solution;
     }
@@ -91,7 +103,7 @@ namespace hibpm
     {
         vector<shared_ptr<State>> states = process.getStates();
         RemainderComposition remainderComposition;
-        vector<Automaton> products; // TODO: change to list (also in the controlShrink)
+        list<Automaton> products; // TODO: change to list (also in the controlShrink)
 
         Automaton auxProd;
         Automaton phiAutomata;
