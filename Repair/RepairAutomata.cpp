@@ -54,20 +54,15 @@ namespace hibpm
         return result;
     }
 
-    std::vector<int> RepairAutomata::controlShrink(Process& process)
+    std::list<shared_ptr<State>> RepairAutomata::controlShrink(Process& process)
     {
         vector<shared_ptr<State>> states = process.getStates();
-        std::vector<int> S; // Symbols
+        list<shared_ptr<State>> solution; // Symbols
 
-        // Get the first element
-        if (states[0]->isBinary()) { // Binary
-            S.push_back(states[0]->getRule().events[0].numericValue);
-            S.push_back(states[0]->getRule().events[1].numericValue);
-        }
-        else { // Unary
-            S.push_back(states[0]->getRule().events.at(0).numericValue);
-        }
+        // Assign first formula to S and
+        solution.push_back(states[0]);
         Automaton rightProd = states[0]->getAutomata();
+
         Automaton auxProd;
         Automaton phi;
 
@@ -78,13 +73,7 @@ namespace hibpm
             auxProd = rightProd.product(&phi, &rightProd);
 
             if (!auxProd.isEmptyMinusEmptyString()) {
-                if (states[i]->isBinary()) { // Binary
-                    S.push_back(states[i]->getRule().events[0].numericValue);
-                    S.push_back(states[i]->getRule().events[1].numericValue);
-                }
-                else { // Unary
-                    S.push_back(states[i]->getRule().events.at(0).numericValue);
-                }
+                solution.push_back(states[i]);
                 rightProd = rightProd.product(&phi, &rightProd);
             }
             i--;
@@ -92,14 +81,16 @@ namespace hibpm
 
         // Add the last element to S
         if (!rightProd.isEmptyMinusEmptyString()) {
-            if (states[1]->isBinary()) { // Binary
-                S.push_back(states[1]->getRule().events[0].numericValue);
-                S.push_back(states[1]->getRule().events[1].numericValue);
-            }
-            else { // Unary
-                S.push_back(states[1]->getRule().events.at(0).numericValue);
-            }
+            solution.push_back(states[0]);
         }
-        return S;
+
+        return solution;
+    }
+
+    void RepairAutomata::controlExpand()
+    {
+        std::vector<Automaton> Hs;
+        std::vector<Automaton> kernels;
+
     }
 }
