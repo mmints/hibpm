@@ -116,7 +116,10 @@ namespace hibpm
         for (int i = 1; i < states.size(); i++)
         {
             std::cout << "Running: " << i << std::endl;
+            std::cout << "Size Automaton " << productAccumulator.numSt << std::endl;
+            std::cout << "Num Finals " << productAccumulator.finalStates.size() << std::endl;
             phiAutomata = states[i]->getAutomata();
+            //productAccumulator = *productAccumulator.reduceHopcrof();
             auxProd = productAccumulator.product(&productAccumulator, &phiAutomata);
             if (!auxProd.isEmptyMinusEmptyString())
             {

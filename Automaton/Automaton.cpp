@@ -112,12 +112,16 @@ namespace hibpm {
                 if (sx >= 0 && sy >= 0){
                     matrix.at(sx).at(sy).incoming.push_back(pair<int,int>(it->first, it->second));
                     //incoming.at(sx).at(sy).
+                    //std::cout << matrix.at(sx).at(sy).incoming.size() << std::endl;
+                    //std::cout << it->first << ":" << it->second << std::endl;
+                    //std::cout << ">>>>>> " << sx << ":" << sy << std::endl;
+                    if (!matrix.at(sx).at(sy).stacked) {
+                        matrix.at(sx).at(sy).stacked = true;
+                        visitedStack.push_back(pair<int, int>(sx, sy));
+                    }
                 }
 
-                if (sx >= 0 && sy >= 0 && !matrix.at(sx).at(sy).stacked) {
-                    matrix.at(sx).at(sy).stacked = true;
-                    visitedStack.push_back(pair<int, int>(sx, sy));
-                }
+
 
             }
 
@@ -125,18 +129,23 @@ namespace hibpm {
 
         //removing useless states (that is, those who do not reach final states)
 
-        list<pair<int,int>> usefullStates = this->removeUselessStates(finalCandidates,matrix);
+        visitedStack = this->removeUselessStates(finalCandidates,matrix);
 
-        for (list<pair<int,int>>::iterator it = visitedStack.begin(); it != visitedStack.end(); it++){
-            if (!this->isIn(*it,usefullStates)){
-                matrix.at(it->first).at(it->second).stacked = false;
-                visitedStack.erase(it);
-            }
-        }
+
+//        list<pair<int,int>> usefullStates = this->removeUselessStates(finalCandidates,matrix);
+//
+//        for (list<pair<int,int>>::iterator it = visitedStack.begin(); it != visitedStack.end(); it++){
+//            if (!this->isIn(*it,usefullStates)){
+//                matrix.at(it->first).at(it->second).stacked = false;
+//                visitedStack.erase(it);
+//            }
+//        }
 
         //encoding to generate new automata prod
 
         int lastN = 0;
+
+        //std::cout << visitedStack.front().first << ", " << visitedStack.front().second << std::endl;
 
         for (list<pair<int, int>>::iterator it = visitedStack.begin();
              it != visitedStack.end(); it++) {
@@ -215,16 +224,25 @@ namespace hibpm {
 
         for (list<pair<int,int>>::iterator it = res.begin() ; it != res.end(); it++) {
             usefullMat.at(it->first).at(it->second) = true;
+            //std::cout << "finals :" << it->first << "," << it->second << std::endl;
         }
 
         for (list<pair<int,int>>::iterator it = res.begin() ; it != res.end(); it++) {
 
+
+            //std::cout << "incoming of " << it->first << "," << it->second << std::endl;
             //usefullMat.at(it->first).at(it->second) = true;
             for ( list<pair<int,int>>::iterator itin = matRef.at(it->first).at(it->second).incoming.begin();
                         itin != matRef.at(it->first).at(it->second).incoming.end(); itin++) {
 
+                //std::cout << itin->first << "," << itin->second << std::endl;
+
                 if (!usefullMat.at(itin->first).at(itin->second)){
-                    res.push_back(pair<int,int>(it->first, it->second));
+                    if (itin->first == 0 && itin->second == 0){
+                        res.push_front(pair<int,int>(itin->first, itin->second));
+                    }else{
+                        res.push_back(pair<int,int>(itin->first, itin->second));
+                    }
                     usefullMat.at(itin->first).at(itin->second) = true;
                 }
 
@@ -232,6 +250,8 @@ namespace hibpm {
 
 
         }
+
+       // std::cout << "------- front ---- (" << res.front().first << " , " << res.front().second << ")" << std::endl;
 
         return res;
 

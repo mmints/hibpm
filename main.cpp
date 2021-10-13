@@ -6,7 +6,7 @@ using namespace hibpm;
 int main(int argc, char** argv)
 {
     Solver solver;
-    solver.parseFromFile("../Resources/minimalExample.txt");
+    solver.parseFromFile("../Resources/ruleBaseMod.txt");
     Process process = solver.getProcess();
     RepairAutomata repair;
 
@@ -21,17 +21,17 @@ int main(int argc, char** argv)
     std::cout << "Hitting Set Size: " << result.hittingSet.size() << std::endl;
     std::cout << "Kernel Set Size: " << result.kernelSet.size() << std::endl;
 
-    std::cout << "Rules: " << std::endl;
-    for (auto &a: result.solutionSet)
-    {
-        std::cout << a->getRule().type << ": " << std::endl;
-        if (a->isBinary()) {
-            std::cout << "\t Events: " << a->getRule().events[0].name << ", " << a->getRule().events[1].name << std::endl;
-        }
-        else {
-            std::cout << "\t Event: " << a->getRule().events[0].name << std::endl;
-        }
-    }
+//    std::cout << "Rules: " << std::endl;
+//    for (auto &a: result.solutionSet)
+//    {
+//        std::cout << a->getRule().type << ": " << std::endl;
+//        if (a->isBinary()) {
+//            std::cout << "\t Events: " << a->getRule().events[0].name << ", " << a->getRule().events[1].name << std::endl;
+//        }
+//        else {
+//            std::cout << "\t Event: " << a->getRule().events[0].name << std::endl;
+//        }
+//    }
 
     return 0;
 }

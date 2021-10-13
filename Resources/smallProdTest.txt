@@ -1,0 +1,2 @@
+AlternatePrecedence('W_Callafteroffers','A_Cancelled')
+NotChainSuccession('A_Accepted', 'A_Validating')
