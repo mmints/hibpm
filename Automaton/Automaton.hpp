@@ -5,6 +5,7 @@
 #include <vector>
 #include <list>
 #include <set>
+#include <algorithm>
 
 using namespace std;
 
@@ -78,7 +79,8 @@ public:
     Automaton() = default;
     Automaton(int numStates, int sigmaSize);
     Automaton(int numStates, int sigmaSize, list<int> &finals);
-    
+
+    void interComlement(set<int> A, set<int>B, set<int> &complement, set<int> &intersect);
     void addTransition(int stateFrom, int stateTo, int viaSymbol);
     void addFinal(int state);
     
@@ -88,7 +90,8 @@ public:
     
     Automaton product(Automaton *a1, Automaton *a2);
     
-    Automaton* reduceHopcrof();
+    Automaton reduceHopcrof();
+    Automaton reduceHopcrofHard();
     bool isEmptyMinusEmptyString();
     list<pair<int,int>> removeUselessStates(list<pair<int,int>> &finalStates, vector<vector<cellMat>> &matRef);
         

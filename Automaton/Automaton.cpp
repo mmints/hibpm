@@ -257,11 +257,176 @@ namespace hibpm {
 
     }
 
-    Automaton *Automaton::reduceHopcrof() {
+    void Automaton::interComlement(set<int> A, set<int>B, set<int> &complement, set<int> &intersect){
+
+        for (int x : A) {
+            if (B.find(x) != B.end()){
+                intersect.insert(x);
+            }else{
+                complement.insert(x);
+            }
+
+        }
+
+    }
+
+
+    Automaton Automaton::reduceHopcrofHard() {
+
+        struct hopStruct{
+            unsigned int id;
+            set<int> elements;
+            hopStruct(unsigned int x, list<int> elementsY ){
+                id = x;
+                elements.insert(elementsY.begin(), elementsY.end());
+            }
+            hopStruct(unsigned int x, set<int> elementsY ){
+                id = x;
+                elements.insert(elementsY.begin(), elementsY.end());
+            }
+            hopStruct(unsigned int x){
+                id = x;
+            }
+        };
+
+        if (this->finalStates.size() == 0){
+            return Automaton(1,this->sigSize);
+        }
+
+
+        list<hopStruct> partSet, wSet;
+        vector<int> equivClassIds(this->numSt);
+
+        hopStruct hopNonFinals(1);
+        hopStruct hopFinals(0,this->finalStates);
+
+        for (int i = 0; i < this->numSt; ++i) {
+            if (!this->areFinalStates[i]){
+                hopNonFinals.elements.insert(i);
+                //equivClassIds[i] = 1; //non-Final ID class
+            }
+//            else{
+//                equivClassIds[i] = 0; //final ID classes
+//            }
+
+        }
+
+        partSet.push_back(hopFinals);
+        wSet.push_back(hopFinals);
+
+
+        if (!hopNonFinals.elements.empty()){
+            partSet.push_back(hopNonFinals);
+        }
+
+        while (!wSet.empty()){
+            hopStruct setA = wSet.front();
+            wSet.pop_front();
+
+            for (int a = 0; a < this->sigSize; ++a) {
+                set<int> incidence;
+                for(int x: setA.elements){
+                    incidence.insert(this->incoming[x][a].begin(),this->incoming[x][a].end());
+                }
+
+                for (list<hopStruct>::iterator itP = partSet.begin(); itP != partSet.end(); ){
+                    set<int> intersect, complement;
+
+                    bool removed = false;
+                    this->interComlement(itP->elements,incidence, complement, intersect);
+
+                    if(!intersect.empty() && !complement.empty()){
+                        bool inW = false;
+                        hopStruct inY(itP->id,intersect), cY(partSet.size(),complement);
+
+                        for (list<hopStruct>::iterator itW = wSet.begin() ; itW != wSet.end() ; itW++) {
+                            if (itW->id == itP->id){
+                                inW = true;
+                                wSet.erase(itW);
+                                wSet.push_back(inY);
+                                wSet.push_back(cY);
+                                break;
+                            }
+                        }
+                        list<hopStruct>::iterator itAux = itP;
+                        itP++;
+                        removed = true;
+                        partSet.erase(itAux);
+                        partSet.push_back(inY);
+                        partSet.push_back(cY);
+                        if (!inW){
+                            if (inY.elements.size() <= cY.elements.size()){
+                                wSet.push_back(inY);
+                            }else{
+                                wSet.push_back(cY);
+                            }
+
+                        }
+
+                    }
+                    if (!removed){
+                        itP++;
+                    }
+
+                }
+
+            }
+
+        }
+
+
+//        for (list<hopStruct>::iterator it = partSet.begin() ; it != partSet.end() ; it++) {
+//            if(it->elements.find(0) != it->elements.end()){
+//                hopStruct hop = *it;
+//                partSet.push_front(hop);
+//                partSet.erase(it);
+//                break;
+//            }
+//        }
+
+        // start enconding
+
+        int count = 1;
+        for (list<hopStruct>::iterator it = partSet.begin() ; it != partSet.end() ; it++) {
+            if (it->elements.find(0) != it->elements.end()){
+                it->id = 0;
+                for (int x : it->elements) {
+                    equivClassIds[x] = 0;
+                }
+            }else{
+                it->id = count;
+                for (int x : it->elements) {
+                    equivClassIds[x] = count;
+                }
+                count++;
+            }
+        }
+
+        Automaton reducedAut = Automaton(partSet.size(), this->sigSize);
+
+        for (hopStruct eq: partSet) {
+
+            for (int a = 0; a < this->sigSize; ++a) {
+                int equivState = *(eq.elements.begin());
+                int targetTrans = this->transitionsTo.at(equivState).at(a);
+                int equivTarget = (targetTrans==-1)?-1:equivClassIds.at(targetTrans);
+                reducedAut.addTransition(eq.id, equivTarget, a);
+                if(equivState != -1 && this->areFinalStates.at(equivState) ){
+                    reducedAut.addFinal(eq.id);
+                }
+            }
+
+        }
+
+
+    return reducedAut;
+    }
+
+    Automaton Automaton::reduceHopcrof() {
 
         struct equivClass{
             unsigned int id = 0;
-            set<int> elements;
+            list<int> elements;
             equivClass(unsigned int nId){
                 this->id = nId;
             }
@@ -271,7 +436,7 @@ namespace hibpm {
         vector<int> equivClassIds(this->numSt);
 
         if (this->finalStates.size() == 0){
-            return this;
+            return *this;
         }
 
         int finalId = (this->areFinalStates.at(0))?0:1;
@@ -282,10 +447,10 @@ namespace hibpm {
 
         for (int i = 0; i < this->numSt; ++i) {
             if(this->areFinalStates.at(i)){
-                equivClasses.front().elements.insert(i);
+                equivClasses.front().elements.push_back(i);
                 equivClassIds.at(i) = finalId;
             }else{
-                equivClasses.back().elements.insert(i);
+                equivClasses.back().elements.push_back(i);
                 equivClassIds.at(i) = 1-finalId;
             }
         }
@@ -298,12 +463,14 @@ namespace hibpm {
 
         for (list<equivClass>::iterator it = equivClasses.begin() ; it != equivClasses.end() ; it++) {
 
-            set<int>::iterator itS = it->elements.begin();
+            list<int>::iterator itS = it->elements.begin();
             int x = *itS;
             //itS++;
             equivClass auxEquivClass(equivClasses.size());
 
-            for (itS++ ; itS != it->elements.end(); itS++) {
+            for (++itS ; itS != it->elements.end(); ) {
+
+                bool itsModified = false;
 
                 for (int a = 0; a < this->sigSize; ++a) {
                     int stateFirstTo = transitionsTo.at(x).at(a);
@@ -311,18 +478,38 @@ namespace hibpm {
 
                     if(stateFirstTo != stateSecondTo){//id different then we check, if equal then same equiv for now
                         if (stateFirstTo == -1 || stateSecondTo == -1){//the we should separate
-                            auxEquivClass.elements.insert(*itS);
-                            it->elements.erase(itS);
+                            auxEquivClass.elements.push_back(*itS);
+                            //it->elements.erase(itS);
                             equivClassIds.at(*itS) = auxEquivClass.id;
+                            list<int>::iterator itAux = itS;
+                            itS++;
+                            //int sizeS = it->elements.size();
+                            it->elements.erase(itAux);
+//                            if (sizeS <= it->elements.size()){
+//                                std::cout << "########## Problem here" << std::endl;
+//                            }
+                            itsModified = true;
                             break;
                         }else if(equivClassIds.at(stateFirstTo) != equivClassIds.at(stateSecondTo)){
-                            auxEquivClass.elements.insert(*itS);
-                            it->elements.erase(itS);
+                            auxEquivClass.elements.push_back(*itS);
                             equivClassIds.at(*itS) = auxEquivClass.id;
+                            list<int>::iterator itAux = itS;
+                            itS++;
+                            //int sizeS = it->elements.size();
+                            it->elements.erase(itAux);
+//                            if (sizeS <= it->elements.size()){
+//                                std::cout << "########## Problem here" << std::endl;
+//                            }
+                            itsModified = true;
+                            //it->elements.erase(itS);
                             break;
                         }
                     }
 
+                }
+
+                if (!itsModified){
+                    itS++;
                 }
 
             }
@@ -331,19 +518,26 @@ namespace hibpm {
                 equivClasses.push_back(auxEquivClass);
             }
 
+           // std::cout << it->id << std::endl;
+
         }
 
         if (equivClasses.size() == this->numSt){
-            return this;
+            return *this;
         }
 
-        Automaton *reducedAut = new Automaton(equivClasses.size(), this->sigSize);
+        Automaton reducedAut = Automaton(equivClasses.size(), this->sigSize);
 
         for (equivClass eq: equivClasses) {
 
             for (int a = 0; a < this->sigSize; ++a) {
-                int equivState = *eq.elements.begin();
-                reducedAut->addTransition(eq.id, this->transitionsTo.at(equivState).at(a), a);
+                int equivState = *(eq.elements.begin());
+                int targetTrans = this->transitionsTo.at(equivState).at(a);
+                int equivTarget = (targetTrans==-1)?-1:equivClassIds.at(targetTrans);
+                reducedAut.addTransition(eq.id, equivTarget, a);
+                if(equivState != -1 && this->areFinalStates.at(equivState) ){
+                    reducedAut.addFinal(eq.id);
+                }
             }
 
         }

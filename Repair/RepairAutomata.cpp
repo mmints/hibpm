@@ -112,14 +112,21 @@ namespace hibpm
         remainderComposition.solutionSet.push_back(states[0]);
         products.push_back(states[0]->getAutomata());
         Automaton productAccumulator = states[0]->getAutomata();
+        int reduceCount = 1;
 
-        for (int i = 1; i < states.size(); i++)
+        for (int i = 1; i < states.size(); i++, reduceCount++)
         {
             std::cout << "Running: " << i << std::endl;
             std::cout << "Size Automaton " << productAccumulator.numSt << std::endl;
             std::cout << "Num Finals " << productAccumulator.finalStates.size() << std::endl;
             phiAutomata = states[i]->getAutomata();
-            //productAccumulator = *productAccumulator.reduceHopcrof();
+            if (reduceCount >=10){
+                std::cout << "-- Reducing ---- Running: " << i << std::endl;
+                productAccumulator = productAccumulator.reduceHopcrofHard();
+                std::cout << "------- Reduced: Size Automaton " << productAccumulator.numSt << std::endl;
+                std::cout << "------- Reduced: Num Finals " << productAccumulator.finalStates.size() << std::endl;
+                reduceCount = 0;
+            }
             auxProd = productAccumulator.product(&productAccumulator, &phiAutomata);
             if (!auxProd.isEmptyMinusEmptyString())
             {
