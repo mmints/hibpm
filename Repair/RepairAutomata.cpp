@@ -120,9 +120,9 @@ namespace hibpm
             std::cout << "Size Automaton " << productAccumulator.numSt << std::endl;
             std::cout << "Num Finals " << productAccumulator.finalStates.size() << std::endl;
             phiAutomata = states[i]->getAutomata();
-            if (reduceCount >=10){
+            if (reduceCount >=50){
                 std::cout << "-- Reducing ---- Running: " << i << std::endl;
-                productAccumulator = productAccumulator.reduceHopcrofHard();
+                productAccumulator = productAccumulator.reduceHopcrof();
                 std::cout << "------- Reduced: Size Automaton " << productAccumulator.numSt << std::endl;
                 std::cout << "------- Reduced: Num Finals " << productAccumulator.finalStates.size() << std::endl;
                 reduceCount = 0;
@@ -135,7 +135,7 @@ namespace hibpm
                 productAccumulator = auxProd;
             }
             else {
-                std::cout << "Setting the Kernel" << std::endl;
+                std::cout << ">>>>>>>>>> Setting the Kernel" << std::endl;
                 tempKernel = controlShrink(remainderComposition.solutionSet,
                                            states[i],
                                            products);
