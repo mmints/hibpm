@@ -94,8 +94,10 @@ public:
     Automaton reduceHopcrofHard();
     bool isEmptyMinusEmptyString();
     list<pair<int,int>> removeUselessStates(list<pair<int,int>> &finalStates, vector<vector<cellMat>> &matRef);
+    bool lazyProducts(list<Automaton> automata);
         
     Automaton full_product(Automaton &a1, Automaton &a2);
+    bool isInList(list<int> lists, int x);
     
 private:
     
