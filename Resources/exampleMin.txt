@@ -1,3 +1,4 @@
+Participation('a')
 Init('a')
 AtMostOne('a')
 End('a')

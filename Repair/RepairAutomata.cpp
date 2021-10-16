@@ -120,13 +120,13 @@ namespace hibpm
             std::cout << "Size Automaton " << productAccumulator.numSt << std::endl;
             std::cout << "Num Finals " << productAccumulator.finalStates.size() << std::endl;
             phiAutomata = states[i]->getAutomata();
-            if (reduceCount >=50){
-                std::cout << "-- Reducing ---- Running: " << i << std::endl;
-                productAccumulator = productAccumulator.reduceHopcrof();
-                std::cout << "------- Reduced: Size Automaton " << productAccumulator.numSt << std::endl;
-                std::cout << "------- Reduced: Num Finals " << productAccumulator.finalStates.size() << std::endl;
-                reduceCount = 0;
-            }
+ //           if (reduceCount >=50){
+//                std::cout << "-- Reducing ---- Running: " << i << std::endl;
+//                productAccumulator = productAccumulator.reduceHopcrof();
+//                std::cout << "------- Reduced: Size Automaton " << productAccumulator.numSt << std::endl;
+//                std::cout << "------- Reduced: Num Finals " << productAccumulator.finalStates.size() << std::endl;
+//                reduceCount = 0;
+  //          }
             auxProd = productAccumulator.product(&productAccumulator, &phiAutomata);
             if (!auxProd.isEmptyMinusEmptyString())
             {
@@ -145,4 +145,35 @@ namespace hibpm
         }
         return remainderComposition;
     }
-}
+
+    RemainderComposition RepairAutomata::lazyExpands(Process &process) {
+
+        RemainderComposition remainderComposition;
+        vector<std::shared_ptr<State>> states =process.getStates();
+
+        list<Automaton> accAutomata;
+
+        Automaton first = states[0]->getAutomata();
+        remainderComposition.solutionSet.push_back(states[0]);
+
+        for (int i = 1; i < states.size(); ++i) {
+
+            //std::cout << "iteration " << i << std::endl;
+            //std::cout << "iteration " << i << std::endl;
+
+            accAutomata.push_back(states[i]->getAutomata());
+            if(!first.lazyProducts(accAutomata)){
+                accAutomata.pop_back();
+                remainderComposition.hittingSet.push_back(states[i]);
+                //std::cout << "FOUNDCONFLICT " << i << "HT ::" <<
+               // remainderComposition.hittingSet.size() << std::endl;
+            }else{
+                remainderComposition.solutionSet.push_back(states[i]);
+            }
+
+        }
+
+        return remainderComposition;
+    }
+
+    }

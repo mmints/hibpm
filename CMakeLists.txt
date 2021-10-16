@@ -53,7 +53,7 @@ add_executable(declare_parser
 
         ${BISON_DeclareParser_OUTPUTS}
         ${FLEX_DeclareScanner_OUTPUTS}
-)
+        Automaton/TopoGraph.cpp Automaton/TopoGraph.h)
 
 target_link_libraries(declare_parser ${LDFLAGS}) # In the CMake documentation it's said that the variable should be FLEX_LIBRARIES.
                                                  # But in my case I'm using the variable which I've set in the .zshrc and it seems to work.

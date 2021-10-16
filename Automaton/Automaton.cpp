@@ -1,4 +1,5 @@
 #include "Automaton.hpp"
+#include <math.h>
 
 namespace hibpm {
 
@@ -544,6 +545,115 @@ namespace hibpm {
 
 
         return reducedAut;
+    }
+
+    bool Automaton::lazyProducts(list<Automaton> automata) {
+
+        struct TupleState{
+            vector<int> values;
+
+            TupleState(vector<int> tuple){
+                values = tuple;
+            }
+            bool isEqualTo(vector<int> v){
+
+                if (v.size() != values.size()){
+                    return false;
+                }
+
+                for (int i = 0; i < v.size(); ++i) {
+                    if (v[i] != values[i]){
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            bool isIn(list<TupleState> l){
+
+                for (TupleState t: l) {
+
+                    if (t.isEqualTo(values)){
+                        return true;
+                    }
+
+                }
+
+                return false;
+            }
+        };
+
+        //std::cout << std::endl;
+
+        list<TupleState> stack;
+        int numAutomata = automata.size();
+        //int z = pow(4, numAutomata);
+        list<int> visited;
+
+        vector<int> vec(numAutomata,0);
+        //visited.push_back(0);
+
+        visited.push_back(0);
+        stack.push_back(TupleState(vec));
+
+        int sigSize = automata.front().sigSize;
+
+        for (TupleState cState: stack) {
+            for (int a = 0; a < sigSize; ++a) {
+                int i =0;
+                vector<int> targState(numAutomata,0);
+                bool interrupted = false;
+                bool isFinal = true;
+                for (list<Automaton>::iterator it = automata.begin(); it!= automata.end(); it++, i++) {
+                    int locState = it->transitionsTo[cState.values[i]][a];
+                    if (locState == -1){
+                        interrupted = true;
+                        break;
+                    }else{
+                        targState[i] = locState;
+                        isFinal = (isFinal && it->areFinalStates[locState]);
+                    }
+                }
+
+                if (!interrupted){
+                    if (isFinal){
+                        return true;
+                    }
+
+                    //unsigned int encod =targState[0];
+//                    for (int j = 1; j < numAutomata; ++j) {
+//                        encod += targState[j]*pow(10,j);
+//                    }
+                    //if(!isInList(visited, encod)){
+                    TupleState ts(targState);
+                    if(!ts.isIn(stack)){
+                        //visited.push_back(encod);
+                        //stack.push_back(targState);
+                        stack.push_back(ts);
+                        //std::cout << "size stack:: " << stack.size() << std::endl;
+                    }
+                }
+
+
+            }
+
+
+        }
+
+
+    //std::cout << " >>>>>> Result is safe " << std::endl;
+        return false;
+    }
+
+    bool Automaton::isInList(list<int> lists, int x){
+        for (int y : lists) {
+            if (y == x){
+                return true;
+            }
+        }
+
+        return false;
     }
 
 //    void Automaton::removeUselessStates() {

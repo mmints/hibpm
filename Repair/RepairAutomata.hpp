@@ -27,5 +27,7 @@ namespace hibpm
         list<shared_ptr<State>> controlShrink(list<shared_ptr<State>> &states, shared_ptr<State> alpha, list<Automaton> &products);
 
         RemainderComposition controlExpand(Process& process);
+
+        RemainderComposition lazyExpands(Process& process);
     };
 }
