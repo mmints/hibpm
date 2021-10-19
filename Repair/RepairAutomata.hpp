@@ -29,5 +29,8 @@ namespace hibpm
         RemainderComposition controlExpand(Process& process);
 
         RemainderComposition lazyExpands(Process& process);
+        list<shared_ptr<State>> lazyShrink(list<shared_ptr<State>> &states,
+                                           shared_ptr<State> alpha);
+        list<shared_ptr<State>> oneKernelN(list<shared_ptr<State>> &states, shared_ptr<State> alpha, int size);
     };
 }

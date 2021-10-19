@@ -43,6 +43,34 @@ namespace hibpm
     {
         RuleType type;
         std::vector<Event> events;
+
+        bool isEqualTo(Rule r2){
+            if (type == r2.type &&
+                events[0].numericValue == r2.events[0].numericValue){
+                if (type == RuleType::END ||
+                    type == RuleType::INIT ||
+                    type == RuleType::AT_MOST_ONE ||
+                    type == RuleType::PARTICIPATION){
+                    return true;
+                }else if (events[1].numericValue == r2.events[1].numericValue){
+                    return true;
+                }
+
+            }
+
+            return false;
+        }
+
+        Event getTarget(){
+            if (type == RuleType::END ||
+                type == RuleType::INIT ||
+                type == RuleType::AT_MOST_ONE ||
+                type == RuleType::PARTICIPATION){
+                return events[0];
+            }else{
+                return events[1];
+            }
+        }
     };
 
     // This Class is an object representation of DECLARE

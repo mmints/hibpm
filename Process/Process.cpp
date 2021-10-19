@@ -132,4 +132,18 @@ namespace hibpm
     std::vector<std::shared_ptr<State>> Process::getStates() {
         return m_states;
     }
+
+    std::vector<Event> Process::getEvents() {
+        return this->m_declare_kb.getEvents();
+    }
+
+    list<list<shared_ptr<State>>> Process::spliSytantic(){
+
+        vector<list<shared_ptr<State>>*> res(this->getEvents().size(),nullptr);
+
+
+
+
+    }
+
 }

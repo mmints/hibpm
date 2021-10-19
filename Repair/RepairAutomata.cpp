@@ -141,6 +141,7 @@ namespace hibpm
                                            products);
                 remainderComposition.kernelSet.push_back(tempKernel);
                 remainderComposition.hittingSet.push_back(states[i]);
+                std::cout << ">>>>>>>>>> Size >>>>>>>>>>>>>>> " << tempKernel.size() << std::endl;
             }
         }
         return remainderComposition;
@@ -165,6 +166,13 @@ namespace hibpm
             if(!first.lazyProducts(accAutomata)){
                 accAutomata.pop_back();
                 remainderComposition.hittingSet.push_back(states[i]);
+//                list<shared_ptr<State>> temK = oneKernelN(remainderComposition.solutionSet,states[i],3);
+//                remainderComposition.kernelSet.push_back(temK);
+                //std::cout << "FOUNDCONFLICT " << i << std::endl;
+                //list<shared_ptr<State>> remL = lazyShrink(remainderComposition.solutionSet,states[i]);
+                //remainderComposition.kernelSet.push_back(remL);
+                //std::cout << "FOUNDCONFLICT " << temK.size() << " Sike Kern " << std::endl;
+
                 //std::cout << "FOUNDCONFLICT " << i << "HT ::" <<
                // remainderComposition.hittingSet.size() << std::endl;
             }else{
@@ -176,4 +184,68 @@ namespace hibpm
         return remainderComposition;
     }
 
+    list<shared_ptr<State>>
+    RepairAutomata::lazyShrink(list<shared_ptr<State>> &states, shared_ptr<State> alpha) {
+
+        list<shared_ptr<State>> res;
+        res.push_back(alpha);
+
+        list<Automaton> accumRight;
+        accumRight.push_back(alpha->getAutomata());
+
+        list<shared_ptr<State>>::iterator it = states.end();
+        it--;
+
+        for( ; it != states.begin(); it--){
+            list<Automaton> aux(accumRight);
+
+            for (list<shared_ptr<State>>::iterator sit = states.begin(); sit != it ; sit++) {
+                aux.push_back((*sit)->getAutomata());
+            }
+
+            if(alpha->getAutomata().lazyProducts(aux)){
+                accumRight.push_back((*it)->getAutomata());
+                res.push_back(*it);
+            }
+
+        }
+
+        return res;
     }
+
+    list<shared_ptr<State>> RepairAutomata::oneKernelN(list<shared_ptr<State>> &states,
+                                                       shared_ptr<State> alpha, int size) {
+
+        list<shared_ptr<State>> res;
+        list<Automaton> aut;
+        aut.push_back(alpha->getAutomata());
+        res.push_back(alpha);
+
+        for (list<shared_ptr<State>>::iterator s = states.begin(); s != states.end();s++) {
+
+            aut.push_back((*s)->getAutomata());
+            if(!alpha->getAutomata().lazyProducts(aut)){
+                res.push_back(*s);
+                return res;
+            }
+
+            list<shared_ptr<State>>::iterator it2 = s;
+
+            for ( ++it2; it2 != states.end() ; it2++ ) {
+                aut.push_back((*it2)->getAutomata());
+                if(!alpha->getAutomata().lazyProducts(aut)){
+                    res.push_back(*it2);
+                    return res;
+                }
+                aut.pop_back();
+
+            }
+
+            aut.pop_back();
+
+        }
+
+        return list<shared_ptr<State>>();
+    }
+
+}

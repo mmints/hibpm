@@ -15,12 +15,16 @@ namespace hibpm
     public:
         explicit Process(Declare &declare_kb);
         std::vector<std::shared_ptr<State>> getStates();
+        std::vector<Event> getEvents();
+        list<list<shared_ptr<State>>> spliSytantic();
 
     private:
         Declare m_declare_kb;
         std::vector<std::shared_ptr<State>> m_states;
 
         void createAllStates();
+
+
     };
 }
 

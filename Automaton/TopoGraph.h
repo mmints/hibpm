@@ -6,6 +6,7 @@
 #define DECLARE_PARSER_TOPOGRAPH_H
 
 #include "Process/State.hpp"
+#include <memory>
 
 using namespace hibpm;
 class TopoGraph {
@@ -24,7 +25,8 @@ class TopoGraph {
 
 
 public:
-    TopoGraph();
+    vector<pair<Rule,int>> order;
+    TopoGraph(vector<std::shared_ptr<State>> &process, int numEvents);
     list<list<State*>> grounded;
 
     void add(State &state);
@@ -32,7 +34,21 @@ public:
     ~TopoGraph();
 
     bool isSubSumedBy(Rule r1, Rule r2);
+    bool isLessThanByType(Rule r1, Rule r2);
 
+    bool isPosition(Rule r1);
+
+    bool isCardinality(Rule r1);
+
+    bool IsCoupling(Rule r1);
+
+    bool IsForwardBackwards(Rule r1);
+
+    bool isNegative(Rule r1);
+
+    void buildAtivationLink(vector<std::shared_ptr<State>> &process, int numEvents);
+
+    bool isLessThenActivation(Rule r1, Rule r2);
 };
 
 
