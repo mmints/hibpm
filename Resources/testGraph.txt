@@ -1,0 +1,2 @@
+AlternateSuccession('A_CreateApplication', 'A_Accepted')
+Init('A_CreateApplication')

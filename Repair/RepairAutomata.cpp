@@ -22,6 +22,91 @@ namespace hibpm
 
     }
 
+
+    list<shared_ptr<State>> RepairAutomata::shrinkGraph(list<shared_ptr<State>> set, int numEv){
+
+        if(set.size() <= 1){
+            return set;
+        }
+
+        list<shared_ptr<State>> res;
+
+        list<shared_ptr<State>>::iterator it = set.end();
+        //it--;
+        GraphSolver gs(numEv);
+        for (--it; it != set.begin() ; it--) {
+
+
+
+            gs = GraphSolver(numEv);
+
+            list<shared_ptr<State>> auxT(set.begin(), it);
+            gs.incrementAll(auxT);
+            gs.incrementAll(res);
+
+            if (gs.getStatus()){//gs is consistent, we need add alpha in it++
+                //list<shared_ptr<State>>::iterator itAux = it;
+                //itAux++;
+                shared_ptr<State> ss = (*it);
+                res.push_back(*it);
+            }
+
+        }
+
+        GraphSolver gs2(numEv);
+        //gs = GraphSolver(numEv);
+        gs2.incrementAll(res);
+
+        if (gs2.getStatus()){
+            res.push_back(*set.begin());
+        }
+
+
+        return res;
+    }
+
+    RemainderComposition RepairAutomata::expandGraph(vector<shared_ptr<State>> &states, int numEvs) {
+
+
+        RemainderComposition rc;
+
+        GraphSolver gs(numEvs), gsAux(numEvs);
+
+        int i = 1;
+
+        for (shared_ptr<State> strP: states) {
+
+            gsAux.increment(strP);
+            if (gsAux.getStatus()){
+                gs = gsAux;
+                rc.solutionSet.push_back(strP);
+            }else{
+                std::cout <<"iterat9on with conflic ----- " << i << std::endl;
+                gsAux = gs;
+                rc.hittingSet.push_back(strP);
+                list<shared_ptr<State>> accum = rc.solutionSet;
+                accum.push_back(strP);
+                list<shared_ptr<State>> kern = this->shrinkGraph(accum, numEvs);
+                rc.kernelSet.push_back(kern);
+                std::cout <<"###### ----- Kernel size " << kern.size() << std::endl;
+                Automaton ac;
+                list<Automaton> lAc;
+                lAc.push_back(strP->getAutomata());
+                for (shared_ptr<State> s: kern) {
+                    lAc.push_back(s->getAutomata());
+                }
+                std::cout <<"###### ----- >>>>>>>Confirmation " << ac.lazyProducts(lAc) << std::endl;
+
+
+            }
+            i++;
+
+        }
+        return rc;
+
+    }
+
+
     list<Automaton> RepairAutomata::shrinkInc(list<Automaton> automata,
                                                      list<Automaton> prevProds) {
 
@@ -156,10 +241,11 @@ namespace hibpm
 
         Automaton first = states[0]->getAutomata();
         remainderComposition.solutionSet.push_back(states[0]);
+        accAutomata.push_back(first);
 
         for (int i = 1; i < states.size(); ++i) {
 
-            //std::cout << "iteration " << i << std::endl;
+            std::cout << "iteration " << i << std::endl;
             //std::cout << "iteration " << i << std::endl;
 
             accAutomata.push_back(states[i]->getAutomata());
@@ -168,7 +254,7 @@ namespace hibpm
                 remainderComposition.hittingSet.push_back(states[i]);
 //                list<shared_ptr<State>> temK = oneKernelN(remainderComposition.solutionSet,states[i],3);
 //                remainderComposition.kernelSet.push_back(temK);
-                //std::cout << "FOUNDCONFLICT " << i << std::endl;
+                std::cout << "FOUNDCONFLICT >>>>>>>>>>>>>>>>>>>>>>> " << i << std::endl;
                 //list<shared_ptr<State>> remL = lazyShrink(remainderComposition.solutionSet,states[i]);
                 //remainderComposition.kernelSet.push_back(remL);
                 //std::cout << "FOUNDCONFLICT " << temK.size() << " Sike Kern " << std::endl;

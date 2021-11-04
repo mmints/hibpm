@@ -1,0 +1,7 @@
+Participation('a')
+ChainSuccession('a','b')
+NotChainSuccession('a','b')
+Response('a','b')
+Response('b','a')
+ChainResponse('a','b')
+ChainResponse('a','c')

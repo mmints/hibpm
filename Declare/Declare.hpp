@@ -44,6 +44,8 @@ namespace hibpm
         RuleType type;
         std::vector<Event> events;
 
+
+
         bool isEqualTo(Rule r2){
             if (type == r2.type &&
                 events[0].numericValue == r2.events[0].numericValue){
@@ -70,6 +72,16 @@ namespace hibpm
             }else{
                 return events[1];
             }
+        }
+
+        bool isUnary(){
+            if (type == RuleType::END ||
+                type == RuleType::INIT ||
+                type == RuleType::AT_MOST_ONE ||
+                type == RuleType::PARTICIPATION){
+                return true;
+            }
+            return false;
         }
     };
 

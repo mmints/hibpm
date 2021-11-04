@@ -1,0 +1,6 @@
+NotSuccession('ReleaseC','ERTriage')
+NotChainSuccession('ERSepsisTriage','ReleaseE')
+AlternatePrecedence('LacticAcid','ReleaseD')
+NotChainSuccession('IVLiquid','ERRegistration')
+RespondedExistence('IVAntibiotics','ERTriage')
+NotSuccession('ReleaseE','LacticAcid')

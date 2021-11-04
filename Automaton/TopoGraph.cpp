@@ -6,6 +6,9 @@
 
 TopoGraph::TopoGraph(vector<std::shared_ptr<State>> &process, int numEvents) {
     this->order.resize(process.size());
+    this->orderMat.resize(18,
+                          vector<vector<int>>(numEvents,
+                                  vector<int>(numEvents,0)));
     buildAtivationLink(process, numEvents);
 }
 
@@ -297,6 +300,7 @@ void TopoGraph::buildAtivationLink(vector<std::shared_ptr<State>> &process, int 
 
 
         order[i] = pair<Rule,int> (s->getRule(),total);
+        orderMat[s->getRule().type][s->getRule().events[0].numericValue][s->getRule().getTarget().numericValue]=total;
     }
 
 }
@@ -327,6 +331,110 @@ bool TopoGraph::isLessThenActivation(Rule r1, Rule r2){
     }
 
     return false;
+
+}
+
+
+
+void TopoGraph::sortN(vector<shared_ptr<State>> &vet) {
+    struct myclass {
+        vector<vector<vector<int>>> orderM;
+
+        myclass(vector<vector<vector<int>>> &orderS)  {
+            orderM = orderS;
+        }
+
+        bool operator() (shared_ptr<State> s1,shared_ptr<State> s2) {
+            return orderM[s1->getRule().type][s1->getRule().events[0].numericValue][s1->getRule().getTarget().numericValue]
+                   < orderM[s2->getRule().type][s2->getRule().events[0].numericValue][s2->getRule().getTarget().numericValue];}
+    } myobject(orderMat);
+
+    sort(vet.begin(), vet.end(), myobject);
+}
+
+
+ bool TopoGraph::isLesssThan(shared_ptr<State> s1, shared_ptr<State> s2) {
+
+    return orderMat[s1->getRule().type][s1->getRule().events[0].numericValue][s1->getRule().getTarget().numericValue]
+        < orderMat[s2->getRule().type][s2->getRule().events[0].numericValue][s2->getRule().getTarget().numericValue];
+
+}
+
+bool TopoGraph::isSubSumRel(Rule r1, Rule r2) {
+    return this->isSubSumedBy(r2,r1);
+}
+
+bool TopoGraph::isTypeSubs(Rule r1, Rule r2) {
+    return (isLessThanByType(r1,r2) &&!isLessThanByType(r2,r1) ) || isSubSumRel(r1,r2);
+}
+
+void TopoGraph::sortTriple(vector<shared_ptr<State>> &vet) {
+
+    struct compareT {
+
+        //vector<vector<vector<int>>> orderM;
+        TopoGraph topoAux;
+
+        compareT(TopoGraph &tp): topoAux(tp) {
+
+        }
+
+        bool operator()(shared_ptr<State> s1, shared_ptr<State> s2) {
+            return ((topoAux.isLesssThan(s1,s2) && !topoAux.isLesssThan(s2,s1)) ||
+                    topoAux.isTypeSubs(s1->getRule(),s2->getRule())
+                    );
+        }
+
+
+    }objTriple(*this);
+
+    sort(vet.begin(), vet.end(),objTriple);
+
+    //this->sortN(vet);
+
+
+}
+
+void TopoGraph::sortTripleDESC(vector<shared_ptr<State>> &vet) {
+
+    struct compareT {
+
+        //vector<vector<vector<int>>> orderM;
+        TopoGraph topoAux;
+
+        compareT(TopoGraph &tp): topoAux(tp) {
+
+        }
+
+        bool operator()(shared_ptr<State> s1, shared_ptr<State> s2) {
+            return ((topoAux.isLesssThan(s2,s1) && !topoAux.isLesssThan(s1,s2)) ||
+                    topoAux.isTypeSubs(s2->getRule(),s1->getRule())
+            );
+        }
+
+
+    }objTriple(*this);
+
+    sort(vet.begin(), vet.end(),objTriple);
+
+    //this->sortN(vet);
+
+
+}
+
+void TopoGraph::buildMatrixEvent(vector<std::shared_ptr<State>> &process, int numEvents) {
+
+    vector<vector<bool>> matrix(numEvents,vector<bool>(numEvents, false));
+
+    for (int i = 0; i < process.size(); ++i) {
+
+        if (!process[i]->getRule().isUnary()){
+            matrix[process[i]->getRule().events[0].numericValue][process[i]->getRule().getTarget().numericValue]
+                = true;
+        }
+
+
+    }
 
 }
 

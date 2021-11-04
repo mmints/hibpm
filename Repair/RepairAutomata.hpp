@@ -4,6 +4,7 @@
 
 #include "Process/Process.hpp"
 #include "Automaton/Automaton.hpp"
+#include "Automaton/GraphSolver.h"
 
 namespace hibpm
 {
@@ -17,6 +18,11 @@ namespace hibpm
     class RepairAutomata
     {
     public:
+
+        list<shared_ptr<State>> shrinkGraph(list<shared_ptr<State>> set, int numEv);
+        RemainderComposition expandGraph(vector<shared_ptr<State>> &states, int numEvs);
+
+
         list<Automaton> expand(list<Automaton> automata);
 
         list<Automaton> shrinkInc(list<Automaton> automata,
