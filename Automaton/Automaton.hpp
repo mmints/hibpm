@@ -11,7 +11,7 @@ using namespace std;
 
 namespace hibpm {
 
-class Automaton{
+class Automaton {
 public:
 
     struct cellProd{
