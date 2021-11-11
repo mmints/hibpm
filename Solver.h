@@ -10,6 +10,7 @@
 
 namespace hibpm
 {
+    // TODO: Decide if this Class should be the main Solver Class or just a connection to the parser
     class Solver
     {
     public:
@@ -22,7 +23,7 @@ namespace hibpm
 
         Process getProcess();
 
-        Automaton overallProduct(Process& process);
+        Automaton overallProduct(Process& process); // TODO: This function does not belong here!
 
     private:
         std::string m_file; // This string holds the content of a Declare file
