@@ -23,4 +23,8 @@ namespace hibpm
     bool State::isBinary() {
         return m_is_binary;
     }
+
+    bool State::isUnary() {
+        return !m_is_binary; // Just negate the binary variable
+    }
 }
