@@ -44,8 +44,7 @@ namespace hibpm
         RuleType type;
         std::vector<Event> events;
 
-
-
+        // TODO: Remove the functions from this Struct -> functionality is handled in State
         bool isEqualTo(Rule r2){
             if (type == r2.type &&
                 events[0].numericValue == r2.events[0].numericValue){
@@ -63,6 +62,7 @@ namespace hibpm
             return false;
         }
 
+        // TODO: Remove the functions from this Struct -> functionality is handled in State
         Event getTarget(){
             if (type == RuleType::END ||
                 type == RuleType::INIT ||
@@ -74,6 +74,7 @@ namespace hibpm
             }
         }
 
+        // TODO: Remove the functions from this Struct -> functionality is handled in State
         bool isUnary(){
             if (type == RuleType::END ||
                 type == RuleType::INIT ||
