@@ -120,7 +120,7 @@ protected:
     };
 
 
-private:
+public:
 
     vector<int> eventsStatus;
     vector<vector<Cell>> matrix;

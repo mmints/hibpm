@@ -656,49 +656,5 @@ namespace hibpm {
         return false;
     }
 
-//    void Automaton::removeUselessStates() {
-//        // We assume that tge automaton has at least one valid final state
-//
-//        list<int> stacked(this->finalStates.size());
-//        vector<bool> isStacked( this->numSt, false);
-//
-//        for (list<int>::iterator it = this->finalStates.begin();
-//                it != this->finalStates.end(); it++) {
-//            stacked.push_back(*it);
-//            isStacked.at(*it) = true;
-//        }
-//
-//        for (list<int>::iterator it = this->finalStates.begin();
-//             it != this->finalStates.end(); it++) {
-//
-//            for (int a = 0; a < this->sigSize; ++a) {
-//
-//                list<int> incStates = this->incoming.at(*it).at(a);
-//                for (list<int>::iterator itx = incStates.begin();
-//                        itx != incStates.end(); itx++) {
-//
-//                    if (!isStacked.at(*itx)){
-//                        isStacked.at(*itx) = true;
-//                        stacked.push_back(*itx);
-//                    }
-//
-//                }
-//
-//            }
-//
-//        }
-//
-//        // TODO reshape the atomaton removing the states tar are not in stacked;
-//
-//        vector<int> deductionMap(this->numSt,0);
-//
-//        if (stacked.size() == this->numSt){
-//            return;
-//        }
-//
-//
-//
-//    }
-
 
 }
