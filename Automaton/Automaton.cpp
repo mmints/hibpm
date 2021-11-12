@@ -656,5 +656,20 @@ namespace hibpm {
         return false;
     }
 
+    void Automaton::negate(int symbol) {
+
+        for (int i = 0; i < this->numSt; ++i) {
+            this->transitionsTo[i][symbol] = -1;
+        }
+
+    }
+
+    void Automaton::negate(list<int> symbols) {
+        for (int i : symbols) {
+            this->negate(i);
+        }
+
+    }
+
 
 }

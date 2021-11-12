@@ -66,6 +66,9 @@ public:
         
     Automaton full_product(Automaton &a1, Automaton &a2);
     bool isInList(list<int> lists, int x);
+
+    void negate(int symbol);
+    void negate(list<int> symbols);
     
 private:
 
