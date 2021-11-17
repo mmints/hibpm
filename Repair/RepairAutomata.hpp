@@ -12,7 +12,7 @@ namespace hibpm
     {
         list<shared_ptr<State>> hittingSet;
         list<list<shared_ptr<State>>> kernelSet;
-        list<shared_ptr<State>> solutionSet; // TODO: Change to list
+        list<shared_ptr<State>> solutionSet;
     };
 
     class RepairAutomata
