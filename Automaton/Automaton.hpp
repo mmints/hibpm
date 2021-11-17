@@ -38,37 +38,6 @@ public:
         }
     };
 
-//    struct simpleCell{
-//        int cx, cy;
-//        vector<pair<int, int>> transition;
-//
-//        simpleCell(int x, int y, int sigmaS){
-//            cx = x;
-//            cy = y;
-//            transition.resize(sigmaS, pair<int, int>(-1,-1));
-//        }
-//    };
-    
-//    struct triplett{
-//        simpleCell *scell = NULL;
-//        int mapping;
-//        bool visited, useful, stacked, mapped;
-//
-//        triplett(){
-//            mapping = 0;
-//            mapped = false;
-//            visited = false;
-//            useful = false;
-//            stacked = false;
-//        }
-//        void assingMapping(int m){
-//            mapping = m;
-//            mapped = true;
-//        }
-//
-//    };
-    
-
     unsigned int sigSize{}, numSt{};
     vector<vector<int> > transitionsTo;
     vector<vector< list<int> > > incoming;
@@ -87,7 +56,6 @@ public:
     void print();
     
     
-    
     Automaton product(Automaton *a1, Automaton *a2);
     
     Automaton reduceHopcrof();
@@ -98,15 +66,20 @@ public:
         
     Automaton full_product(Automaton &a1, Automaton &a2);
     bool isInList(list<int> lists, int x);
+
+    void negate(int symbol);
+    void negate(list<int> symbols);
     
 private:
-    
-        
-//    bool checkUseful(int x, int y, vector<vector<triplett> > &mat);
 
         void reachFinals(Automaton *a1, Automaton *a2, list<pair<int, int>> stacked, list<pair<int, int>> finals);
 
         bool isIn(pair<int, int> p, list<pair<int, int>> l1);
     };
 
+
+
+
 }
+
+

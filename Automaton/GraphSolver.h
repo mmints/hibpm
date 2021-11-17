@@ -126,8 +126,9 @@ namespace hibpm {
         int numEvs, countNegated;
 
 
-        bool checkCyclesForwardPos(int ev1, int ev2);
 
+public:
+        bool checkCyclesForwardPos(int ev1, int ev2);
         void transitionForward(int ev1, int ev2);
 
         void modifyStatus(int ev, int newStatus);
