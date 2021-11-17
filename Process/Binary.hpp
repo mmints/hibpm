@@ -12,6 +12,9 @@ namespace hibpm
 
         std::vector<Event> getEvents();
         std::vector<u_int64_t> getEventNumericValues();
+        bool isEqualTo(Binary &rule);
+        Event getTarget();
+
 
     protected:
         // Get the events from the given rule in constructor

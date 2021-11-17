@@ -12,6 +12,8 @@ namespace hibpm
 
         Event getEvent();
         u_int64_t getEventNumericValue();
+        bool isEqualTo(Unary &rule);
+        Event getTarget();
 
     protected:
         Event m_event; // Get the event from the given rule in constructor

@@ -15,4 +15,18 @@ namespace hibpm
     std::vector<u_int64_t> Binary::getEventNumericValues() {
         return {m_event_1.numericValue, m_event_2.numericValue};
     }
+
+    bool Binary::isEqualTo(Binary &rule) {
+        if (m_event_1.numericValue == rule.m_event_1.numericValue &&
+        m_event_2.numericValue == rule.m_event_2.numericValue) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    Event Binary::getTarget() {
+        return m_event_2;
+    }
 }
