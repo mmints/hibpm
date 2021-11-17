@@ -1,4 +1,4 @@
-#include "Solver.h"
+#include "Parser.h"
 
 namespace yy
 {
@@ -11,7 +11,7 @@ extern int yy_scan_string(const char *);
 
 namespace hibpm
 {
-    void Solver::readFile(const std::string &path)
+    void Parser::readFile(const std::string &path)
     {
         std::ifstream input_file(path);
         if (!input_file.is_open()) {
@@ -24,7 +24,7 @@ namespace hibpm
         m_file = str;
     }
 
-    void Solver::parse()
+    void Parser::parse()
     {
         yy::declare parser(m_declare_ctx); // make a declare parser
         yy_scan_string(m_file.c_str());
@@ -34,18 +34,18 @@ namespace hibpm
             std::cout << "Parsing Succeed!" << std::endl;
     }
 
-    Declare Solver::parseFromFile(std::string path)
+    Declare Parser::parseFromFile(std::string path)
     {
         readFile(path);
         parse();
         return m_declare_ctx;
     }
 
-    Process Solver::getProcess() {
+    Process Parser::getProcess() {
         return Process(m_declare_ctx);;
     }
 
-    Automaton Solver::overallProduct(Process& process) { // TODO -> Move to Automata Repair (MaxRemainder)
+    Automaton Parser::overallProduct(Process& process) { // TODO -> Move to Automata Repair (MaxRemainder)
 
         Automaton result;
         Automaton a;

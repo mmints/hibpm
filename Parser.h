@@ -10,9 +10,8 @@
 
 namespace hibpm
 {
-    // TODO: Decide if this Class should be the main Solver Class or just a connection to the parser
-    // TODO: Turn to Parser
-    class Solver
+
+    class Parser
     {
     public:
         /**

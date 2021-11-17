@@ -20,7 +20,7 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_SOURCE_DIR}) # For now n
 
 add_executable(declare_parser
         main.cpp
-        Solver.cpp
+        Parser.cpp
         Declare/Declare.cpp
         Automaton/Automaton.cpp
 

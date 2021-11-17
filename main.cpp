@@ -1,4 +1,4 @@
-#include "Solver.h"
+#include "Parser.h"
 #include "Repair/RepairAutomata.hpp"
 #include "Automaton/TopoGraph.h"
 
@@ -7,7 +7,7 @@ using namespace hibpm;
 
 int main(int argc, char** argv)
 {
-    Solver solver;
+    Parser solver;
     solver.parseFromFile("../Resources/ruleBase.txt");
     Process process = solver.getProcess();
     RepairAutomata repair;
