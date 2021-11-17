@@ -10,14 +10,14 @@ namespace hibpm {
     {}
 
     void Declare::addRule(RuleType type, const std::string& event_val) {
-        // TODO: Check if the incoming type is unary
+        // TODO: Check if the incoming type is unary -> Actually, this is handles in Bison
         std::vector<std::string> event_val_in_vec;
         event_val_in_vec.push_back(event_val);
         addRuleAndEventsToSet(type, event_val_in_vec);
     }
 
     void Declare::addRule(RuleType type, const std::string& event_val_1, const std::string& event_val_2) {
-        // TODO: Check if the incoming type is unary
+        // TODO: Check if the incoming type is unary -> Actually, this is handles in Bison
         std::vector<std::string> event_val_in_vec;
         event_val_in_vec.push_back(event_val_1);
         event_val_in_vec.push_back(event_val_2);
@@ -77,5 +77,4 @@ namespace hibpm {
         }
         return 0;
     }
-
 }
