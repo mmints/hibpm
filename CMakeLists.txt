@@ -1,59 +1,35 @@
 cmake_minimum_required(VERSION 3.19) # Currently the newest version of CMake
-project(declare_parser)
+project(hibpm)
 
 set(CMAKE_CXX_STANDARD 17)
 
-set(CMAKE_C_COMPILER "g++-10")
-set(CMAKE_CXX_COMPILER "g++-10")
+# setting up different paths
+set(hibpm_config ${PROJECT_SOURCE_DIR}/config)
+set(hibpm_lib lib)
 
-# Find Libs
-find_package(BISON REQUIRED)
-find_package(FLEX REQUIRED)
+set(hibpm_source ${PROJECT_SOURCE_DIR}/src)
 
-# Set Targets
-# Will this be done automatically with Flex and Bison?
-BISON_TARGET(DeclareParser declare.yy ${CMAKE_CURRENT_BINARY_DIR}/declare-parser.cpp)
-FLEX_TARGET(DeclareScanner declare.l ${CMAKE_CURRENT_BINARY_DIR}/declare-lexer.c)
-ADD_FLEX_BISON_DEPENDENCY(DeclareScanner DeclareParser)
+# configure everything to use the required dependencies
+include(${hibpm_config}/Libraries.cmake)
 
-include_directories(${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_SOURCE_DIR}) # For now no source directory
+# add source files for compilation
+include(${hibpm_config}/Sources.cmake)
 
-add_executable(declare_parser
-        main.cpp
-        Parser.cpp
-        Declare/Declare.cpp
-        Automaton/Automaton.cpp
+message("-- Libraries: [ ${hibpm_libraries} ]")
 
-        Process/Process.cpp
-        Process/State.cpp
+# create HiBPM as static library using all source files
+add_library(hibpm STATIC ${hibpm_sources})
 
-        Process/Unary.cpp
-        Process/Unary/Participation.cpp
-        Process/Unary/AtMostOne.cpp
-        Process/Unary/Init.cpp
-        Process/Unary/End.cpp
+# add include directories from dependencies as system includes
+target_include_directories(hibpm SYSTEM BEFORE PRIVATE ${hibpm_includes})
+message(STATUS ${hibpm_includes})
 
-        Process/Binary.cpp
-        Process/Binary/RespondedExistence.cpp
-        Process/Binary/Response.cpp
-        Process/Binary/AlternatedResponse.cpp
-        Process/Binary/ChainResponse.cpp
-        Process/Binary/Precedence.cpp
-        Process/Binary/AlternatedPrecedence.cpp
-        Process/Binary/ChainPrecedence.cpp
-        Process/Binary/CoExistence.cpp
-        Process/Binary/Succession.cpp
-        Process/Binary/AlternateSuccession.cpp
-        Process/Binary/ChainSuccession.cpp
-        Process/Binary/NotChainSuccession.cpp
-        Process/Binary/NotSuccession.cpp
-        Process/Binary/NotCoExistence.cpp
+# add the own include directory for public headers
+target_include_directories(hibpm BEFORE PUBLIC ${hibpm_source}) # FIXME: For now all files of the lib can be included 
+message(STATUS ${hibpm_source})
 
-        Repair/RepairAutomata.cpp
+# link the framework using all required libraries
+target_link_libraries(hibpm ${hipbm_libraries})
+message(STATUS ${hibpm_libraries})
 
-        ${BISON_DeclareParser_OUTPUTS}
-        ${FLEX_DeclareScanner_OUTPUTS}
-        Automaton/TopoGraph.cpp Automaton/TopoGraph.h)
-
-target_link_libraries(declare_parser ${LDFLAGS}) # In the CMake documentation it's said that the variable should be FLEX_LIBRARIES.
-                                                 # But in my case I'm using the variable which I've set in the .zshrc and it seems to work.
+add_subdirectory(executables)
