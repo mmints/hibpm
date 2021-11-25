@@ -23,6 +23,7 @@ add_library(hibpm STATIC ${hibpm_sources})
 # add include directories from dependencies as system includes
 target_include_directories(hibpm SYSTEM BEFORE PRIVATE ${hibpm_includes})
 message(STATUS ${hibpm_includes})
+message("-- INCLUDE PATHS: ${hibpm_includes}")
 
 # add the own include directory for public headers
 target_include_directories(hibpm BEFORE PUBLIC ${hibpm_source}) # FIXME: For now all files of the lib can be included 
