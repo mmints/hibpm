@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Process/State.hpp"
+#include "State.hpp"
 #include <memory>
 
 namespace hibpm {

@@ -2,8 +2,8 @@
 
 #include <vector>
 
-#include "Automaton/Automaton.hpp"
-#include "Declare/Declare.hpp"
+#include "Automaton.hpp"
+#include "Declare.hpp"
 
 namespace hibpm
 {

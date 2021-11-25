@@ -1,9 +1,9 @@
 #pragma once
 
 #include <vector>
-#include "Process/State.hpp"
+#include "State.hpp"
 #include <memory>
-#include "Process/Binary.hpp" // Why only Binary?
+#include "Binary.hpp" // Why only Binary?
 
 using namespace std;
 

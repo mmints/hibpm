@@ -3,10 +3,10 @@
 #include <string>
 #include <fstream>
 
-#include "Declare/Declare.hpp"  // Context Header
-#include "declare-parser.hpp"   // Parser Header
+#include "Declare.hpp"  // Context Header
+#include "declare-parser/declare-parser.hpp"   // Parser Header
 
-#include "Process/Process.hpp"
+#include "Process.hpp"
 
 namespace hibpm
 {

@@ -3,7 +3,7 @@
 %option noyywrap
 
 %{
-#include "Declare/Declare.hpp"
+#include "../Declare.hpp"
 #include "declare-parser.hpp"
 
 // defines YY_DECL to declare the calling sequence for yylex to match what the parser expects

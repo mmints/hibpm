@@ -2,9 +2,9 @@
 
 #include <vector>
 
-#include "Process/Process.hpp"
-#include "Automaton/Automaton.hpp"
-#include "Automaton/GraphSolver.h"
+#include "Process.hpp"
+#include "Automaton.hpp"
+#include "GraphSolver.h"
 
 namespace hibpm
 {
