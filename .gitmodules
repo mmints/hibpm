@@ -1,3 +1,4 @@
-[submodule "EvalMaxSAT"]
-	path = EvalMaxSAT
+[submodule "lib/EvalMaxSAT"]
+	path = lib/EvalMaxSAT
 	url = https://github.com/FlorentAvellaneda/EvalMaxSAT.git
+	ignore = untracked
