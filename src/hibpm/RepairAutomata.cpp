@@ -22,7 +22,7 @@ namespace hibpm
 
     }
 
-
+/*
     list<shared_ptr<State>> RepairAutomata::shrinkGraph(list<shared_ptr<State>> set, int numEv){
 
         if(set.size() <= 1){
@@ -105,7 +105,7 @@ namespace hibpm
         return rc;
 
     }
-
+*/
 
     list<Automaton> RepairAutomata::shrinkInc(list<Automaton> automata,
                                                      list<Automaton> prevProds) {
