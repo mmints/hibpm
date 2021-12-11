@@ -22,6 +22,7 @@ namespace hibpm
 
         std::vector<Rule> getRules();
         std::vector<Event> getEvents();
+        u_int64_t getSigmaSize();
 
     private:
         std::vector<Event> m_events;

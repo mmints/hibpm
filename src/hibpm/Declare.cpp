@@ -32,6 +32,10 @@ namespace hibpm {
         return m_events;
     }
 
+    u_int64_t Declare::getSigmaSize() {
+        return m_events.size();
+    }
+
     void Declare::addRuleAndEventsToSet(RuleType type, const std::vector<std::string>& event_names) {
 
         std::vector<Event> rule_events;
