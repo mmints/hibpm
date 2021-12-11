@@ -4,8 +4,11 @@
 #include <algorithm>
 #include <iostream>
 #include <vector>
+#include <memory>
+#include <list>
 
 #include "Rule.hpp"
+
 
 namespace hibpm
 {
@@ -17,8 +20,8 @@ namespace hibpm
         ~Declare() = default;
 
         // This is used in declare.yy
-        void addRule(RuleType type, const std::string& event_val);
-        void addRule(RuleType type, const std::string& event_val_1, const std::string& event_val_2);
+        void addUnaryRule(RuleType type, const std::string& event_val);
+        void addBinaryRule(RuleType type, const std::string& event_val_1, const std::string& event_val_2);
 
         std::vector<Rule> getRules();
         std::vector<Event> getEvents();
@@ -26,7 +29,7 @@ namespace hibpm
 
     private:
         std::vector<Event> m_events;
-        std::vector<Rule> m_rules;
+        std::list<std::shared_ptr<Rule>> m_rules;
 
         void addRuleAndEventsToSet(RuleType type, const std::vector<std::string>& event_names);
         bool checkEventExistence(const std::string &event_name);
