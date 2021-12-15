@@ -2,9 +2,9 @@
 
 namespace hibpm
 {
-    Unary::Unary(Rule &rule, size_t sigmaSize) :
-    State(rule, sigmaSize, false),
-    m_event(rule.getEventAt(0))
+    Unary::Unary(size_t sigmaSize, Event &event) :
+    Rule(sigmaSize, false),
+    m_event(event)
     {}
 
     Event Unary::getEvent() {

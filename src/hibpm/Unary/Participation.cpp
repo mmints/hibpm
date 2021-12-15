@@ -1,8 +1,12 @@
-#include "../Unary.hpp" //TODO: Fix CMake to avoid ".."
+#include "../Unary.hpp"
 
 namespace hibpm
 {
-    Participation::Participation(Rule &rule, size_t sigmaSize) : Unary(rule, sigmaSize) {
+    Participation::Participation(size_t sigmaSize, Event &event) :
+    Unary(sigmaSize, event)
+    {
+        m_type = PARTICIPATION;
+        m_ruleTypeString = "Participation";
         m_automaton = Automaton(2, sigmaSize);
         Participation::initializeAutomaton();
     }

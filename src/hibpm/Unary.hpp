@@ -5,10 +5,10 @@
 namespace hibpm
 {
     // Overall abstract Class for Unary State Definitions
-    class Unary : public State
+    class Unary : public Rule
     {
     public:
-        Unary(Rule &rule, size_t sigmaSize);
+        Unary(size_t sigmaSize, Event &event);
 
         Event getEvent();
         u_int64_t getEventNumericValue();
@@ -16,19 +16,19 @@ namespace hibpm
         Event getTarget();
 
     protected:
-        Event m_event; // Get the event from the given rule in constructor
+        Event m_event;
     };
 
     class Participation : public Unary {
     public:
-        Participation(Rule &rule, size_t sigmaSize);
+        Participation(size_t sigmaSize, Event &event);
     private:
         void initializeAutomaton() override;
     };
 
     class AtMostOne : public Unary {
     public:
-        AtMostOne(Rule &rule, size_t sigmaSize);
+        AtMostOne(size_t sigmaSize, Event &event);
 
     private:
         void initializeAutomaton() override;
@@ -36,14 +36,14 @@ namespace hibpm
 
     class Init : public Unary {
     public:
-        Init(Rule &rule, size_t sigmaSize);
+        Init(size_t sigmaSize, Event &event);
     private:
         void initializeAutomaton() override;
     };
 
     class End : public Unary {
     public:
-        End(Rule &rule, size_t sigmaSize);
+        End(size_t sigmaSize, Event &event);
 
     private:
         void initializeAutomaton() override;

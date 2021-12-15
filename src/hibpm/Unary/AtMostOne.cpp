@@ -1,8 +1,12 @@
-#include "../Unary.hpp" //TODO: Fix CMake to avoid ".."
+#include "../Unary.hpp"
 
 namespace hibpm
 {
-    AtMostOne::AtMostOne(Rule &rule, size_t sigmaSize) : Unary(rule, sigmaSize) {
+    AtMostOne::AtMostOne(size_t sigmaSize, Event &event) :
+    Unary(sigmaSize, event)
+    {
+        m_type = AT_MOST_ONE;
+        m_ruleTypeString = "AtMostOne";
         m_automaton = Automaton(2, sigmaSize);
         AtMostOne::initializeAutomaton();
     }

@@ -1,8 +1,10 @@
-#include "../Unary.hpp" //TODO: Fix CMake to avoid ".."
+#include "../Unary.hpp"
 
 namespace hibpm
 {
-    Init::Init(Rule &rule, size_t sigmaSize) : Unary(rule, sigmaSize) {
+    Init::Init(size_t sigmaSize, Event &event) :
+    Unary(sigmaSize, event)
+    {
         m_automaton = Automaton(2, sigmaSize);
         Init::initializeAutomaton();
     }
