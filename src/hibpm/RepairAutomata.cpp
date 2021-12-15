@@ -2,7 +2,7 @@
 
 namespace hibpm
 {
-    list<Automaton> RepairAutomata::expand(list<Automaton> automata) {
+    list<Automaton> RepairAutomata::expand(list<Automaton> &automata) {
 
         list<Automaton> res;
         list<Automaton>::iterator itA = automata.begin();
@@ -65,7 +65,7 @@ namespace hibpm
         return res;
     }
 
-    RemainderComposition RepairAutomata::expandGraph(vector<shared_ptr<State>> &states, int numEvs) {
+    RemainderComposition RepairAutomata::expandGraph(vector<shared_ptr<State>> &ruleSet, int numEvs) {
 
 
         RemainderComposition rc;
@@ -74,7 +74,7 @@ namespace hibpm
 
         int i = 1;
 
-        for (shared_ptr<State> strP: states) {
+        for (shared_ptr<State> strP: ruleSet) {
 
             gsAux.increment(strP);
             if (gsAux.getStatus()){
@@ -107,8 +107,8 @@ namespace hibpm
     }
 */
 
-    list<Automaton> RepairAutomata::shrinkInc(list<Automaton> automata,
-                                                     list<Automaton> prevProds) {
+    list<Automaton> RepairAutomata::shrinkInc(list<Automaton> &automata,
+                                                     list<Automaton> &prevProds) {
 
         list<Automaton> res;
 
@@ -118,18 +118,18 @@ namespace hibpm
         return res;
     }
 
-    Automaton RepairAutomata::maxRemainder(Process &process)
+    Automaton RepairAutomata::maxRemainder(DeclareKnowledgeBase &declareKnowledgeBase)
     {
         Automaton result;
         Automaton auxProd;
         Automaton a;
 
-        result = process.getStates().at(0)->getAutomata();
-        for (int i = 1; i < process.getStates().size(); i++)
+        result = declareKnowledgeBase.getRuleSet().at(0)->getAutomata();
+        for (int i = 1; i < declareKnowledgeBase.getRuleSet().size(); i++)
         {
             // Debug Print
             // std::cout << "Iteration: " << i << " - Automata Size: " << result.numSt << std::endl;
-            a = process.getStates().at(i)->getAutomata();
+            a = declareKnowledgeBase.getRuleSet().at(i)->getAutomata();
 
             auxProd = a.product(&a, &result);
             if(!auxProd.isEmptyMinusEmptyString()) {
@@ -139,11 +139,11 @@ namespace hibpm
         return result;
     }
 
-    std::list<shared_ptr<State>> RepairAutomata::controlShrink(list<shared_ptr<State>> &states,
-                                                               shared_ptr<State> alpha,
+    std::list<shared_ptr<Rule>> RepairAutomata::controlShrink(list<shared_ptr<Rule>> &ruleSet,
+                                                               shared_ptr<Rule> alpha,
                                                                list<Automaton> &products)
     {
-        list<shared_ptr<State>> solution; // Symbols
+        list<shared_ptr<Rule>> solution; // Symbols
 
         // Assign first formula to S and
         solution.push_back(alpha);
@@ -153,13 +153,13 @@ namespace hibpm
         Automaton phi;
 
         list<Automaton>::reverse_iterator  itProd = products.rbegin();
-        list<shared_ptr<State>>::reverse_iterator itStates = states.rbegin(), itRendP = states.rend();
+        list<shared_ptr<Rule>>::reverse_iterator itRules = ruleSet.rbegin(), itRendP = ruleSet.rend();
 
         itRendP++;
 
-        //int i = states.size() - 1;
+        //int i = ruleSet.size() - 1;
 
-        while(itStates != itRendP && !rightProd.isEmptyMinusEmptyString())
+        while(itRules != itRendP && !rightProd.isEmptyMinusEmptyString())
         //while (i > 0 && !rightProd.isEmptyMinusEmptyString()) // while i>1 AND L(rightProd)̸=∅
         {
             list<Automaton>::reverse_iterator itProdPrev = itProd;
@@ -168,43 +168,43 @@ namespace hibpm
             auxProd = rightProd.product(&(*itProdPrev), &rightProd);
 
             if (!auxProd.isEmptyMinusEmptyString()) {
-                //solution.push_back(states[i]);
-                solution.push_back((*itStates));
-                phi = (*itStates)->getAutomata();
+                //solution.push_back(ruleSet[i]);
+                solution.push_back((*itRules));
+                phi = (*itRules)->getAutomata();
                 rightProd = rightProd.product(&phi, &rightProd);
             }
             //i--;
-            itStates--;
+            itRules--;
         }
 
         // Add the last element to S
         if (!rightProd.isEmptyMinusEmptyString()) {
-            solution.push_back(states.front());
+            solution.push_back(ruleSet.front());
         }
         return solution;
     }
 
-    RemainderComposition RepairAutomata::controlExpand(Process& process)
+    RemainderComposition RepairAutomata::controlExpand(DeclareKnowledgeBase &declareKnowledgeBase)
     {
-        vector<shared_ptr<State>> states = process.getStates();
+        vector<shared_ptr<Rule>> ruleSet = declareKnowledgeBase.getRuleSet();
         RemainderComposition remainderComposition;
         list<Automaton> products; // TODO: change to list (also in the controlShrink)
 
         Automaton auxProd;
         Automaton phiAutomata;
-        list<shared_ptr<State>> tempKernel; // C in Algo 7
+        list<shared_ptr<Rule>> tempKernel; // C in Algo 7
 
-        remainderComposition.solutionSet.push_back(states[0]);
-        products.push_back(states[0]->getAutomata());
-        Automaton productAccumulator = states[0]->getAutomata();
+        remainderComposition.solutionSet.push_back(ruleSet[0]);
+        products.push_back(ruleSet[0]->getAutomata());
+        Automaton productAccumulator = ruleSet[0]->getAutomata();
         int reduceCount = 1;
 
-        for (int i = 1; i < states.size(); i++, reduceCount++)
+        for (int i = 1; i < ruleSet.size(); i++, reduceCount++)
         {
             std::cout << "Running: " << i << std::endl;
             std::cout << "Size Automaton " << productAccumulator.numSt << std::endl;
             std::cout << "Num Finals " << productAccumulator.finalStates.size() << std::endl;
-            phiAutomata = states[i]->getAutomata();
+            phiAutomata = ruleSet[i]->getAutomata();
  //           if (reduceCount >=50){
 //                std::cout << "-- Reducing ---- Running: " << i << std::endl;
 //                productAccumulator = productAccumulator.reduceHopcrof();
@@ -215,54 +215,54 @@ namespace hibpm
             auxProd = productAccumulator.product(&productAccumulator, &phiAutomata);
             if (!auxProd.isEmptyMinusEmptyString())
             {
-                remainderComposition.solutionSet.push_back(states[i]);
+                remainderComposition.solutionSet.push_back(ruleSet[i]);
                 products.push_back(auxProd);
                 productAccumulator = auxProd;
             }
             else {
                 std::cout << ">>>>>>>>>> Setting the Kernel" << std::endl;
                 tempKernel = controlShrink(remainderComposition.solutionSet,
-                                           states[i],
+                                           ruleSet[i],
                                            products);
                 remainderComposition.kernelSet.push_back(tempKernel);
-                remainderComposition.hittingSet.push_back(states[i]);
+                remainderComposition.hittingSet.push_back(ruleSet[i]);
                 std::cout << ">>>>>>>>>> Size >>>>>>>>>>>>>>> " << tempKernel.size() << std::endl;
             }
         }
         return remainderComposition;
     }
 
-    RemainderComposition RepairAutomata::lazyExpands(Process &process) {
+    RemainderComposition RepairAutomata::lazyExpands(DeclareKnowledgeBase &declareKnowledgeBase) {
 
         RemainderComposition remainderComposition;
-        vector<std::shared_ptr<State>> states =process.getStates();
+        vector<std::shared_ptr<Rule>> ruleSet =declareKnowledgeBase.getRuleSet();
 
         list<Automaton> accAutomata;
 
-        Automaton first = states[0]->getAutomata();
-        remainderComposition.solutionSet.push_back(states[0]);
+        Automaton first = ruleSet[0]->getAutomata();
+        remainderComposition.solutionSet.push_back(ruleSet[0]);
         accAutomata.push_back(first);
 
-        for (int i = 1; i < states.size(); ++i) {
+        for (int i = 1; i < ruleSet.size(); ++i) {
 
             std::cout << "iteration " << i << std::endl;
             //std::cout << "iteration " << i << std::endl;
 
-            accAutomata.push_back(states[i]->getAutomata());
+            accAutomata.push_back(ruleSet[i]->getAutomata());
             if(!first.lazyProducts(accAutomata)){
                 accAutomata.pop_back();
-                remainderComposition.hittingSet.push_back(states[i]);
-//                list<shared_ptr<State>> temK = oneKernelN(remainderComposition.solutionSet,states[i],3);
+                remainderComposition.hittingSet.push_back(ruleSet[i]);
+//                list<shared_ptr<State>> temK = oneKernelN(remainderComposition.solutionSet,ruleSet[i],3);
 //                remainderComposition.kernelSet.push_back(temK);
                 std::cout << "FOUNDCONFLICT >>>>>>>>>>>>>>>>>>>>>>> " << i << std::endl;
-                //list<shared_ptr<State>> remL = lazyShrink(remainderComposition.solutionSet,states[i]);
+                //list<shared_ptr<State>> remL = lazyShrink(remainderComposition.solutionSet,ruleSet[i]);
                 //remainderComposition.kernelSet.push_back(remL);
                 //std::cout << "FOUNDCONFLICT " << temK.size() << " Sike Kern " << std::endl;
 
                 //std::cout << "FOUNDCONFLICT " << i << "HT ::" <<
                // remainderComposition.hittingSet.size() << std::endl;
             }else{
-                remainderComposition.solutionSet.push_back(states[i]);
+                remainderComposition.solutionSet.push_back(ruleSet[i]);
             }
 
         }
@@ -270,22 +270,22 @@ namespace hibpm
         return remainderComposition;
     }
 
-    list<shared_ptr<State>>
-    RepairAutomata::lazyShrink(list<shared_ptr<State>> &states, shared_ptr<State> alpha) {
+    list<shared_ptr<Rule>>
+    RepairAutomata::lazyShrink(list<shared_ptr<Rule>> &ruleSet, shared_ptr<Rule> alpha) {
 
-        list<shared_ptr<State>> res;
+        list<shared_ptr<Rule>> res;
         res.push_back(alpha);
 
         list<Automaton> accumRight;
         accumRight.push_back(alpha->getAutomata());
 
-        list<shared_ptr<State>>::iterator it = states.end();
+        list<shared_ptr<Rule>>::iterator it = ruleSet.end();
         it--;
 
-        for( ; it != states.begin(); it--){
+        for( ; it != ruleSet.begin(); it--){
             list<Automaton> aux(accumRight);
 
-            for (list<shared_ptr<State>>::iterator sit = states.begin(); sit != it ; sit++) {
+            for (list<shared_ptr<Rule>>::iterator sit = ruleSet.begin(); sit != it ; sit++) {
                 aux.push_back((*sit)->getAutomata());
             }
 
@@ -299,15 +299,15 @@ namespace hibpm
         return res;
     }
 
-    list<shared_ptr<State>> RepairAutomata::oneKernelN(list<shared_ptr<State>> &states,
-                                                       shared_ptr<State> alpha, int size) {
+    list<shared_ptr<Rule>> RepairAutomata::oneKernelN(list<shared_ptr<Rule>> &ruleSet,
+                                                       shared_ptr<Rule> alpha, int size) {
 
-        list<shared_ptr<State>> res;
+        list<shared_ptr<Rule>> res;
         list<Automaton> aut;
         aut.push_back(alpha->getAutomata());
         res.push_back(alpha);
 
-        for (list<shared_ptr<State>>::iterator s = states.begin(); s != states.end();s++) {
+        for (list<shared_ptr<Rule>>::iterator s = ruleSet.begin(); s != ruleSet.end();s++) {
 
             aut.push_back((*s)->getAutomata());
             if(!alpha->getAutomata().lazyProducts(aut)){
@@ -315,9 +315,9 @@ namespace hibpm
                 return res;
             }
 
-            list<shared_ptr<State>>::iterator it2 = s;
+            list<shared_ptr<Rule>>::iterator it2 = s;
 
-            for ( ++it2; it2 != states.end() ; it2++ ) {
+            for ( ++it2; it2 != ruleSet.end() ; it2++ ) {
                 aut.push_back((*it2)->getAutomata());
                 if(!alpha->getAutomata().lazyProducts(aut)){
                     res.push_back(*it2);
@@ -331,7 +331,7 @@ namespace hibpm
 
         }
 
-        return list<shared_ptr<State>>();
+        return list<shared_ptr<Rule>>();
     }
 
 }

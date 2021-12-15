@@ -1,4 +1,5 @@
 #include <hibpm/DeclareParser.hpp>
+#include <hibpm/DeclareKnowledgeBase.hpp>
 #include <hibpm/RepairAutomata.hpp>
 
 using namespace hibpm;
@@ -6,23 +7,25 @@ using namespace hibpm;
 int main(int argc, char** argv)
 {
     DeclareParser parser;
-    parser.parseFromFile("../../../Resources/ruleBase.txt"); // FIXME: Make a relative path in CMake
-    Process process = parser.getProcess();
+     DeclareContext declareContext = parser.parseFromFile("../../../Resources/ruleBase.txt"); // FIXME: Make a relative path in CMake
 
-    cout << process.getStates().at(0)->getRule().toSting() << endl;
+    DeclareKnowledgeBase declareKnowledgeBase(declareContext);
 
     RepairAutomata repairAutomata;
 
     RemainderComposition remainderComposition;
-    remainderComposition = repairAutomata.lazyExpands(process);
+    remainderComposition = repairAutomata.lazyExpands(declareKnowledgeBase);
 
-    cout << process.getStates().at(0)->getRule().toSting() << endl;
-    cout << remainderComposition.solutionSet.front()->getRule().toSting() << endl;
+/*
 
     for (auto solution : remainderComposition.solutionSet)
     {
-        cout << solution->getRule().toSting() << endl;
+        solution->print();
     }
+
+*/
+    std::cout << "Size of Knowledge Base: " << declareKnowledgeBase.getRuleSet().size() << std::endl;
+    std::cout << "Size of Solution Set: " << remainderComposition.solutionSet.size() << std::endl;
 
     return 0;
 }
