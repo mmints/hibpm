@@ -1,4 +1,4 @@
-#include "Parser.hpp"
+#include "DeclareParser.hpp"
 
 namespace yy
 {
@@ -11,7 +11,7 @@ extern int yy_scan_string(const char *);
 
 namespace hibpm
 {
-    void Parser::readFile(const std::string &path)
+    void DeclareParser::readFile(const std::string &path)
     {
         std::ifstream input_file(path);
         if (!input_file.is_open()) {
@@ -24,24 +24,27 @@ namespace hibpm
         m_file = str;
     }
 
-    void Parser::parse()
+    void DeclareParser::parse()
     {
         yy::declare bisonParser(m_declare_ctx); // make a declare parser
         yy_scan_string(m_file.c_str());
         std::cout << "Bison Parser Msg: " << bisonParser.parse() << std::endl;
     }
 
-    Declare Parser::parseFromFile(std::string path)
+    DeclareContext DeclareParser::parseFromFile(std::string path)
     {
         readFile(path);
         parse();
-        return m_declare_ctx;
+        return m_declare_ctx; // TODO: Think about it to not return this data.
     }
 
+/*
     Process Parser::getProcess() {
         return Process(m_declare_ctx);;
     }
+*/
 
+/*
     Automaton Parser::overallProduct(Process& process) { // TODO -> Move to Automata Repair (MaxRemainder)
 
         Automaton result;
@@ -58,4 +61,5 @@ namespace hibpm
         }
         return result;
     }
+*/
 }

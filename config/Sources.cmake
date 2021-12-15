@@ -1,6 +1,6 @@
 set(hibpm_sources
-    ${hibpm_source}/hibpm/Parser.cpp
-    ${hibpm_source}/hibpm/Parser.hpp
+    ${hibpm_source}/hibpm/DeclareParser.cpp
+    ${hibpm_source}/hibpm/DeclareParser.hpp
     
     ${hibpm_source}/hibpm/DeclareContext.cpp
     ${hibpm_source}/hibpm/DeclareContext.hpp
