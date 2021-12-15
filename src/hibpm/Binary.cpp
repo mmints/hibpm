@@ -16,7 +16,7 @@ namespace hibpm
         return {m_event_1.numericValue, m_event_2.numericValue};
     }
 
-    bool Binary::isEqualTo(Rule &rule) {
+    bool Binary::eventsMatch(Rule &rule) {
         if (rule.isBinary())
         {
             auto binary = (Binary*) &rule;

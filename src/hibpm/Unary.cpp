@@ -15,7 +15,7 @@ namespace hibpm
         return m_event.numericValue;
     }
 
-    bool Unary::isEqualTo(Rule &rule) {
+    bool Unary::eventsMatch(Rule &rule) {
         if (rule.isUnary())
         {
             auto unary = (Unary*) &rule;

@@ -13,7 +13,7 @@ namespace hibpm
         Event getEvent();
         u_int64_t getEventNumericValue();
         Event getTarget();
-        bool isEqualTo(Rule &rule) override;
+        bool eventsMatch(Rule &rule) override;
         void print() override;
 
     protected:

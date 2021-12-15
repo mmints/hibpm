@@ -12,7 +12,7 @@ namespace hibpm
 
         std::vector<Event> getEvents();
         std::vector<u_int64_t> getEventNumericValues();
-        bool isEqualTo(Rule &rule) override;
+        bool eventsMatch(Rule &rule) override;
         Event getTarget();
 
         void print() override;
