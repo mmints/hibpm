@@ -12,7 +12,7 @@
 %{
 #include <iostream>
 #include <string>
-#include "../Declare.hpp"
+#include "../DeclareContext.hpp"
 #include "location.hh" // This is said by the generated files
 
 // Turns a char* (in this case yytext) into a string and removes all unecessary chars following by the value.
@@ -24,9 +24,9 @@ std::string convertCharToString(const std::string &delimiter, char *s)
 
 %}
 
-/* Use the Declare Data Structure Class as context for the parser. */
-%parse-param { hibpm::Declare &declare_ctx }
-%lex-param { hibpm::Declare &declare_ctx }
+/* Use the DeclareContext Data Structure Class as context for the parser. */
+%parse-param { hibpm::DeclareContext &declare_ctx }
+%lex-param { hibpm::DeclareContext &declare_ctx }
 
 /* The value that should be headed over to the main program. */
 %union {
@@ -34,7 +34,7 @@ std::string convertCharToString(const std::string &delimiter, char *s)
     char* event_name_val;
 };
 
-/* declare tokens */
+/* DeclareContext tokens */
 
 /* Unary */
 %token PARTICIPATION
@@ -67,7 +67,7 @@ std::string convertCharToString(const std::string &delimiter, char *s)
 %{
 extern int yylex(yy::declare::semantic_type *yylval, // Custom yylex declaration
         yy::declare::location_type* yylloc,
-        hibpm::Declare &declare_ctx);
+        hibpm::DeclareContext &declare_ctx);
 %}
 
 %initial-action {
@@ -84,22 +84,22 @@ exp: exp exp
 /* Unary Rules */
 
 rule: PARTICIPATION OP QUOTE VAR QUOTE CL EOL { std::string val = convertCharToString("'", $4);
-                                                declare_ctx.addUnaryRule(hibpm::PARTICIPATION, val);
+                                                declare_ctx.addUnaryRuleData(hibpm::PARTICIPATION, val);
                                               }
 ;
 
 rule: AT_MOST_ONE OP QUOTE VAR QUOTE CL EOL { std::string val = convertCharToString("'", $4);
-                                                declare_ctx.addUnaryRule(hibpm::AT_MOST_ONE, val);
+                                                declare_ctx.addUnaryRuleData(hibpm::AT_MOST_ONE, val);
                                               }
 ;
 
 rule: INIT OP QUOTE VAR QUOTE CL EOL { std::string val = convertCharToString("'", $4);
-                                                declare_ctx.addUnaryRule(hibpm::INIT, val);
+                                                declare_ctx.addUnaryRuleData(hibpm::INIT, val);
                                               }
 ;
 
 rule: END OP QUOTE VAR QUOTE CL EOL { std::string val = convertCharToString("'", $4);
-                                                declare_ctx.addUnaryRule(hibpm::END, val);
+                                                declare_ctx.addUnaryRuleData(hibpm::END, val);
                                               }
 ;
 
@@ -107,85 +107,85 @@ rule: END OP QUOTE VAR QUOTE CL EOL { std::string val = convertCharToString("'",
 
 rule: RESPONDED_EXISTENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRule(hibpm::RESPONDED_EXISTENCE, val_1, val_2);
+                                                                            declare_ctx.addBinaryRuleData(hibpm::RESPONDED_EXISTENCE, val_1, val_2);
                                                                           }
 ;
 
 rule: RESPONSE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRule(hibpm::RESPONSE, val_1, val_2);
+                                                                            declare_ctx.addBinaryRuleData(hibpm::RESPONSE, val_1, val_2);
                                                                           }
 ;
 
 rule: ALTERNATED_RESPONSE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRule(hibpm::ALTERNATED_RESPONSE, val_1, val_2);
+                                                                            declare_ctx.addBinaryRuleData(hibpm::ALTERNATED_RESPONSE, val_1, val_2);
                                                                           }
 ;
 
 rule: CHAIN_RESPONSE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRule(hibpm::CHAIN_RESPONSE, val_1, val_2);
+                                                                            declare_ctx.addBinaryRuleData(hibpm::CHAIN_RESPONSE, val_1, val_2);
                                                                           }
 ;
 
 rule: PRECEDENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRule(hibpm::PRECEDENCE, val_1, val_2);
+                                                                            declare_ctx.addBinaryRuleData(hibpm::PRECEDENCE, val_1, val_2);
                                                                           }
 ;
 
 rule: ALTERNATED_PRECEDENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRule(hibpm::ALTERNATED_PRECEDENCE, val_1, val_2);
+                                                                            declare_ctx.addBinaryRuleData(hibpm::ALTERNATED_PRECEDENCE, val_1, val_2);
                                                                           }
 ;
 
 rule: CHAIN_PRECEDENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRule(hibpm::CHAIN_PRECEDENCE, val_1, val_2);
+                                                                            declare_ctx.addBinaryRuleData(hibpm::CHAIN_PRECEDENCE, val_1, val_2);
                                                                           }
 ;
 
 rule: CO_EXISTENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRule(hibpm::CO_EXISTENCE, val_1, val_2);
+                                                                            declare_ctx.addBinaryRuleData(hibpm::CO_EXISTENCE, val_1, val_2);
                                                                           }
 ;
 
 rule: SUCCESSION OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRule(hibpm::SUCCESSION, val_1, val_2);
+                                                                            declare_ctx.addBinaryRuleData(hibpm::SUCCESSION, val_1, val_2);
                                                                           }
 ;
 
 rule: ALTERNATED_SUCCESSION OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRule(hibpm::ALTERNATED_SUCCESSION, val_1, val_2);
+                                                                            declare_ctx.addBinaryRuleData(hibpm::ALTERNATED_SUCCESSION, val_1, val_2);
                                                                           }
 ;
 
 rule: CHAIN_SUCCESSION OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRule(hibpm::CHAIN_SUCCESSION, val_1, val_2);
+                                                                            declare_ctx.addBinaryRuleData(hibpm::CHAIN_SUCCESSION, val_1, val_2);
                                                                           }
 ;
 
 rule: NOT_CHAIN_SUCCESSION OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRule(hibpm::NOT_CHAIN_SUCCESSION, val_1, val_2);
+                                                                            declare_ctx.addBinaryRuleData(hibpm::NOT_CHAIN_SUCCESSION, val_1, val_2);
                                                                           }
 ;
 
 rule: NOT_SUCCESSION OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRule(hibpm::NOT_SUCCESSION, val_1, val_2);
+                                                                            declare_ctx.addBinaryRuleData(hibpm::NOT_SUCCESSION, val_1, val_2);
                                                                           }
 ;
 
 rule: NOT_CO_EXISTENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRule(hibpm::NOT_CO_EXISTENCE, val_1, val_2);
+                                                                            declare_ctx.addBinaryRuleData(hibpm::NOT_CO_EXISTENCE, val_1, val_2);
                                                                           }
 ;
 

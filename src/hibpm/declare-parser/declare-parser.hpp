@@ -434,7 +434,7 @@ namespace yy {
     {};
 
     /// Build a parser object.
-    declare (hibpm::Declare &declare_ctx_yyarg);
+    declare (hibpm::DeclareContext &declare_ctx_yyarg);
     virtual ~declare ();
 
 #if 201103L <= YY_CPLUSPLUS
@@ -792,7 +792,7 @@ namespace yy {
 
 
     // User arguments.
-    hibpm::Declare &declare_ctx;
+    hibpm::DeclareContext &declare_ctx;
 
   };
 
