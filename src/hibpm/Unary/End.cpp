@@ -5,6 +5,8 @@ namespace hibpm
     End::End(size_t sigmaSize, Event &event) :
     Unary(sigmaSize, event)
     {
+        m_type = END;
+        m_ruleTypeString = "End";
         m_automaton = Automaton(2, sigmaSize);
         End::initializeAutomaton();
     }
