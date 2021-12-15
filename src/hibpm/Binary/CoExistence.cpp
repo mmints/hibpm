@@ -1,8 +1,12 @@
-#include "../Binary.hpp" //TODO: Fix CMake to avoid ".."
+#include "../Binary.hpp"
 
 namespace hibpm
 {
-    CoExistence::CoExistence(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
+    CoExistence::CoExistence(size_t sigmaSize, std::vector<Event> &events) :
+    Binary(sigmaSize, events)
+    {
+        m_type = CO_EXISTENCE;
+        m_ruleTypeString = "CoExistence";
         m_automaton = Automaton(4, sigmaSize);
         CoExistence::initializeAutomaton();
     }

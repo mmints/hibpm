@@ -1,8 +1,12 @@
-#include "../Binary.hpp" //TODO: Fix CMake to avoid ".."
+#include "../Binary.hpp"
 
 namespace hibpm
 {
-    ChainPrecedence::ChainPrecedence(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
+    ChainPrecedence::ChainPrecedence(size_t sigmaSize, std::vector<Event> &events) :
+    Binary(sigmaSize, events)
+    {
+        m_type = CHAIN_PRECEDENCE;
+        m_ruleTypeString = "ChainPrecedence";
         m_automaton = Automaton(4, sigmaSize);
         ChainPrecedence::initializeAutomaton();
     }

@@ -1,8 +1,12 @@
-#include "../Binary.hpp" //TODO: Fix CMake to avoid ".."
+#include "../Binary.hpp"
 
 namespace hibpm
 {
-    ChainResponse::ChainResponse(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
+    ChainResponse::ChainResponse(size_t sigmaSize, std::vector<Event> &events) :
+    Binary(sigmaSize, events)
+    {
+        m_type = CHAIN_RESPONSE;
+        m_ruleTypeString = "ChainResponse";
         m_automaton = Automaton(2, sigmaSize);
         ChainResponse::initializeAutomaton();
     }

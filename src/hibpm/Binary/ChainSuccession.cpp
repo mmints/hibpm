@@ -1,8 +1,12 @@
-#include "../Binary.hpp" //TODO: Fix CMake to avoid ".."
+#include "../Binary.hpp"
 
 namespace hibpm
 {
-    ChainSuccession::ChainSuccession(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
+    ChainSuccession::ChainSuccession(size_t sigmaSize, std::vector<Event> &events) :
+    Binary(sigmaSize, events)
+    {
+        m_type = CHAIN_SUCCESSION;
+        m_ruleTypeString = "ChainSuccession";
         m_automaton = Automaton(4, sigmaSize);
         ChainSuccession::initializeAutomaton();
     }

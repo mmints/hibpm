@@ -6,8 +6,6 @@
 #include "DeclareContext.hpp"  // Context Header
 #include "declare-parser/declare-parser.hpp"   // Parser Header
 
-#include "Process.hpp"
-
 namespace hibpm
 {
 

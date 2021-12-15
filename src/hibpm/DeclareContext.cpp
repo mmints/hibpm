@@ -24,29 +24,29 @@ namespace hibpm {
         return m_ruleData;
     }
 
-    std::vector<DeclareContext::EventData> DeclareContext::getEventData() {
+    std::vector<Event> DeclareContext::getEventData() {
         return m_eventData;
     }
 
-    u_int64_t DeclareContext::getSigmaSize() {
+    u_int64_t DeclareContext::getEventDataCount() {
         return m_eventData.size();
     }
 
     void DeclareContext::addRuleDataAndEventDataToSet(RuleType type, const std::vector<std::string>& event_names) {
 
-        std::vector<DeclareContext::EventData> rule_events;
+        std::vector<Event> rule_events;
 
         for (auto& event_name : event_names)
         {
             // First check if the used event in a rule are already in the
             if (! hibpm::DeclareContext::checkEventDataExistence(event_name))
             {
-                DeclareContext::EventData event {event_name, m_eventData.size()};
+                Event event {event_name, m_eventData.size()};
                 rule_events.push_back(event);
                 m_eventData.push_back(event); // And if not, add them to it
             }
             else {
-                DeclareContext::EventData event {event_name, eventNameToNumericValue(event_name)};
+                Event event {event_name, eventNameToNumericValue(event_name)};
                 rule_events.push_back(event);
             }
         }

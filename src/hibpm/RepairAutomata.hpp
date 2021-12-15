@@ -2,7 +2,6 @@
 
 #include <vector>
 
-#include "Process.hpp"
 #include "Automaton.hpp"
 #include "GraphSolver.h"
 

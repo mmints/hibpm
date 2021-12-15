@@ -2,7 +2,11 @@
 
 namespace hibpm
 {
-    AlternatedResponse::AlternatedResponse(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
+    AlternatedResponse::AlternatedResponse(size_t sigmaSize, std::vector<Event> &events) :
+    Binary(sigmaSize, events)
+    {
+        m_type = ALTERNATED_RESPONSE;
+        m_ruleTypeString = "AlternatedResponse";
         m_automaton = Automaton(2, sigmaSize);
         AlternatedResponse::initializeAutomaton();
     }

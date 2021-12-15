@@ -1,8 +1,12 @@
-#include "../Binary.hpp" //TODO: Fix CMake to avoid ".."
+#include "../Binary.hpp"
 
 namespace hibpm
 {
-    NotCoExistence::NotCoExistence(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
+    NotCoExistence::NotCoExistence(size_t sigmaSize, std::vector<Event> &events) :
+    Binary(sigmaSize, events)
+    {
+        m_type = NOT_CO_EXISTENCE;
+        m_ruleTypeString = "NotCoExistence";
         m_automaton = Automaton(3, sigmaSize);
         NotCoExistence::initializeAutomaton();
     }

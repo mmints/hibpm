@@ -1,6 +1,6 @@
 #pragma once
 
-#include "State.hpp"
+#include "Rule.hpp"
 
 namespace hibpm
 {
@@ -14,6 +14,8 @@ namespace hibpm
         u_int64_t getEventNumericValue();
         bool isEqualTo(Unary &rule);
         Event getTarget();
+
+        void print() override;
 
     protected:
         Event m_event;

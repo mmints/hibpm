@@ -1,8 +1,12 @@
-#include "../Binary.hpp" //TODO: Fix CMake to avoid ".."
+#include "../Binary.hpp"
 
 namespace hibpm
 {
-    AlternatedPrecedence::AlternatedPrecedence(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
+    AlternatedPrecedence::AlternatedPrecedence(size_t sigmaSize, std::vector<Event> &events) :
+    Binary(sigmaSize, events)
+    {
+        m_type = ALTERNATED_PRECEDENCE;
+        m_ruleTypeString = "AlternatedPrecedence";
         m_automaton = Automaton(2, sigmaSize);
         AlternatedPrecedence::initializeAutomaton();
     }

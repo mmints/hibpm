@@ -16,16 +16,10 @@ namespace hibpm
     class DeclareContext
     {
     public:
-        struct EventData
-        {
-            std::string name;
-            u_int64_t numericValue; // checking against vector length -> size_t, which is unsigned long long
-        };
-
         struct RuleData
         {
             RuleType type;
-            std::vector<EventData> events;
+            std::vector<Event> events;
         };
 
         DeclareContext();
@@ -36,11 +30,11 @@ namespace hibpm
         void addBinaryRuleData(RuleType type, const std::string& event_val_1, const std::string& event_val_2);
 
         std::vector<RuleData> getRuleData();
-        std::vector<EventData> getEventData();
-        u_int64_t getSigmaSize();
+        std::vector<Event> getEventData();
+        u_int64_t getEventDataCount();
 
     private:
-        std::vector<EventData> m_eventData;
+        std::vector<Event> m_eventData;
         std::vector<RuleData> m_ruleData;
 
         void addRuleDataAndEventDataToSet(RuleType type, const std::vector<std::string>& event_names);

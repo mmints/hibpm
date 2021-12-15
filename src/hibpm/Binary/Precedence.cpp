@@ -2,7 +2,11 @@
 
 namespace hibpm
 {
-    Precedence::Precedence(Rule &rule, size_t sigmaSize) : Binary(rule, sigmaSize) {
+    Precedence::Precedence(size_t sigmaSize, std::vector<Event> &events) :
+    Binary(sigmaSize, events)
+    {
+        m_type = PRECEDENCE;
+        m_ruleTypeString = "Precedence";
         m_automaton = Automaton(2, sigmaSize);
         Precedence::initializeAutomaton();
     }

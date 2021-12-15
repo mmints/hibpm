@@ -27,4 +27,9 @@ namespace hibpm
     Event Unary::getTarget() {
         return m_event;
     }
+
+    void Unary::print()
+    {
+        std::cout << m_ruleTypeString << "(" << m_event.name << ")" << std::endl;
+    }
 }
