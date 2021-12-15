@@ -1,122 +1,119 @@
-#include "TopoGraph.h"
+#include "TopoGraph.hpp"
 
 namespace hibpm {
 
-    TopoGraph::TopoGraph(vector<std::shared_ptr<State>> &process, int numEvents) {
+    TopoGraph::TopoGraph(vector<std::shared_ptr<Rule>> &process, int sigmaSize) {
         this->order.resize(process.size());
         this->orderMat.resize(18,
-                              vector<vector<int>>(numEvents,
-                                                  vector<int>(numEvents, 0)));
-        buildAtivationLink(process, numEvents);
+                              vector<vector<int>>(sigmaSize,
+                                                  vector<int>(sigmaSize, 0)));
+        buildActivationLink(process, sigmaSize);
     }
 
-    bool TopoGraph::isSubSumedBy(Rule r1, Rule r2) {
+    bool TopoGraph::isSubSumedBy(Rule &r1, Rule &r2) {
 
-        if (r1.events[0].numericValue == r2.events[0].numericValue) {
-
-            switch (r1.type) {
+        // Unary
+        if (r1.eventsMatch(r2)) {
+            switch (r1.getType()) {
                 case RuleType::INIT:
-                    if (r2.type == RuleType::INIT ||
-                        r2.type == RuleType::PARTICIPATION) {
+                    if (r2.getType() == RuleType::INIT ||
+                        r2.getType() == RuleType::PARTICIPATION) {
                         return true;
                     }
                     break;
                 case RuleType::END:
-                    if (r2.type == RuleType::END ||
-                        r2.type == RuleType::PARTICIPATION) {
+                    if (r2.getType() == RuleType::END ||
+                        r2.getType() == RuleType::PARTICIPATION) {
                         return true;
                     }
                     break;
             }
 
-            if (r1.events[1].numericValue == r2.events[1].numericValue) {
-                switch (r1.type) {
+                switch (r1.getType()) {
 
                     case RuleType::CHAIN_PRECEDENCE:
-                        if (r2.type == RuleType::CHAIN_PRECEDENCE ||
-                            r2.type == RuleType::ALTERNATED_PRECEDENCE ||
-                            r2.type == RuleType::PRECEDENCE) {
+                        if (r2.getType() == RuleType::CHAIN_PRECEDENCE ||
+                            r2.getType() == RuleType::ALTERNATED_PRECEDENCE ||
+                            r2.getType() == RuleType::PRECEDENCE) {
                             return true;
                         }
                         break;
                     case RuleType::ALTERNATED_PRECEDENCE:
-                        if (r2.type == RuleType::ALTERNATED_PRECEDENCE ||
-                            r2.type == RuleType::PRECEDENCE) {
+                        if (r2.getType() == RuleType::ALTERNATED_PRECEDENCE ||
+                            r2.getType() == RuleType::PRECEDENCE) {
                             return true;
                         }
                         break;
 
                     case RuleType::CHAIN_SUCCESSION:
-                        if (r2.type == RuleType::CHAIN_SUCCESSION ||
-                            r2.type == RuleType::ALTERNATED_SUCCESSION ||
-                            r2.type == RuleType::SUCCESSION ||
-                            r2.type == RuleType::CO_EXISTENCE) {
+                        if (r2.getType() == RuleType::CHAIN_SUCCESSION ||
+                            r2.getType() == RuleType::ALTERNATED_SUCCESSION ||
+                            r2.getType() == RuleType::SUCCESSION ||
+                            r2.getType() == RuleType::CO_EXISTENCE) {
                             return true;
                         }
                         break;
                     case RuleType::ALTERNATED_SUCCESSION:
-                        if (r2.type == RuleType::ALTERNATED_SUCCESSION ||
-                            r2.type == RuleType::SUCCESSION ||
-                            r2.type == RuleType::CO_EXISTENCE) {
+                        if (r2.getType() == RuleType::ALTERNATED_SUCCESSION ||
+                            r2.getType() == RuleType::SUCCESSION ||
+                            r2.getType() == RuleType::CO_EXISTENCE) {
                             return true;
                         }
                         break;
                     case RuleType::SUCCESSION:
-                        if (r2.type == RuleType::SUCCESSION ||
-                            r2.type == RuleType::CO_EXISTENCE) {
+                        if (r2.getType() == RuleType::SUCCESSION ||
+                            r2.getType() == RuleType::CO_EXISTENCE) {
                             return true;
                         }
                         break;
 
                     case RuleType::CHAIN_RESPONSE:
-                        if (r2.type == RuleType::CHAIN_RESPONSE ||
-                            r2.type == RuleType::ALTERNATED_RESPONSE ||
-                            r2.type == RuleType::RESPONSE ||
-                            r2.type == RuleType::RESPONDED_EXISTENCE) {
+                        if (r2.getType() == RuleType::CHAIN_RESPONSE ||
+                            r2.getType() == RuleType::ALTERNATED_RESPONSE ||
+                            r2.getType() == RuleType::RESPONSE ||
+                            r2.getType() == RuleType::RESPONDED_EXISTENCE) {
                             return true;
                         }
                         break;
 
                     case RuleType::ALTERNATED_RESPONSE:
-                        if (r2.type == RuleType::ALTERNATED_RESPONSE ||
-                            r2.type == RuleType::RESPONSE ||
-                            r2.type == RuleType::RESPONDED_EXISTENCE) {
+                        if (r2.getType() == RuleType::ALTERNATED_RESPONSE ||
+                            r2.getType() == RuleType::RESPONSE ||
+                            r2.getType() == RuleType::RESPONDED_EXISTENCE) {
                             return true;
                         }
                         break;
                     case RuleType::RESPONSE:
-                        if (r2.type == RuleType::RESPONSE ||
-                            r2.type == RuleType::RESPONDED_EXISTENCE) {
+                        if (r2.getType() == RuleType::RESPONSE ||
+                            r2.getType() == RuleType::RESPONDED_EXISTENCE) {
                             return true;
                         }
                         break;
 
                     case RuleType::NOT_CO_EXISTENCE:
-                        if (r2.type == RuleType::NOT_CO_EXISTENCE ||
-                            r2.type == RuleType::NOT_SUCCESSION ||
-                            r2.type == RuleType::NOT_CHAIN_SUCCESSION) {
+                        if (r2.getType() == RuleType::NOT_CO_EXISTENCE ||
+                            r2.getType() == RuleType::NOT_SUCCESSION ||
+                            r2.getType() == RuleType::NOT_CHAIN_SUCCESSION) {
                             return true;
                         }
                         break;
                     case RuleType::NOT_SUCCESSION:
-                        if (r2.type == RuleType::NOT_SUCCESSION ||
-                            r2.type == RuleType::NOT_CHAIN_SUCCESSION) {
+                        if (r2.getType() == RuleType::NOT_SUCCESSION ||
+                            r2.getType() == RuleType::NOT_CHAIN_SUCCESSION) {
                             return true;
                         }
                         break;
 
                 }
 
-            }
+        } else if ((r1.getType() == RuleType::CHAIN_PRECEDENCE ||
+                    r1.getType() == RuleType::ALTERNATED_PRECEDENCE ||
+                    r1.getType() == RuleType::PRECEDENCE) &&
+                   r2.getType() == RuleType::RESPONDED_EXISTENCE &&
+                   r1.eventsMatch(r2))
+                   {
 
-        } else if ((r1.type == RuleType::CHAIN_PRECEDENCE ||
-                    r1.type == RuleType::ALTERNATED_PRECEDENCE ||
-                    r1.type == RuleType::PRECEDENCE) &&
-                   r2.type == RuleType::RESPONDED_EXISTENCE &&
-                   r1.events[0].numericValue == r2.events[1].numericValue &&
-                   r1.events[1].numericValue == r2.events[0].numericValue) {
-
-            switch (r1.type) {
+            switch (r1.getType()) {
                 case RuleType::CHAIN_PRECEDENCE:
                     return true;
                 case RuleType::ALTERNATED_PRECEDENCE:

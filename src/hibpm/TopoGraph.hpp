@@ -1,7 +1,8 @@
 #pragma once
 
-#include "State.hpp"
 #include <memory>
+
+#include "Rule.hpp"
 
 namespace hibpm {
 
@@ -24,46 +25,46 @@ namespace hibpm {
         vector<pair<Rule, int>> order;
         vector<vector<vector<int>>> orderMat;
 
-        TopoGraph(vector<std::shared_ptr<State>> &process, int numEvents);
+        TopoGraph(vector<std::shared_ptr<Rule>> &process, int numEvents);
 
-        list<list<State *>> grounded;
+        list<list<std::shared_ptr<Rule>>> grounded;
 
-        void add(State &state);
+        void add(Rule &rule);
 
         ~TopoGraph();
 
-        bool isLesssThan(shared_ptr<State> s1, shared_ptr<State> s2);
+        bool isLesssThan(shared_ptr<Rule> s1, shared_ptr<Rule> s2);
 
 
-        void sortN(vector<shared_ptr<State>> &vet);
+        void sortN(vector<shared_ptr<Rule>> &vet);
 
-        void sortTriple(vector<shared_ptr<State>> &vet);
+        void sortTriple(vector<shared_ptr<Rule>> &vet);
 
-        bool isSubSumedBy(Rule r1, Rule r2);
+        bool isSubSumedBy(Rule &r1, Rule &r2);
 
-        bool isSubSumRel(Rule r1, Rule r2);
+        bool isSubSumRel(Rule &r1, Rule &r2);
 
-        bool isLessThanByType(Rule r1, Rule r2);
+        bool isLessThanByType(Rule &r1, Rule &r2);
 
-        bool isTypeSubs(Rule r1, Rule r2);
+        bool isTypeSubs(Rule &r1, Rule &r2);
 
-        bool isPosition(Rule r1);
+        bool isPosition(Rule &r1);
 
-        bool isCardinality(Rule r1);
+        bool isCardinality(Rule &r1);
 
-        bool IsCoupling(Rule r1);
+        bool isCoupling(Rule &r1);
 
-        bool IsForwardBackwards(Rule r1);
+        bool isForwardBackwards(Rule &r1);
 
-        bool isNegative(Rule r1);
+        bool isNegative(Rule &r1);
 
-        void buildAtivationLink(vector<std::shared_ptr<State>> &process, int numEvents);
+        void buildActivationLink(vector<std::shared_ptr<Rule>> &process, size_t sigmaSize);
 
-        bool isLessThenActivation(Rule r1, Rule r2);
+        bool isLessThenActivation(Rule &r1, Rule &r2);
 
-        void sortTripleDESC(vector<shared_ptr<State>> &vet);
+        void sortTripleDESC(vector<shared_ptr<Rule>> &vet);
 
-        void buildMatrixEvent(vector<std::shared_ptr<State>> &process, int numEvents);
+        void buildMatrixEvent(vector<std::shared_ptr<Rule>> &process, size_t sigmaSize);
 
     };
 }

@@ -39,13 +39,13 @@ set(hibpm_sources
 
     ${hibpm_source}/hibpm/Automaton.cpp
     ${hibpm_source}/hibpm/Automaton.hpp
-#[[
+
     ${hibpm_source}/hibpm/RepairAutomata.cpp
     ${hibpm_source}/hibpm/RepairAutomata.hpp
 
-    #${hibpm_source}/hibpm/TopoGraph.cpp
-    #${hibpm_source}/hibpm/TopoGraph.h
-  ]]
+    ${hibpm_source}/hibpm/TopoGraph.cpp
+    ${hibpm_source}/hibpm/TopoGraph.hpp
+
     ${BISON_DeclareParser_OUTPUTS}
     ${FLEX_DeclareScanner_OUTPUTS}
 )
