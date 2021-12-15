@@ -51,6 +51,8 @@ namespace hibpm
         RuleType getType();
         std::string getTypeString();
 
+        virtual bool isEqualTo(Rule &rule) = 0;
+
         virtual void print() = 0;
 
     protected:

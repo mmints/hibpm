@@ -12,9 +12,8 @@ namespace hibpm
 
         Event getEvent();
         u_int64_t getEventNumericValue();
-        bool isEqualTo(Unary &rule);
         Event getTarget();
-
+        bool isEqualTo(Rule &rule) override;
         void print() override;
 
     protected:

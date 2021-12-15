@@ -15,9 +15,16 @@ namespace hibpm
         return m_event.numericValue;
     }
 
-    bool Unary::isEqualTo(Unary &rule) {
-        if (m_event.numericValue == rule.m_event.numericValue) {
-            return true;
+    bool Unary::isEqualTo(Rule &rule) {
+        if (rule.isUnary())
+        {
+            auto unary = (Unary*) &rule;
+            if (m_event.numericValue == unary->getEventNumericValue()) {
+                return true;
+            }
+            else {
+                return false;
+            }
         }
         else {
             return false;

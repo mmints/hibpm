@@ -16,10 +16,17 @@ namespace hibpm
         return {m_event_1.numericValue, m_event_2.numericValue};
     }
 
-    bool Binary::isEqualTo(Binary &rule) {
-        if (m_event_1.numericValue == rule.m_event_1.numericValue &&
-        m_event_2.numericValue == rule.m_event_2.numericValue) {
-            return true;
+    bool Binary::isEqualTo(Rule &rule) {
+        if (rule.isBinary())
+        {
+            auto binary = (Binary*) &rule;
+            if (m_event_1.numericValue == binary->getEventNumericValues().at(0) &&
+                m_event_2.numericValue == binary->getEventNumericValues().at(1)) {
+                return true;
+            }
+            else {
+                return false;
+            }
         }
         else {
             return false;
