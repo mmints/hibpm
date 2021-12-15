@@ -26,12 +26,9 @@ namespace hibpm
 
     void Parser::parse()
     {
-        yy::declare parser(m_declare_ctx); // make a declare parser
+        yy::declare bisonParser(m_declare_ctx); // make a declare parser
         yy_scan_string(m_file.c_str());
-        if (!parser.parse())
-            std::cerr << "Parsing Failed!" << std::endl;
-        else
-            std::cout << "Parsing Succeed!" << std::endl;
+        std::cout << "Bison Parser Msg: " << bisonParser.parse() << std::endl;
     }
 
     Declare Parser::parseFromFile(std::string path)
