@@ -1,4 +1,4 @@
-#include "GraphSolver.h"
+#include "GraphSolver.hpp"
 
 namespace hibpm {
 
