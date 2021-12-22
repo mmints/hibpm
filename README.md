@@ -1,22 +1,43 @@
 # HIBPM - Handling Inconsistencies in Business Process Modelling
 Prototype for removing inconsistency in declare model via remainders.
 
-## Project Structure
+Git submodules are used for libraries.
+To download the submodules either clone using ``git clone --recurse-submodules <url>`` or after ``git clone`` use ``git submodule init`` and ``git submodule update``.
 
-The [`parser`](/parser) directory holds all required `Bison` and `Flex` files that represents the logic and grammar
-of the Declare-Language. In [`/parser/Declare`](/Declare) is a class definition of the Declare-Lang data
-structure. The parser creates an object of this class. To compile this part of the project one has to execute
-the script [`build.sh`](/build.sh).
+---
 
-## Meeting Log
-Here we're writing down some notes during meeting.
+## Dependencies:
+Following libraries are required to build the project.
 
-### April 22nd:
-- https://www.gnu.org/software/bison/manual/html_node/C_002b_002b-Bison-Interface.html Bison for Parser
-- Build the solver in C++
-- Grail for Automata Library http://www.csit.upei.ca/~ccampeanu/Grail/ (Old and unsupported, last update 2012(?))
+**System Installation Required:**
+- BISON version: 3.7.6
+- FLEX version: 2.6.4
 
-### April 8th:
-- [Java Automata Library](https://www.brics.dk/automaton/)
-- Carl Coras Repo for BPMN parsing: [inconsistencylibrary](https://gitlab.uni-koblenz.de/fg-bks/inconsistencylibrary)
-- The only thing that we need are the test cases and maybe the parser.
+**Submodule:**
+- [EvalMaxSAT](https://github.com/FlorentAvellaneda/EvalMaxSAT)
+
+---
+
+## Building
+
+To build the project: 
+```bash
+cd <...>/hibpm
+mkdir build && cd build
+cmake ..
+make -j<X> # X is the number of jobs/thread that you want to give the compiler to be quicker 
+```
+
+It could be that some compilers; e.g. `AppleClang 12.0.5.x` fail on trying to build `EvalMaxSAT`.
+In this case, `g++` was tested and works with this setup.
+To switch the compiler for building use:
+```
+cmake -DCMAKE_CXX_COMPILER=g++ ..
+```
+instead of the first line above.
+
+On MasOS it might be, that you have to call the explicit version of `g++` by `g++-<version>` because Apple redirect `g++` back to `AppleClang`.
+```
+cmake -DCMAKE_CXX_COMPILER=g++-10 ..
+```
+
