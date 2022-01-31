@@ -141,8 +141,7 @@ namespace hibpm
 
     std::list<shared_ptr<Rule>> RepairAutomata::controlShrink(list<shared_ptr<Rule>> &ruleSet,
                                                                shared_ptr<Rule> alpha,
-                                                               list<Automaton> &products)
-    {
+                                                               list<Automaton> &products) {
         list<shared_ptr<Rule>> solution; // Symbols
 
         // Assign first formula to S and
@@ -150,37 +149,26 @@ namespace hibpm
         Automaton rightProd = alpha->getAutomata();
 
         Automaton auxProd;
-        Automaton phi;
+        Automaton phiAutomata;
 
-        list<Automaton>::reverse_iterator  itProd = products.rbegin();
-        list<shared_ptr<Rule>>::reverse_iterator itRules = ruleSet.rbegin(), itRendP = ruleSet.rend();
+        list<Automaton>::reverse_iterator itProd = products.rbegin();
+        list<shared_ptr<Rule>>::reverse_iterator phi = ruleSet.rbegin();
 
-        itRendP++;
-
-        //int i = ruleSet.size() - 1;
-
-        while(itRules != itRendP && !rightProd.isEmptyMinusEmptyString())
-        //while (i > 0 && !rightProd.isEmptyMinusEmptyString()) // while i>1 AND L(rightProd)̸=∅
+        for (; phi != ruleSet.rend()++ && !rightProd.isEmptyMinusEmptyString(); phi++, itProd++)
         {
-            list<Automaton>::reverse_iterator itProdPrev = itProd;
-            itProd--;
-            //auxProd = rightProd.product(&products[i-1], &rightProd);
-            auxProd = rightProd.product(&(*itProdPrev), &rightProd);
-
-            if (!auxProd.isEmptyMinusEmptyString()) {
-                //solution.push_back(ruleSet[i]);
-                solution.push_back((*itRules));
-                phi = (*itRules)->getAutomata();
-                rightProd = rightProd.product(&phi, &rightProd);
+            auxProd = rightProd.product(&*itProd, &rightProd);
+            if (!auxProd.isEmptyMinusEmptyString())
+            {
+                solution.push_back(static_cast<shared_ptr<Rule>>(phi->get()));
+                Automaton a = phi->get()->getAutomata();
+                rightProd = rightProd.product(&a, &rightProd);
             }
-            //i--;
-            itRules--;
         }
-
-        // Add the last element to S
-        if (!rightProd.isEmptyMinusEmptyString()) {
+        if (!rightProd.isEmptyMinusEmptyString())
+        {
             solution.push_back(ruleSet.front());
         }
+
         return solution;
     }
 
@@ -234,39 +222,37 @@ namespace hibpm
 
     RemainderComposition RepairAutomata::lazyExpands(DeclareKnowledgeBase &declareKnowledgeBase) {
 
+        // Input
         RemainderComposition remainderComposition;
         vector<std::shared_ptr<Rule>> ruleSet =declareKnowledgeBase.getRuleSet();
 
+        // L_p <- alpha_0.automaton
         list<Automaton> accAutomata;
-
         Automaton first = ruleSet[0]->getAutomata();
-        remainderComposition.solutionSet.push_back(ruleSet[0]);
         accAutomata.push_back(first);
 
+        // L_c <- alpha_0
+        remainderComposition.solutionSet.push_back(ruleSet[0]);
+
         for (int i = 1; i < ruleSet.size(); ++i) {
-
             std::cout << "iteration " << i << std::endl;
-            //std::cout << "iteration " << i << std::endl;
 
+            // TODO: Make Product Function Variable between Lazy and Ego
             accAutomata.push_back(ruleSet[i]->getAutomata());
-            if(!first.lazyProducts(accAutomata)){
-                accAutomata.pop_back();
-                remainderComposition.hittingSet.push_back(ruleSet[i]);
-//                list<shared_ptr<State>> temK = oneKernelN(remainderComposition.solutionSet,ruleSet[i],3);
-//                remainderComposition.kernelSet.push_back(temK);
-                std::cout << "FOUNDCONFLICT >>>>>>>>>>>>>>>>>>>>>>> " << i << std::endl;
-                //list<shared_ptr<State>> remL = lazyShrink(remainderComposition.solutionSet,ruleSet[i]);
-                //remainderComposition.kernelSet.push_back(remL);
-                //std::cout << "FOUNDCONFLICT " << temK.size() << " Sike Kern " << std::endl;
+            if(!Automaton::lazyProducts(accAutomata)) { // If it's false, than it's empty
+                std::cout << "FOUND CONFLICT >>>>>>>>>>>>>>>>>>>>>>> " << i << std::endl;
+                accAutomata.pop_back(); // Remove last added automata
 
-                //std::cout << "FOUNDCONFLICT " << i << "HT ::" <<
-               // remainderComposition.hittingSet.size() << std::endl;
+                list<shared_ptr<Rule>> kernel = controlShrink(remainderComposition.solutionSet,
+                                                              ruleSet[i],
+                                                              accAutomata);
+
+                remainderComposition.kernelSet.push_back(kernel);
+                remainderComposition.hittingSet.push_back(ruleSet[i]);
             }else{
                 remainderComposition.solutionSet.push_back(ruleSet[i]);
             }
-
         }
-
         return remainderComposition;
     }
 
@@ -282,8 +268,10 @@ namespace hibpm
         list<shared_ptr<Rule>>::iterator it = ruleSet.end();
         it--;
 
+        int i = 0;
         for( ; it != ruleSet.begin(); it--){
             list<Automaton> aux(accumRight);
+            std::cout << "Running: " << i << std::endl;
 
             for (list<shared_ptr<Rule>>::iterator sit = ruleSet.begin(); sit != it ; sit++) {
                 aux.push_back((*sit)->getAutomata());
@@ -293,7 +281,7 @@ namespace hibpm
                 accumRight.push_back((*it)->getAutomata());
                 res.push_back(*it);
             }
-
+            i++;
         }
 
         return res;

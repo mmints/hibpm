@@ -547,7 +547,7 @@ namespace hibpm {
         return reducedAut;
     }
 
-    bool Automaton::lazyProducts(list<Automaton> automata) {
+     bool Automaton::lazyProducts(list<Automaton> automata) {
 
         struct TupleState{
             vector<int> values;
