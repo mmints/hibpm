@@ -39,6 +39,7 @@ namespace hibpm
 
     void Binary::print()
     {
-        std::cout << m_ruleTypeString << "(" << m_event_1.name << ", " << m_event_2.name << ")" << std::endl;
+        std::cout << m_ruleTypeString << "(" << m_event_1.name << "(" << m_event_1.numericValue << ")"
+                    << ", " << m_event_2.name << "(" << m_event_2.numericValue << ")" << ")" << std::endl;
     }
 }
