@@ -14,7 +14,7 @@ int main(int argc, char** argv)
     RepairAutomata repairAutomata;
 
     RemainderComposition remainderComposition;
-    remainderComposition = repairAutomata.lazyExpands(declareKnowledgeBase);
+    remainderComposition = repairAutomata.controlExpand(declareKnowledgeBase);
 
     std::cout << "Size of Knowledge Base: " << declareKnowledgeBase.getRuleSet().size() << std::endl;
     std::cout << "Size of Hitting Set: " << remainderComposition.hittingSet.size() << std::endl;
