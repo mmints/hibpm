@@ -2,3 +2,6 @@
 	path = lib/EvalMaxSAT
 	url = https://github.com/FlorentAvellaneda/EvalMaxSAT.git
 	ignore = untracked
+[submodule "Resources/MINERful"]
+	path = Resources/MINERful
+	url = https://github.com/cdc08x/MINERful.git
