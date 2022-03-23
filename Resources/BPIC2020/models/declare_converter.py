@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+'''
+This script can be used to translate CSV files that where created by MINERful.
+'''
+
 import sys
 import csv
 
@@ -7,11 +11,7 @@ if len(sys.argv) != 2:
     print("None or Wrong input!")
 
 in_path = sys.argv[1]
-
-csv_suffix = ".csv"
-
-if csv_suffix not in in_path:
-    print("The input file is not a CSV. Please check your input and/or change the ending to '.csv'.")
+name = in_path.split(".")
 
 filename = open(in_path, 'r')
 file = csv.reader(filename, delimiter=";")
@@ -23,10 +23,12 @@ for col in file:
 
 constraints.remove(constraints[0])
 
-for constraint in constraints:
-    constraint = constraint.replace("'", "")
-    constraint = constraint.replace(" ", "_")
-    constraint = constraint.replace("(", "('")
-    constraint = constraint.replace(")", "')")
-    constraint = constraint.replace(",_", "','")
-    print(constraint)
+
+with open(name[0] + '.txt', 'w') as f:
+    for constraint in constraints:
+        constraint = constraint.replace("'", "")
+        constraint = constraint.replace(" ", "_")
+        constraint = constraint.replace("(", "('")
+        constraint = constraint.replace(")", "')")
+        constraint = constraint.replace(",_", "','")
+        f.write("%s\n" % constraint)
