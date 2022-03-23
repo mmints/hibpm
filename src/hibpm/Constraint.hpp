@@ -12,6 +12,9 @@ namespace hibpm
         // Unary Types
         PARTICIPATION,
         AT_MOST_ONE,
+        AT_MOST_TWO,
+        AT_MOST_THREE,
+        AT_LEAST_ONE,
         INIT,
         END,
 
