@@ -16,6 +16,9 @@ set(hibpm_sources
 
     ${hibpm_source}/hibpm/Unary/Participation.cpp
     ${hibpm_source}/hibpm/Unary/AtMostOne.cpp
+    ${hibpm_source}/hibpm/Unary/AtMostTwo.cpp
+    ${hibpm_source}/hibpm/Unary/AtMostThree.cpp
+    ${hibpm_source}/hibpm/Unary/AtLeastOne.cpp
     ${hibpm_source}/hibpm/Unary/Init.cpp
     ${hibpm_source}/hibpm/Unary/End.cpp
 

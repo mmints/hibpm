@@ -39,6 +39,9 @@ std::string convertCharToString(const std::string &delimiter, char *s)
 /* Unary */
 %token PARTICIPATION
 %token AT_MOST_ONE
+%token AT_MOST_TWO
+%token AT_MOST_THREE
+%token AT_LEAST_ONE
 %token INIT
 %token END
 
@@ -90,6 +93,21 @@ rule: PARTICIPATION OP QUOTE VAR QUOTE CL EOL { std::string val = convertCharToS
 
 rule: AT_MOST_ONE OP QUOTE VAR QUOTE CL EOL { std::string val = convertCharToString("'", $4);
                                                 declare_ctx.addUnaryConstraintData(hibpm::AT_MOST_ONE, val);
+                                              }
+;
+
+rule: AT_MOST_TWO OP QUOTE VAR QUOTE CL EOL { std::string val = convertCharToString("'", $4);
+                                                declare_ctx.addUnaryConstraintData(hibpm::AT_MOST_TWO, val);
+                                              }
+;
+
+rule: AT_MOST_THREE OP QUOTE VAR QUOTE CL EOL { std::string val = convertCharToString("'", $4);
+                                                declare_ctx.addUnaryConstraintData(hibpm::AT_MOST_THREE, val);
+                                              }
+;
+
+rule: AT_LEAST_ONE OP QUOTE VAR QUOTE CL EOL { std::string val = convertCharToString("'", $4);
+                                                declare_ctx.addUnaryConstraintData(hibpm::AT_LEAST_ONE, val);
                                               }
 ;
 

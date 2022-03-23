@@ -228,28 +228,31 @@ namespace yy {
     YYUNDEF = 257,                 // "invalid token"
     PARTICIPATION = 258,           // PARTICIPATION
     AT_MOST_ONE = 259,             // AT_MOST_ONE
-    INIT = 260,                    // INIT
-    END = 261,                     // END
-    RESPONDED_EXISTENCE = 262,     // RESPONDED_EXISTENCE
-    RESPONSE = 263,                // RESPONSE
-    ALTERNATED_RESPONSE = 264,     // ALTERNATED_RESPONSE
-    CHAIN_RESPONSE = 265,          // CHAIN_RESPONSE
-    PRECEDENCE = 266,              // PRECEDENCE
-    ALTERNATED_PRECEDENCE = 267,   // ALTERNATED_PRECEDENCE
-    CHAIN_PRECEDENCE = 268,        // CHAIN_PRECEDENCE
-    CO_EXISTENCE = 269,            // CO_EXISTENCE
-    SUCCESSION = 270,              // SUCCESSION
-    ALTERNATED_SUCCESSION = 271,   // ALTERNATED_SUCCESSION
-    CHAIN_SUCCESSION = 272,        // CHAIN_SUCCESSION
-    NOT_CHAIN_SUCCESSION = 273,    // NOT_CHAIN_SUCCESSION
-    NOT_SUCCESSION = 274,          // NOT_SUCCESSION
-    NOT_CO_EXISTENCE = 275,        // NOT_CO_EXISTENCE
-    OP = 276,                      // OP
-    CL = 277,                      // CL
-    QUOTE = 278,                   // QUOTE
-    COMMA = 279,                   // COMMA
-    EOL = 280,                     // EOL
-    VAR = 281                      // VAR
+    AT_MOST_TWO = 260,             // AT_MOST_TWO
+    AT_MOST_THREE = 261,           // AT_MOST_THREE
+    AT_LEAST_ONE = 262,            // AT_LEAST_ONE
+    INIT = 263,                    // INIT
+    END = 264,                     // END
+    RESPONDED_EXISTENCE = 265,     // RESPONDED_EXISTENCE
+    RESPONSE = 266,                // RESPONSE
+    ALTERNATED_RESPONSE = 267,     // ALTERNATED_RESPONSE
+    CHAIN_RESPONSE = 268,          // CHAIN_RESPONSE
+    PRECEDENCE = 269,              // PRECEDENCE
+    ALTERNATED_PRECEDENCE = 270,   // ALTERNATED_PRECEDENCE
+    CHAIN_PRECEDENCE = 271,        // CHAIN_PRECEDENCE
+    CO_EXISTENCE = 272,            // CO_EXISTENCE
+    SUCCESSION = 273,              // SUCCESSION
+    ALTERNATED_SUCCESSION = 274,   // ALTERNATED_SUCCESSION
+    CHAIN_SUCCESSION = 275,        // CHAIN_SUCCESSION
+    NOT_CHAIN_SUCCESSION = 276,    // NOT_CHAIN_SUCCESSION
+    NOT_SUCCESSION = 277,          // NOT_SUCCESSION
+    NOT_CO_EXISTENCE = 278,        // NOT_CO_EXISTENCE
+    OP = 279,                      // OP
+    CL = 280,                      // CL
+    QUOTE = 281,                   // QUOTE
+    COMMA = 282,                   // COMMA
+    EOL = 283,                     // EOL
+    VAR = 284                      // VAR
       };
       /// Backward compatibility alias (Bison 3.6).
       typedef token_kind_type yytokentype;
@@ -266,38 +269,41 @@ namespace yy {
     {
       enum symbol_kind_type
       {
-        YYNTOKENS = 27, ///< Number of tokens.
+        YYNTOKENS = 30, ///< Number of tokens.
         S_YYEMPTY = -2,
         S_YYEOF = 0,                             // "end of file"
         S_YYerror = 1,                           // error
         S_YYUNDEF = 2,                           // "invalid token"
         S_PARTICIPATION = 3,                     // PARTICIPATION
         S_AT_MOST_ONE = 4,                       // AT_MOST_ONE
-        S_INIT = 5,                              // INIT
-        S_END = 6,                               // END
-        S_RESPONDED_EXISTENCE = 7,               // RESPONDED_EXISTENCE
-        S_RESPONSE = 8,                          // RESPONSE
-        S_ALTERNATED_RESPONSE = 9,               // ALTERNATED_RESPONSE
-        S_CHAIN_RESPONSE = 10,                   // CHAIN_RESPONSE
-        S_PRECEDENCE = 11,                       // PRECEDENCE
-        S_ALTERNATED_PRECEDENCE = 12,            // ALTERNATED_PRECEDENCE
-        S_CHAIN_PRECEDENCE = 13,                 // CHAIN_PRECEDENCE
-        S_CO_EXISTENCE = 14,                     // CO_EXISTENCE
-        S_SUCCESSION = 15,                       // SUCCESSION
-        S_ALTERNATED_SUCCESSION = 16,            // ALTERNATED_SUCCESSION
-        S_CHAIN_SUCCESSION = 17,                 // CHAIN_SUCCESSION
-        S_NOT_CHAIN_SUCCESSION = 18,             // NOT_CHAIN_SUCCESSION
-        S_NOT_SUCCESSION = 19,                   // NOT_SUCCESSION
-        S_NOT_CO_EXISTENCE = 20,                 // NOT_CO_EXISTENCE
-        S_OP = 21,                               // OP
-        S_CL = 22,                               // CL
-        S_QUOTE = 23,                            // QUOTE
-        S_COMMA = 24,                            // COMMA
-        S_EOL = 25,                              // EOL
-        S_VAR = 26,                              // VAR
-        S_YYACCEPT = 27,                         // $accept
-        S_exp = 28,                              // exp
-        S_rule = 29                              // rule
+        S_AT_MOST_TWO = 5,                       // AT_MOST_TWO
+        S_AT_MOST_THREE = 6,                     // AT_MOST_THREE
+        S_AT_LEAST_ONE = 7,                      // AT_LEAST_ONE
+        S_INIT = 8,                              // INIT
+        S_END = 9,                               // END
+        S_RESPONDED_EXISTENCE = 10,              // RESPONDED_EXISTENCE
+        S_RESPONSE = 11,                         // RESPONSE
+        S_ALTERNATED_RESPONSE = 12,              // ALTERNATED_RESPONSE
+        S_CHAIN_RESPONSE = 13,                   // CHAIN_RESPONSE
+        S_PRECEDENCE = 14,                       // PRECEDENCE
+        S_ALTERNATED_PRECEDENCE = 15,            // ALTERNATED_PRECEDENCE
+        S_CHAIN_PRECEDENCE = 16,                 // CHAIN_PRECEDENCE
+        S_CO_EXISTENCE = 17,                     // CO_EXISTENCE
+        S_SUCCESSION = 18,                       // SUCCESSION
+        S_ALTERNATED_SUCCESSION = 19,            // ALTERNATED_SUCCESSION
+        S_CHAIN_SUCCESSION = 20,                 // CHAIN_SUCCESSION
+        S_NOT_CHAIN_SUCCESSION = 21,             // NOT_CHAIN_SUCCESSION
+        S_NOT_SUCCESSION = 22,                   // NOT_SUCCESSION
+        S_NOT_CO_EXISTENCE = 23,                 // NOT_CO_EXISTENCE
+        S_OP = 24,                               // OP
+        S_CL = 25,                               // CL
+        S_QUOTE = 26,                            // QUOTE
+        S_COMMA = 27,                            // COMMA
+        S_EOL = 28,                              // EOL
+        S_VAR = 29,                              // VAR
+        S_YYACCEPT = 30,                         // $accept
+        S_exp = 31,                              // exp
+        S_rule = 32                              // rule
       };
     };
 
@@ -785,9 +791,9 @@ namespace yy {
     /// Constants.
     enum
     {
-      yylast_ = 214,     ///< Last index in yytable_.
+      yylast_ = 238,     ///< Last index in yytable_.
       yynnts_ = 3,  ///< Number of nonterminal symbols.
-      yyfinal_ = 39 ///< Termination state number.
+      yyfinal_ = 45 ///< Termination state number.
     };
 
 
@@ -798,7 +804,7 @@ namespace yy {
 
 
 } // yy
-#line 802 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.hpp"
+#line 808 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.hpp"
 
 
 

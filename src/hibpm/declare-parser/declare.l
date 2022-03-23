@@ -24,6 +24,11 @@ yylloc->step ();
 
 "Participation"         { return token::PARTICIPATION; }
 "AtMostOne"             { return token::AT_MOST_ONE; }
+"AtMost1"		{ return token::AT_MOST_ONE; }
+"AtMost2"		{ return token::AT_MOST_TWO; }
+"AtMost3"		{ return token::AT_MOST_THREE; }
+"AtLeast1"		{ return token::AT_LEAST_ONE; }
+
 "Init"                  { return token::INIT; }
 "End"                   { return token::END; }
 
