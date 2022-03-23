@@ -12,6 +12,18 @@ namespace hibpm
     }
 
     void AtLeastOne::initializeAutomaton() {
-        // TODO
+        // (0)---|evLetter|--->(1)
+        m_automaton.addTransition(0, 1, m_event.numericValue);
+
+        for (int a = 0; a < m_sigmaSize; a++) {
+            // (0)---|Sigma|--->(0)
+            m_automaton.addTransition(0, 0, a);
+
+            // (1)---|Sigma|--->(1)
+            m_automaton.addTransition(1, 1, a);
+        }
+
+        // final
+        m_automaton.addFinal(1);
     }
 }
