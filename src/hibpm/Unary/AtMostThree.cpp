@@ -38,6 +38,9 @@ namespace hibpm
         }
 
         // final
+        m_automaton.addFinal(1);
+        m_automaton.addFinal(2);
+        m_automaton.addFinal(3);
         m_automaton.addFinal(4);
     }
 }
