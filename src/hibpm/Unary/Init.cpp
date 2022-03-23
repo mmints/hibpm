@@ -6,7 +6,7 @@ namespace hibpm
     Unary(sigmaSize, event)
     {
         m_type = INIT;
-        m_ruleTypeString = "Init";
+        m_constraintTypeString = "Init";
         m_automaton = Automaton(2, sigmaSize);
         Init::initializeAutomaton();
     }

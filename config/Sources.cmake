@@ -8,8 +8,8 @@ set(hibpm_sources
     ${hibpm_source}/hibpm/DeclareKnowledgeBase.cpp
     ${hibpm_source}/hibpm/DeclareKnowledgeBase.hpp
 
-    ${hibpm_source}/hibpm/Rule.cpp
-    ${hibpm_source}/hibpm/Rule.hpp
+    ${hibpm_source}/hibpm/Constraint.cpp
+    ${hibpm_source}/hibpm/Constraint.hpp
 
     ${hibpm_source}/hibpm/Unary.cpp
     ${hibpm_source}/hibpm/Unary.hpp

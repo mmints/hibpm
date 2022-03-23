@@ -2,7 +2,7 @@
 
 #include <memory>
 
-#include "Rule.hpp"
+#include "Constraint.hpp"
 
 namespace hibpm {
 

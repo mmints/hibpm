@@ -6,7 +6,7 @@ namespace hibpm
     Unary(sigmaSize, event)
     {
         m_type = PARTICIPATION;
-        m_ruleTypeString = "Participation";
+        m_constraintTypeString = "Participation";
         m_automaton = Automaton(2, sigmaSize);
         Participation::initializeAutomaton();
     }

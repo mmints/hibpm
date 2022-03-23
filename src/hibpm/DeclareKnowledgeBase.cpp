@@ -7,132 +7,132 @@ namespace hibpm
     {
         m_sigma = declareContext.getEventData();
         m_sigmaSize = declareContext.getEventDataCount();
-        initRuleSet(declareContext);
+        initConstraintSet(declareContext);
     }
 
-    void DeclareKnowledgeBase::initRuleSet(DeclareContext &declareContext)
+    void DeclareKnowledgeBase::initConstraintSet(DeclareContext &declareContext)
     {
-        for (DeclareContext::RuleData &ruleData : declareContext.getRuleData()) {
-            switch (ruleData.type)
+        for (DeclareContext::ConstraintData &constraintData : declareContext.getConstraintData()) {
+            switch (constraintData.type)
             {
                 // Unary
                 case PARTICIPATION: {
-                    std::shared_ptr<Participation> rule
-                            = std::make_shared<Participation>(m_sigmaSize, ruleData.events.at(0));
-                    m_RuleSet.push_back(rule);
+                    std::shared_ptr<Participation> constraint
+                            = std::make_shared<Participation>(m_sigmaSize, constraintData.events.at(0));
+                    m_ConstraintSet.push_back(constraint);
                     break;
                 }
                 case AT_MOST_ONE: {
-                    std::shared_ptr<AtMostOne> rule
-                            = std::make_shared<AtMostOne>(m_sigmaSize, ruleData.events.at(0));
+                    std::shared_ptr<AtMostOne> constraint
+                            = std::make_shared<AtMostOne>(m_sigmaSize, constraintData.events.at(0));
 
-                    m_RuleSet.push_back(rule);
+                    m_ConstraintSet.push_back(constraint);
                     break;
                 }
                 case INIT: {
-                    std::shared_ptr<Init> rule
-                            = std::make_shared<Init>(m_sigmaSize, ruleData.events.at(0));
-                    m_RuleSet.push_back(rule);
+                    std::shared_ptr<Init> constraint
+                            = std::make_shared<Init>(m_sigmaSize, constraintData.events.at(0));
+                    m_ConstraintSet.push_back(constraint);
                     break;
                 }
                 case END: {
-                    std::shared_ptr<End> rule
-                            = std::make_shared<End>(m_sigmaSize, ruleData.events.at(0));
-                    m_RuleSet.push_back(rule);
+                    std::shared_ptr<End> constraint
+                            = std::make_shared<End>(m_sigmaSize, constraintData.events.at(0));
+                    m_ConstraintSet.push_back(constraint);
                     break;
                 }
 
                     // Binary
                 case RESPONDED_EXISTENCE: {
-                    std::shared_ptr<RespondedExistence> rule
-                            = std::make_shared<RespondedExistence>(m_sigmaSize, ruleData.events);
-                    m_RuleSet.push_back(rule);
+                    std::shared_ptr<RespondedExistence> constraint
+                            = std::make_shared<RespondedExistence>(m_sigmaSize, constraintData.events);
+                    m_ConstraintSet.push_back(constraint);
                     break;
                 }
                 case RESPONSE: {
-                    std::shared_ptr<Response> rule
-                            = std::make_shared<Response>(m_sigmaSize, ruleData.events);
-                    m_RuleSet.push_back(rule);
+                    std::shared_ptr<Response> constraint
+                            = std::make_shared<Response>(m_sigmaSize, constraintData.events);
+                    m_ConstraintSet.push_back(constraint);
                     break;
                 }
                 case ALTERNATED_RESPONSE: {
-                    std::shared_ptr<AlternatedResponse> rule
-                            = std::make_shared<AlternatedResponse>(m_sigmaSize, ruleData.events);
-                    m_RuleSet.push_back(rule);
+                    std::shared_ptr<AlternatedResponse> constraint
+                            = std::make_shared<AlternatedResponse>(m_sigmaSize, constraintData.events);
+                    m_ConstraintSet.push_back(constraint);
                     break;
                 }
                 case CHAIN_RESPONSE: {
-                    std::shared_ptr<ChainResponse> rule
-                            = std::make_shared<ChainResponse>(m_sigmaSize, ruleData.events);
-                    m_RuleSet.push_back(rule);
+                    std::shared_ptr<ChainResponse> constraint
+                            = std::make_shared<ChainResponse>(m_sigmaSize, constraintData.events);
+                    m_ConstraintSet.push_back(constraint);
                     break;
                 }
                 case PRECEDENCE: {
-                    std::shared_ptr<Precedence> rule
-                            = std::make_shared<Precedence>(m_sigmaSize, ruleData.events);
-                    m_RuleSet.push_back(rule);
+                    std::shared_ptr<Precedence> constraint
+                            = std::make_shared<Precedence>(m_sigmaSize, constraintData.events);
+                    m_ConstraintSet.push_back(constraint);
                     break;
                 }
                 case ALTERNATED_PRECEDENCE: {
-                    std::shared_ptr<AlternatedPrecedence> rule
-                            = std::make_shared<AlternatedPrecedence>(m_sigmaSize, ruleData.events);
-                    m_RuleSet.push_back(rule);
+                    std::shared_ptr<AlternatedPrecedence> constraint
+                            = std::make_shared<AlternatedPrecedence>(m_sigmaSize, constraintData.events);
+                    m_ConstraintSet.push_back(constraint);
                     break;
                 }
                 case CHAIN_PRECEDENCE: {
-                    std::shared_ptr<ChainPrecedence> rule
-                            = std::make_shared<ChainPrecedence>(m_sigmaSize, ruleData.events);
-                    m_RuleSet.push_back(rule);
+                    std::shared_ptr<ChainPrecedence> constraint
+                            = std::make_shared<ChainPrecedence>(m_sigmaSize, constraintData.events);
+                    m_ConstraintSet.push_back(constraint);
                     break;
                 }
                 case CO_EXISTENCE: {
-                    std::shared_ptr<CoExistence> rule
-                            = std::make_shared<CoExistence>(m_sigmaSize, ruleData.events);
-                    m_RuleSet.push_back(rule);
+                    std::shared_ptr<CoExistence> constraint
+                            = std::make_shared<CoExistence>(m_sigmaSize, constraintData.events);
+                    m_ConstraintSet.push_back(constraint);
                     break;
                 }
                 case SUCCESSION: {
-                    std::shared_ptr<Succession> rule
-                            = std::make_shared<Succession>(m_sigmaSize, ruleData.events);
-                    m_RuleSet.push_back(rule);
+                    std::shared_ptr<Succession> constraint
+                            = std::make_shared<Succession>(m_sigmaSize, constraintData.events);
+                    m_ConstraintSet.push_back(constraint);
                     break;
                 }
                 case ALTERNATED_SUCCESSION: {
-                    std::shared_ptr<AlternateSuccession> rule
-                            = std::make_shared<AlternateSuccession>(m_sigmaSize, ruleData.events);
-                    m_RuleSet.push_back(rule);
+                    std::shared_ptr<AlternateSuccession> constraint
+                            = std::make_shared<AlternateSuccession>(m_sigmaSize, constraintData.events);
+                    m_ConstraintSet.push_back(constraint);
                     break;
                 }
                 case CHAIN_SUCCESSION: {
-                    std::shared_ptr<ChainSuccession> rule
-                            = std::make_shared<ChainSuccession>(m_sigmaSize, ruleData.events);
-                    m_RuleSet.push_back(rule);
+                    std::shared_ptr<ChainSuccession> constraint
+                            = std::make_shared<ChainSuccession>(m_sigmaSize, constraintData.events);
+                    m_ConstraintSet.push_back(constraint);
                     break;
                 }
                 case NOT_CHAIN_SUCCESSION: {
-                    std::shared_ptr<NotChainSuccession> rule
-                            = std::make_shared<NotChainSuccession>(m_sigmaSize, ruleData.events);
-                    m_RuleSet.push_back(rule);
+                    std::shared_ptr<NotChainSuccession> constraint
+                            = std::make_shared<NotChainSuccession>(m_sigmaSize, constraintData.events);
+                    m_ConstraintSet.push_back(constraint);
                     break;
                 }
                 case NOT_SUCCESSION: {
-                    std::shared_ptr<NotSuccession> rule
-                            = std::make_shared<NotSuccession>(m_sigmaSize, ruleData.events);
-                    m_RuleSet.push_back(rule);
+                    std::shared_ptr<NotSuccession> constraint
+                            = std::make_shared<NotSuccession>(m_sigmaSize, constraintData.events);
+                    m_ConstraintSet.push_back(constraint);
                     break;
                 }
                 case NOT_CO_EXISTENCE: {
-                    std::shared_ptr<NotCoExistence> rule
-                            = std::make_shared<NotCoExistence>(m_sigmaSize, ruleData.events);
-                    m_RuleSet.push_back(rule);
+                    std::shared_ptr<NotCoExistence> constraint
+                            = std::make_shared<NotCoExistence>(m_sigmaSize, constraintData.events);
+                    m_ConstraintSet.push_back(constraint);
                     break;
                 }
             }
         }
     }
 
-    std::vector<std::shared_ptr<Rule>> DeclareKnowledgeBase::getRuleSet() {
-        return m_RuleSet;
+    std::vector<std::shared_ptr<Constraint>> DeclareKnowledgeBase::getConstraintSet() {
+        return m_ConstraintSet;
     }
 
     std::vector<Event> DeclareKnowledgeBase::getSigma() {

@@ -6,21 +6,21 @@ namespace hibpm
     Binary(sigmaSize, events)
     {
         m_type = CHAIN_RESPONSE;
-        m_ruleTypeString = "ChainResponse";
+        m_constraintTypeString = "ChainResponse";
         m_automaton = Automaton(2, sigmaSize);
         ChainResponse::initializeAutomaton();
     }
 
     void ChainResponse::initializeAutomaton() {
         // (0)---| a |--->(1)
-        m_automaton.addTransition(0, 1, m_event_1.numericValue);
+        m_automaton.addTransition(0, 1, m_activation.numericValue);
 
         // (1)---| b |--->(0)
-        m_automaton.addTransition(1, 0, m_event_2.numericValue);
+        m_automaton.addTransition(1, 0, m_target.numericValue);
 
         // (0)---| Sigma \ a |--->(0)
         for (int i = 0; i < m_sigmaSize; i++) {
-            if (i != m_event_1.numericValue) {
+            if (i != m_activation.numericValue) {
                 m_automaton.addTransition(0, 0, i);
             }
         }

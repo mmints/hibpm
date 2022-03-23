@@ -1,26 +1,26 @@
 #pragma once
 
-#include "Rule.hpp"
+#include "Constraint.hpp"
 
 namespace hibpm
 {
     // Overall abstract Class for Binary State Definitions
-    class Binary : public Rule
+    class Binary : public Constraint
     {
     public:
         Binary(size_t sigmaSize, std::vector<Event> &events);
 
         std::vector<Event> getEvents();
         std::vector<u_int64_t> getEventNumericValues();
-        bool eventsMatch(Rule &rule) override;
+        bool eventsMatch(Constraint &rule) override;
         Event getTarget();
 
         void print() override;
 
     protected:
         // Get the events from the given rule in constructor
-        Event m_event_1;
-        Event m_event_2;
+        Event m_activation;
+        Event m_target;
     };
 
     class RespondedExistence : public Binary {
