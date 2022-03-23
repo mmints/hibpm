@@ -6,7 +6,7 @@ namespace hibpm
     Unary(sigmaSize, event)
     {
         m_type = AT_MOST_ONE;
-        m_ruleTypeString = "AtMostOne";
+        m_constraintTypeString = "AtMostOne";
         m_automaton = Automaton(2, sigmaSize);
         AtMostOne::initializeAutomaton();
     }

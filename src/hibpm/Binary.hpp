@@ -19,8 +19,8 @@ namespace hibpm
 
     protected:
         // Get the events from the given rule in constructor
-        Event m_event_1;
-        Event m_event_2;
+        Event m_activation;
+        Event m_target;
     };
 
     class RespondedExistence : public Binary {

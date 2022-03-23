@@ -24,7 +24,7 @@ int main(int argc, char** argv)
     }
 
 */
-    std::cout << "Size of Knowledge Base: " << declareKnowledgeBase.getRuleSet().size() << std::endl;
+    std::cout << "Size of Knowledge Base: " << declareKnowledgeBase.getConstraintSet().size() << std::endl;
     std::cout << "Size of Solution Set: " << remainderComposition.solutionSet.size() << std::endl;
 
     return 0;

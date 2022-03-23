@@ -81,111 +81,111 @@ exp: exp exp
  | rule
  ;
 
-/* Unary Rules */
+/* Unary Constraints */
 
 rule: PARTICIPATION OP QUOTE VAR QUOTE CL EOL { std::string val = convertCharToString("'", $4);
-                                                declare_ctx.addUnaryRuleData(hibpm::PARTICIPATION, val);
+                                                declare_ctx.addUnaryConstraintData(hibpm::PARTICIPATION, val);
                                               }
 ;
 
 rule: AT_MOST_ONE OP QUOTE VAR QUOTE CL EOL { std::string val = convertCharToString("'", $4);
-                                                declare_ctx.addUnaryRuleData(hibpm::AT_MOST_ONE, val);
+                                                declare_ctx.addUnaryConstraintData(hibpm::AT_MOST_ONE, val);
                                               }
 ;
 
 rule: INIT OP QUOTE VAR QUOTE CL EOL { std::string val = convertCharToString("'", $4);
-                                                declare_ctx.addUnaryRuleData(hibpm::INIT, val);
+                                                declare_ctx.addUnaryConstraintData(hibpm::INIT, val);
                                               }
 ;
 
 rule: END OP QUOTE VAR QUOTE CL EOL { std::string val = convertCharToString("'", $4);
-                                                declare_ctx.addUnaryRuleData(hibpm::END, val);
+                                                declare_ctx.addUnaryConstraintData(hibpm::END, val);
                                               }
 ;
 
-/* Binary Rules */
+/* Binary Constraints */
 
 rule: RESPONDED_EXISTENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRuleData(hibpm::RESPONDED_EXISTENCE, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::RESPONDED_EXISTENCE, val_1, val_2);
                                                                           }
 ;
 
 rule: RESPONSE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRuleData(hibpm::RESPONSE, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::RESPONSE, val_1, val_2);
                                                                           }
 ;
 
 rule: ALTERNATED_RESPONSE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRuleData(hibpm::ALTERNATED_RESPONSE, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::ALTERNATED_RESPONSE, val_1, val_2);
                                                                           }
 ;
 
 rule: CHAIN_RESPONSE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRuleData(hibpm::CHAIN_RESPONSE, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::CHAIN_RESPONSE, val_1, val_2);
                                                                           }
 ;
 
 rule: PRECEDENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRuleData(hibpm::PRECEDENCE, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::PRECEDENCE, val_1, val_2);
                                                                           }
 ;
 
 rule: ALTERNATED_PRECEDENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRuleData(hibpm::ALTERNATED_PRECEDENCE, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::ALTERNATED_PRECEDENCE, val_1, val_2);
                                                                           }
 ;
 
 rule: CHAIN_PRECEDENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRuleData(hibpm::CHAIN_PRECEDENCE, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::CHAIN_PRECEDENCE, val_1, val_2);
                                                                           }
 ;
 
 rule: CO_EXISTENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRuleData(hibpm::CO_EXISTENCE, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::CO_EXISTENCE, val_1, val_2);
                                                                           }
 ;
 
 rule: SUCCESSION OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRuleData(hibpm::SUCCESSION, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::SUCCESSION, val_1, val_2);
                                                                           }
 ;
 
 rule: ALTERNATED_SUCCESSION OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRuleData(hibpm::ALTERNATED_SUCCESSION, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::ALTERNATED_SUCCESSION, val_1, val_2);
                                                                           }
 ;
 
 rule: CHAIN_SUCCESSION OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRuleData(hibpm::CHAIN_SUCCESSION, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::CHAIN_SUCCESSION, val_1, val_2);
                                                                           }
 ;
 
 rule: NOT_CHAIN_SUCCESSION OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRuleData(hibpm::NOT_CHAIN_SUCCESSION, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::NOT_CHAIN_SUCCESSION, val_1, val_2);
                                                                           }
 ;
 
 rule: NOT_SUCCESSION OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRuleData(hibpm::NOT_SUCCESSION, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::NOT_SUCCESSION, val_1, val_2);
                                                                           }
 ;
 
 rule: NOT_CO_EXISTENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL { std::string val_1 = convertCharToString("'",$4);
                                                                             std::string val_2 = convertCharToString("'",$8);
-                                                                            declare_ctx.addBinaryRuleData(hibpm::NOT_CO_EXISTENCE, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::NOT_CO_EXISTENCE, val_1, val_2);
                                                                           }
 ;
 

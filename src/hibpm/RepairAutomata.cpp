@@ -124,12 +124,12 @@ namespace hibpm
         Automaton auxProd;
         Automaton a;
 
-        result = declareKnowledgeBase.getRuleSet().at(0)->getAutomata();
-        for (int i = 1; i < declareKnowledgeBase.getRuleSet().size(); i++)
+        result = declareKnowledgeBase.getConstraintSet().at(0)->getAutomata();
+        for (int i = 1; i < declareKnowledgeBase.getConstraintSet().size(); i++)
         {
             // Debug Print
             // std::cout << "Iteration: " << i << " - Automata Size: " << result.numSt << std::endl;
-            a = declareKnowledgeBase.getRuleSet().at(i)->getAutomata();
+            a = declareKnowledgeBase.getConstraintSet().at(i)->getAutomata();
 
             auxProd = a.product(&a, &result);
             if(!auxProd.isEmptyMinusEmptyString()) {
@@ -153,13 +153,13 @@ namespace hibpm
         Automaton phi;
 
         list<Automaton>::reverse_iterator  itProd = products.rbegin();
-        list<shared_ptr<Constraint>>::reverse_iterator itRules = ruleSet.rbegin(), itRendP = ruleSet.rend();
+        list<shared_ptr<Constraint>>::reverse_iterator itConstraints = ruleSet.rbegin(), itRendP = ruleSet.rend();
 
         itRendP++;
 
         //int i = ruleSet.size() - 1;
 
-        while(itRules != itRendP && !rightProd.isEmptyMinusEmptyString())
+        while(itConstraints != itRendP && !rightProd.isEmptyMinusEmptyString())
         //while (i > 0 && !rightProd.isEmptyMinusEmptyString()) // while i>1 AND L(rightProd)̸=∅
         {
             list<Automaton>::reverse_iterator itProdPrev = itProd;
@@ -169,12 +169,12 @@ namespace hibpm
 
             if (!auxProd.isEmptyMinusEmptyString()) {
                 //solution.push_back(ruleSet[i]);
-                solution.push_back((*itRules));
-                phi = (*itRules)->getAutomata();
+                solution.push_back((*itConstraints));
+                phi = (*itConstraints)->getAutomata();
                 rightProd = rightProd.product(&phi, &rightProd);
             }
             //i--;
-            itRules--;
+            itConstraints--;
         }
 
         // Add the last element to S
@@ -186,7 +186,7 @@ namespace hibpm
 
     RemainderComposition RepairAutomata::controlExpand(DeclareKnowledgeBase &declareKnowledgeBase)
     {
-        vector<shared_ptr<Constraint>> ruleSet = declareKnowledgeBase.getRuleSet();
+        vector<shared_ptr<Constraint>> ruleSet = declareKnowledgeBase.getConstraintSet();
         RemainderComposition remainderComposition;
         list<Automaton> products; // TODO: change to list (also in the controlShrink)
 
@@ -235,7 +235,7 @@ namespace hibpm
     RemainderComposition RepairAutomata::lazyExpands(DeclareKnowledgeBase &declareKnowledgeBase) {
 
         RemainderComposition remainderComposition;
-        vector<std::shared_ptr<Constraint>> ruleSet =declareKnowledgeBase.getRuleSet();
+        vector<std::shared_ptr<Constraint>> ruleSet =declareKnowledgeBase.getConstraintSet();
 
         list<Automaton> accAutomata;
 

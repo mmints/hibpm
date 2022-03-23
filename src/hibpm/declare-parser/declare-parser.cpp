@@ -634,7 +634,7 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
   case 4: // rule: PARTICIPATION OP QUOTE VAR QUOTE CL EOL
 #line 86 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                               { std::string val = convertCharToString("'", (yystack_[3].value.event_name_val));
-                                                declare_ctx.addUnaryRuleData(hibpm::PARTICIPATION, val);
+                                                declare_ctx.addUnaryConstraintData(hibpm::PARTICIPATION, val);
                                               }
 #line 640 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
@@ -642,7 +642,7 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
   case 5: // rule: AT_MOST_ONE OP QUOTE VAR QUOTE CL EOL
 #line 91 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                             { std::string val = convertCharToString("'", (yystack_[3].value.event_name_val));
-                                                declare_ctx.addUnaryRuleData(hibpm::AT_MOST_ONE, val);
+                                                declare_ctx.addUnaryConstraintData(hibpm::AT_MOST_ONE, val);
                                               }
 #line 648 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
@@ -650,7 +650,7 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
   case 6: // rule: INIT OP QUOTE VAR QUOTE CL EOL
 #line 96 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                      { std::string val = convertCharToString("'", (yystack_[3].value.event_name_val));
-                                                declare_ctx.addUnaryRuleData(hibpm::INIT, val);
+                                                declare_ctx.addUnaryConstraintData(hibpm::INIT, val);
                                               }
 #line 656 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
@@ -658,7 +658,7 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
   case 7: // rule: END OP QUOTE VAR QUOTE CL EOL
 #line 101 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                     { std::string val = convertCharToString("'", (yystack_[3].value.event_name_val));
-                                                declare_ctx.addUnaryRuleData(hibpm::END, val);
+                                                declare_ctx.addUnaryConstraintData(hibpm::END, val);
                                               }
 #line 664 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
@@ -667,7 +667,7 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
 #line 108 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                           { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
-                                                                            declare_ctx.addBinaryRuleData(hibpm::RESPONDED_EXISTENCE, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::RESPONDED_EXISTENCE, val_1, val_2);
                                                                           }
 #line 673 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
@@ -676,7 +676,7 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
 #line 114 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
-                                                                            declare_ctx.addBinaryRuleData(hibpm::RESPONSE, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::RESPONSE, val_1, val_2);
                                                                           }
 #line 682 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
@@ -685,7 +685,7 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
 #line 120 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                           { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
-                                                                            declare_ctx.addBinaryRuleData(hibpm::ALTERNATED_RESPONSE, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::ALTERNATED_RESPONSE, val_1, val_2);
                                                                           }
 #line 691 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
@@ -694,7 +694,7 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
 #line 126 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                      { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
-                                                                            declare_ctx.addBinaryRuleData(hibpm::CHAIN_RESPONSE, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::CHAIN_RESPONSE, val_1, val_2);
                                                                           }
 #line 700 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
@@ -703,7 +703,7 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
 #line 132 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                  { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
-                                                                            declare_ctx.addBinaryRuleData(hibpm::PRECEDENCE, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::PRECEDENCE, val_1, val_2);
                                                                           }
 #line 709 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
@@ -712,7 +712,7 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
 #line 138 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                             { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
-                                                                            declare_ctx.addBinaryRuleData(hibpm::ALTERNATED_PRECEDENCE, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::ALTERNATED_PRECEDENCE, val_1, val_2);
                                                                           }
 #line 718 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
@@ -721,7 +721,7 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
 #line 144 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                        { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
-                                                                            declare_ctx.addBinaryRuleData(hibpm::CHAIN_PRECEDENCE, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::CHAIN_PRECEDENCE, val_1, val_2);
                                                                           }
 #line 727 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
@@ -730,7 +730,7 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
 #line 150 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                    { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
-                                                                            declare_ctx.addBinaryRuleData(hibpm::CO_EXISTENCE, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::CO_EXISTENCE, val_1, val_2);
                                                                           }
 #line 736 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
@@ -739,7 +739,7 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
 #line 156 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                  { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
-                                                                            declare_ctx.addBinaryRuleData(hibpm::SUCCESSION, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::SUCCESSION, val_1, val_2);
                                                                           }
 #line 745 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
@@ -748,7 +748,7 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
 #line 162 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                             { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
-                                                                            declare_ctx.addBinaryRuleData(hibpm::ALTERNATED_SUCCESSION, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::ALTERNATED_SUCCESSION, val_1, val_2);
                                                                           }
 #line 754 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
@@ -757,7 +757,7 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
 #line 168 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                        { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
-                                                                            declare_ctx.addBinaryRuleData(hibpm::CHAIN_SUCCESSION, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::CHAIN_SUCCESSION, val_1, val_2);
                                                                           }
 #line 763 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
@@ -766,7 +766,7 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
 #line 174 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                            { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
-                                                                            declare_ctx.addBinaryRuleData(hibpm::NOT_CHAIN_SUCCESSION, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::NOT_CHAIN_SUCCESSION, val_1, val_2);
                                                                           }
 #line 772 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
@@ -775,7 +775,7 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
 #line 180 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                      { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
-                                                                            declare_ctx.addBinaryRuleData(hibpm::NOT_SUCCESSION, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::NOT_SUCCESSION, val_1, val_2);
                                                                           }
 #line 781 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
@@ -784,7 +784,7 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
 #line 186 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                        { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
-                                                                            declare_ctx.addBinaryRuleData(hibpm::NOT_CO_EXISTENCE, val_1, val_2);
+                                                                            declare_ctx.addBinaryConstraintData(hibpm::NOT_CO_EXISTENCE, val_1, val_2);
                                                                           }
 #line 790 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;

@@ -6,19 +6,19 @@ namespace hibpm
     Binary(sigmaSize, events)
     {
         m_type = PRECEDENCE;
-        m_ruleTypeString = "Precedence";
+        m_constraintTypeString = "Precedence";
         m_automaton = Automaton(2, sigmaSize);
         Precedence::initializeAutomaton();
     }
 
     void Precedence::initializeAutomaton() {
         // (0)---| a |--->(1)
-        m_automaton.addTransition(0, 1, m_event_1.numericValue);
+        m_automaton.addTransition(0, 1, m_activation.numericValue);
 
         for (int i = 0; i < m_sigmaSize; i++)
         {
             // (0)---| Sigma \ {a,b} |--->(0)
-            if (i != m_event_1.numericValue && i != m_event_2.numericValue) {
+            if (i != m_activation.numericValue && i != m_target.numericValue) {
                 m_automaton.addTransition(0, 0, i);
             }
 

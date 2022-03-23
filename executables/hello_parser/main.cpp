@@ -14,7 +14,7 @@ int main(int argc, char** argv)
 
     DeclareKnowledgeBase declareKnowledgeBase(declareContext);
 
-    std::vector<shared_ptr<Constraint>> rules = declareKnowledgeBase.getRuleSet();
+    std::vector<shared_ptr<Constraint>> rules = declareKnowledgeBase.getConstraintSet();
 
     for (auto e : rules) {
         e->print();
