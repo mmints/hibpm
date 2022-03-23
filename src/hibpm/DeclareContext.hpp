@@ -7,7 +7,7 @@
 #include <memory>
 #include <list>
 
-#include "Rule.hpp"
+#include "Constraint.hpp"
 
 
 namespace hibpm

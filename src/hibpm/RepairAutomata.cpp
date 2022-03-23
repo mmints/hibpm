@@ -139,11 +139,11 @@ namespace hibpm
         return result;
     }
 
-    std::list<shared_ptr<Rule>> RepairAutomata::controlShrink(list<shared_ptr<Rule>> &ruleSet,
-                                                               shared_ptr<Rule> alpha,
+    std::list<shared_ptr<Constraint>> RepairAutomata::controlShrink(list<shared_ptr<Constraint>> &ruleSet,
+                                                               shared_ptr<Constraint> alpha,
                                                                list<Automaton> &products)
     {
-        list<shared_ptr<Rule>> solution; // Symbols
+        list<shared_ptr<Constraint>> solution; // Symbols
 
         // Assign first formula to S and
         solution.push_back(alpha);
@@ -153,7 +153,7 @@ namespace hibpm
         Automaton phi;
 
         list<Automaton>::reverse_iterator  itProd = products.rbegin();
-        list<shared_ptr<Rule>>::reverse_iterator itRules = ruleSet.rbegin(), itRendP = ruleSet.rend();
+        list<shared_ptr<Constraint>>::reverse_iterator itRules = ruleSet.rbegin(), itRendP = ruleSet.rend();
 
         itRendP++;
 
@@ -186,13 +186,13 @@ namespace hibpm
 
     RemainderComposition RepairAutomata::controlExpand(DeclareKnowledgeBase &declareKnowledgeBase)
     {
-        vector<shared_ptr<Rule>> ruleSet = declareKnowledgeBase.getRuleSet();
+        vector<shared_ptr<Constraint>> ruleSet = declareKnowledgeBase.getRuleSet();
         RemainderComposition remainderComposition;
         list<Automaton> products; // TODO: change to list (also in the controlShrink)
 
         Automaton auxProd;
         Automaton phiAutomata;
-        list<shared_ptr<Rule>> tempKernel; // C in Algo 7
+        list<shared_ptr<Constraint>> tempKernel; // C in Algo 7
 
         remainderComposition.solutionSet.push_back(ruleSet[0]);
         products.push_back(ruleSet[0]->getAutomata());
@@ -235,7 +235,7 @@ namespace hibpm
     RemainderComposition RepairAutomata::lazyExpands(DeclareKnowledgeBase &declareKnowledgeBase) {
 
         RemainderComposition remainderComposition;
-        vector<std::shared_ptr<Rule>> ruleSet =declareKnowledgeBase.getRuleSet();
+        vector<std::shared_ptr<Constraint>> ruleSet =declareKnowledgeBase.getRuleSet();
 
         list<Automaton> accAutomata;
 
@@ -270,22 +270,22 @@ namespace hibpm
         return remainderComposition;
     }
 
-    list<shared_ptr<Rule>>
-    RepairAutomata::lazyShrink(list<shared_ptr<Rule>> &ruleSet, shared_ptr<Rule> alpha) {
+    list<shared_ptr<Constraint>>
+    RepairAutomata::lazyShrink(list<shared_ptr<Constraint>> &ruleSet, shared_ptr<Constraint> alpha) {
 
-        list<shared_ptr<Rule>> res;
+        list<shared_ptr<Constraint>> res;
         res.push_back(alpha);
 
         list<Automaton> accumRight;
         accumRight.push_back(alpha->getAutomata());
 
-        list<shared_ptr<Rule>>::iterator it = ruleSet.end();
+        list<shared_ptr<Constraint>>::iterator it = ruleSet.end();
         it--;
 
         for( ; it != ruleSet.begin(); it--){
             list<Automaton> aux(accumRight);
 
-            for (list<shared_ptr<Rule>>::iterator sit = ruleSet.begin(); sit != it ; sit++) {
+            for (list<shared_ptr<Constraint>>::iterator sit = ruleSet.begin(); sit != it ; sit++) {
                 aux.push_back((*sit)->getAutomata());
             }
 
@@ -299,15 +299,15 @@ namespace hibpm
         return res;
     }
 
-    list<shared_ptr<Rule>> RepairAutomata::oneKernelN(list<shared_ptr<Rule>> &ruleSet,
-                                                       shared_ptr<Rule> alpha, int size) {
+    list<shared_ptr<Constraint>> RepairAutomata::oneKernelN(list<shared_ptr<Constraint>> &ruleSet,
+                                                       shared_ptr<Constraint> alpha, int size) {
 
-        list<shared_ptr<Rule>> res;
+        list<shared_ptr<Constraint>> res;
         list<Automaton> aut;
         aut.push_back(alpha->getAutomata());
         res.push_back(alpha);
 
-        for (list<shared_ptr<Rule>>::iterator s = ruleSet.begin(); s != ruleSet.end();s++) {
+        for (list<shared_ptr<Constraint>>::iterator s = ruleSet.begin(); s != ruleSet.end();s++) {
 
             aut.push_back((*s)->getAutomata());
             if(!alpha->getAutomata().lazyProducts(aut)){
@@ -315,7 +315,7 @@ namespace hibpm
                 return res;
             }
 
-            list<shared_ptr<Rule>>::iterator it2 = s;
+            list<shared_ptr<Constraint>>::iterator it2 = s;
 
             for ( ++it2; it2 != ruleSet.end() ; it2++ ) {
                 aut.push_back((*it2)->getAutomata());
@@ -331,7 +331,7 @@ namespace hibpm
 
         }
 
-        return list<shared_ptr<Rule>>();
+        return list<shared_ptr<Constraint>>();
     }
 
 }

@@ -131,7 +131,7 @@ namespace hibpm
         }
     }
 
-    std::vector<std::shared_ptr<Rule>> DeclareKnowledgeBase::getRuleSet() {
+    std::vector<std::shared_ptr<Constraint>> DeclareKnowledgeBase::getRuleSet() {
         return m_RuleSet;
     }
 

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Rule.hpp"
+#include "Constraint.hpp"
 
 namespace hibpm
 {
     // Overall abstract Class for Unary State Definitions
-    class Unary : public Rule
+    class Unary : public Constraint
     {
     public:
         Unary(size_t sigmaSize, Event &event);
@@ -13,7 +13,7 @@ namespace hibpm
         Event getEvent();
         u_int64_t getEventNumericValue();
         Event getTarget();
-        bool eventsMatch(Rule &rule) override;
+        bool eventsMatch(Constraint &rule) override;
         void print() override;
 
     protected:

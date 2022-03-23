@@ -40,10 +40,10 @@ namespace hibpm
 
     ///// Abstract Rule Class /////
 
-    class Rule
+    class Constraint
     {
     public:
-        Rule(size_t sigmaSize, bool isBinary);
+        Constraint(size_t sigmaSize, bool isBinary);
 
         bool isBinary();
         bool isUnary();
@@ -51,7 +51,7 @@ namespace hibpm
         RuleType getType();
         std::string getTypeString();
 
-        virtual bool eventsMatch(Rule &rule) = 0;
+        virtual bool eventsMatch(Constraint &rule) = 0;
 
         virtual void print() = 0;
 

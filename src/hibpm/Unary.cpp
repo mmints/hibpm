@@ -3,7 +3,7 @@
 namespace hibpm
 {
     Unary::Unary(size_t sigmaSize, Event &event) :
-    Rule(sigmaSize, false),
+    Constraint(sigmaSize, false),
     m_event(event)
     {}
 
@@ -15,7 +15,7 @@ namespace hibpm
         return m_event.numericValue;
     }
 
-    bool Unary::eventsMatch(Rule &rule) {
+    bool Unary::eventsMatch(Constraint &rule) {
         if (rule.isUnary())
         {
             auto unary = (Unary*) &rule;

@@ -3,7 +3,7 @@
 namespace hibpm
 {
     Binary::Binary(size_t sigmaSize, std::vector<Event> &events) :
-        Rule(sigmaSize, true),
+        Constraint(sigmaSize, true),
         m_event_1(events.at(0)),
         m_event_2(events.at(1))
     {}
@@ -16,7 +16,7 @@ namespace hibpm
         return {m_event_1.numericValue, m_event_2.numericValue};
     }
 
-    bool Binary::eventsMatch(Rule &rule) {
+    bool Binary::eventsMatch(Constraint &rule) {
         if (rule.isBinary())
         {
             auto binary = (Binary*) &rule;
