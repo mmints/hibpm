@@ -58,7 +58,7 @@ std::string convertCharToString(const std::string &delimiter, char *s)
 #include "declare-parser.hpp"
 
 // Second part of user prologue.
-#line 67 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
+#line 70 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
 
 extern int yylex(yy::declare::semantic_type *yylval, // Custom yylex declaration
         yy::declare::location_type* yylloc,
@@ -490,7 +490,7 @@ namespace yy {
 
 
     // User initialization code.
-#line 73 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
+#line 76 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
 {
 // Filename for locations here
 yyla.location.begin.filename = yyla.location.end.filename = new std::string("stdin");
@@ -632,7 +632,7 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
           switch (yyn)
             {
   case 4: // rule: PARTICIPATION OP QUOTE VAR QUOTE CL EOL
-#line 86 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
+#line 89 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                               { std::string val = convertCharToString("'", (yystack_[3].value.event_name_val));
                                                 declare_ctx.addUnaryConstraintData(hibpm::PARTICIPATION, val);
                                               }
@@ -640,157 +640,181 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
     break;
 
   case 5: // rule: AT_MOST_ONE OP QUOTE VAR QUOTE CL EOL
-#line 91 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
+#line 94 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                             { std::string val = convertCharToString("'", (yystack_[3].value.event_name_val));
                                                 declare_ctx.addUnaryConstraintData(hibpm::AT_MOST_ONE, val);
                                               }
 #line 648 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
 
-  case 6: // rule: INIT OP QUOTE VAR QUOTE CL EOL
-#line 96 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
-                                     { std::string val = convertCharToString("'", (yystack_[3].value.event_name_val));
-                                                declare_ctx.addUnaryConstraintData(hibpm::INIT, val);
+  case 6: // rule: AT_MOST_TWO OP QUOTE VAR QUOTE CL EOL
+#line 99 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
+                                            { std::string val = convertCharToString("'", (yystack_[3].value.event_name_val));
+                                                std::cout << "#### !TODO! atMost2 ####" << std::endl;
                                               }
 #line 656 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
 
-  case 7: // rule: END OP QUOTE VAR QUOTE CL EOL
-#line 101 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
-                                    { std::string val = convertCharToString("'", (yystack_[3].value.event_name_val));
-                                                declare_ctx.addUnaryConstraintData(hibpm::END, val);
+  case 7: // rule: AT_MOST_THREE OP QUOTE VAR QUOTE CL EOL
+#line 104 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
+                                              { std::string val = convertCharToString("'", (yystack_[3].value.event_name_val));
+                                                std::cout << "#### !TODO! atMost3 ####" << std::endl;
                                               }
 #line 664 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
 
-  case 8: // rule: RESPONDED_EXISTENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
-#line 108 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
+  case 8: // rule: AT_LEAST_ONE OP QUOTE VAR QUOTE CL EOL
+#line 109 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
+                                             { std::string val = convertCharToString("'", (yystack_[3].value.event_name_val));
+                                                std::cout << "#### !TODO! atLeast1 ####" << std::endl;
+                                              }
+#line 672 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
+    break;
+
+  case 9: // rule: INIT OP QUOTE VAR QUOTE CL EOL
+#line 114 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
+                                     { std::string val = convertCharToString("'", (yystack_[3].value.event_name_val));
+                                                declare_ctx.addUnaryConstraintData(hibpm::INIT, val);
+                                              }
+#line 680 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
+    break;
+
+  case 10: // rule: END OP QUOTE VAR QUOTE CL EOL
+#line 119 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
+                                    { std::string val = convertCharToString("'", (yystack_[3].value.event_name_val));
+                                                declare_ctx.addUnaryConstraintData(hibpm::END, val);
+                                              }
+#line 688 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
+    break;
+
+  case 11: // rule: RESPONDED_EXISTENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
+#line 126 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                           { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
                                                                             declare_ctx.addBinaryConstraintData(hibpm::RESPONDED_EXISTENCE, val_1, val_2);
                                                                           }
-#line 673 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
+#line 697 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
 
-  case 9: // rule: RESPONSE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
-#line 114 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
+  case 12: // rule: RESPONSE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
+#line 132 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
                                                                             declare_ctx.addBinaryConstraintData(hibpm::RESPONSE, val_1, val_2);
                                                                           }
-#line 682 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
+#line 706 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
 
-  case 10: // rule: ALTERNATED_RESPONSE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
-#line 120 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
+  case 13: // rule: ALTERNATED_RESPONSE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
+#line 138 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                           { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
                                                                             declare_ctx.addBinaryConstraintData(hibpm::ALTERNATED_RESPONSE, val_1, val_2);
                                                                           }
-#line 691 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
+#line 715 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
 
-  case 11: // rule: CHAIN_RESPONSE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
-#line 126 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
+  case 14: // rule: CHAIN_RESPONSE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
+#line 144 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                      { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
                                                                             declare_ctx.addBinaryConstraintData(hibpm::CHAIN_RESPONSE, val_1, val_2);
                                                                           }
-#line 700 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
+#line 724 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
 
-  case 12: // rule: PRECEDENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
-#line 132 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
+  case 15: // rule: PRECEDENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
+#line 150 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                  { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
                                                                             declare_ctx.addBinaryConstraintData(hibpm::PRECEDENCE, val_1, val_2);
                                                                           }
-#line 709 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
+#line 733 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
 
-  case 13: // rule: ALTERNATED_PRECEDENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
-#line 138 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
+  case 16: // rule: ALTERNATED_PRECEDENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
+#line 156 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                             { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
                                                                             declare_ctx.addBinaryConstraintData(hibpm::ALTERNATED_PRECEDENCE, val_1, val_2);
                                                                           }
-#line 718 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
+#line 742 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
 
-  case 14: // rule: CHAIN_PRECEDENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
-#line 144 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
+  case 17: // rule: CHAIN_PRECEDENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
+#line 162 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                        { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
                                                                             declare_ctx.addBinaryConstraintData(hibpm::CHAIN_PRECEDENCE, val_1, val_2);
                                                                           }
-#line 727 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
+#line 751 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
 
-  case 15: // rule: CO_EXISTENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
-#line 150 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
+  case 18: // rule: CO_EXISTENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
+#line 168 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                    { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
                                                                             declare_ctx.addBinaryConstraintData(hibpm::CO_EXISTENCE, val_1, val_2);
                                                                           }
-#line 736 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
+#line 760 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
 
-  case 16: // rule: SUCCESSION OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
-#line 156 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
+  case 19: // rule: SUCCESSION OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
+#line 174 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                  { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
                                                                             declare_ctx.addBinaryConstraintData(hibpm::SUCCESSION, val_1, val_2);
                                                                           }
-#line 745 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
+#line 769 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
 
-  case 17: // rule: ALTERNATED_SUCCESSION OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
-#line 162 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
+  case 20: // rule: ALTERNATED_SUCCESSION OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
+#line 180 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                             { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
                                                                             declare_ctx.addBinaryConstraintData(hibpm::ALTERNATED_SUCCESSION, val_1, val_2);
                                                                           }
-#line 754 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
+#line 778 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
 
-  case 18: // rule: CHAIN_SUCCESSION OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
-#line 168 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
+  case 21: // rule: CHAIN_SUCCESSION OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
+#line 186 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                        { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
                                                                             declare_ctx.addBinaryConstraintData(hibpm::CHAIN_SUCCESSION, val_1, val_2);
                                                                           }
-#line 763 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
+#line 787 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
 
-  case 19: // rule: NOT_CHAIN_SUCCESSION OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
-#line 174 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
+  case 22: // rule: NOT_CHAIN_SUCCESSION OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
+#line 192 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                            { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
                                                                             declare_ctx.addBinaryConstraintData(hibpm::NOT_CHAIN_SUCCESSION, val_1, val_2);
                                                                           }
-#line 772 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
+#line 796 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
 
-  case 20: // rule: NOT_SUCCESSION OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
-#line 180 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
+  case 23: // rule: NOT_SUCCESSION OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
+#line 198 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                      { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
                                                                             declare_ctx.addBinaryConstraintData(hibpm::NOT_SUCCESSION, val_1, val_2);
                                                                           }
-#line 781 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
+#line 805 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
 
-  case 21: // rule: NOT_CO_EXISTENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
-#line 186 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
+  case 24: // rule: NOT_CO_EXISTENCE OP QUOTE VAR QUOTE COMMA QUOTE VAR QUOTE CL EOL
+#line 204 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                                                        { std::string val_1 = convertCharToString("'",(yystack_[7].value.event_name_val));
                                                                             std::string val_2 = convertCharToString("'",(yystack_[3].value.event_name_val));
                                                                             declare_ctx.addBinaryConstraintData(hibpm::NOT_CO_EXISTENCE, val_1, val_2);
                                                                           }
-#line 790 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
+#line 814 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
 
 
-#line 794 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
+#line 818 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
 
             default:
               break;
@@ -979,32 +1003,34 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
 
 
 
-  const signed char declare::yypact_ninf_ = -21;
+  const signed char declare::yypact_ninf_ = -24;
 
   const signed char declare::yytable_ninf_ = -1;
 
   const short
   declare::yypact_[] =
   {
-      18,   -20,   -19,    19,    20,    21,    22,    23,    24,    25,
-      26,    27,    28,    29,    30,    31,    32,    33,    34,     0,
-     -21,    16,    35,    36,    37,    38,    39,    40,    41,    42,
-      43,    44,    45,    46,    47,    48,    49,    50,    51,   -21,
-      18,    52,    53,    54,    55,    56,    57,    58,    59,    60,
-      61,    62,    63,    64,    65,    66,    67,    68,    69,    73,
-      74,    75,    76,    77,    78,    79,    80,    81,    82,    83,
-      84,    85,    86,    87,    88,    89,    90,    92,    93,    94,
-      95,    96,    97,    98,    99,   100,   101,   102,   103,   104,
-     105,   106,   107,   108,   109,   110,   111,   112,   113,   116,
-     117,   118,   119,   120,   121,   122,   123,   124,   125,   126,
-     127,   128,   129,   -21,   -21,   -21,   -21,   130,   131,   132,
-     133,   134,   135,   136,   137,   138,   139,   140,   141,   142,
-     143,   147,   148,   149,   150,   151,   152,   153,   154,   155,
-     156,   157,   158,   159,   160,   162,   163,   164,   165,   166,
-     167,   168,   169,   170,   171,   172,   173,   174,   175,   176,
-     177,   178,   179,   180,   181,   182,   183,   184,   185,   186,
-     187,   188,   189,   -21,   -21,   -21,   -21,   -21,   -21,   -21,
-     -21,   -21,   -21,   -21,   -21,   -21,   -21
+      21,   -23,   -22,    22,    23,    24,    25,    26,    27,    28,
+      29,    30,    31,    32,    33,    34,    35,    36,    37,    38,
+      39,    40,     0,   -24,    19,    41,    42,    43,    44,    45,
+      46,    47,    48,    49,    50,    51,    52,    53,    54,    55,
+      56,    57,    58,    59,    60,   -24,    21,    61,    62,    63,
+      64,    65,    66,    67,    68,    69,    70,    71,    72,    73,
+      74,    75,    76,    77,    78,    79,    80,    81,    85,    86,
+      87,    88,    89,    90,    91,    92,    93,    94,    95,    96,
+      97,    98,    99,   100,   101,   102,   103,   104,   105,   107,
+     108,   109,   110,   111,   112,   113,   114,   115,   116,   117,
+     118,   119,   120,   121,   122,   123,   124,   125,   126,   127,
+     128,   129,   130,   131,   132,   133,   134,   137,   138,   139,
+     140,   141,   142,   143,   144,   145,   146,   147,   148,   149,
+     150,   -24,   -24,   -24,   -24,   -24,   -24,   -24,   151,   152,
+     153,   154,   155,   156,   157,   158,   159,   160,   161,   162,
+     163,   164,   168,   169,   170,   171,   172,   173,   174,   175,
+     176,   177,   178,   179,   180,   181,   183,   184,   185,   186,
+     187,   188,   189,   190,   191,   192,   193,   194,   195,   196,
+     197,   198,   199,   200,   201,   202,   203,   204,   205,   206,
+     207,   208,   209,   210,   -24,   -24,   -24,   -24,   -24,   -24,
+     -24,   -24,   -24,   -24,   -24,   -24,   -24,   -24
   };
 
   const signed char
@@ -1012,129 +1038,137 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
   {
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       3,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     1,
-       2,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     3,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     1,     2,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     4,     5,     6,     7,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     4,     5,     6,     7,     8,     9,    10,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
        0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,     0,     0,     8,     9,    10,    11,    12,    13,    14,
-      15,    16,    17,    18,    19,    20,    21
+       0,     0,     0,     0,    11,    12,    13,    14,    15,    16,
+      17,    18,    19,    20,    21,    22,    23,    24
   };
 
   const short
   declare::yypgoto_[] =
   {
-     -21,   198,   -21
+     -24,   222,   -24
   };
 
   const signed char
   declare::yydefgoto_[] =
   {
-       0,    40,    20
+       0,    46,    23
   };
 
   const unsigned char
   declare::yytable_[] =
   {
-      39,    21,    22,     1,     2,     3,     4,     5,     6,     7,
+      45,    24,    25,     1,     2,     3,     4,     5,     6,     7,
        8,     9,    10,    11,    12,    13,    14,    15,    16,    17,
-      18,     1,     2,     3,     4,     5,     6,     7,     8,     9,
-      10,    11,    12,    13,    14,    15,    16,    17,    18,    41,
-      23,    24,    25,    26,    27,    28,    29,    30,    31,    32,
-      33,    34,    35,    36,    37,    38,     0,     0,    42,    43,
-      44,    45,    46,    47,    48,    49,    50,    51,    52,    53,
-      54,    55,    56,    57,    58,     0,     0,     0,    59,    60,
-      61,    62,    63,    64,    65,    66,    67,    68,    69,    70,
-      71,    72,    73,    74,    75,    76,    77,    78,    79,    80,
-      81,    82,    83,    84,    85,    86,    87,    88,    89,    90,
-      91,    92,    93,    94,    95,    96,    97,    98,     0,     0,
-      99,   100,   101,   102,   103,   104,   105,   106,   107,   108,
-     109,   110,   111,   112,     0,   113,   114,   115,   116,   117,
-     118,   119,   120,   121,   122,   123,   124,   125,   126,   127,
-     128,   129,   130,     0,     0,     0,   131,   132,   133,   134,
+      18,    19,    20,    21,     1,     2,     3,     4,     5,     6,
+       7,     8,     9,    10,    11,    12,    13,    14,    15,    16,
+      17,    18,    19,    20,    21,    47,    26,    27,    28,    29,
+      30,    31,    32,    33,    34,    35,    36,    37,    38,    39,
+      40,    41,    42,    43,    44,     0,     0,    48,    49,    50,
+      51,    52,    53,    54,    55,    56,    57,    58,    59,    60,
+      61,    62,    63,    64,    65,    66,    67,     0,     0,     0,
+      68,    69,    70,    71,    72,    73,    74,    75,    76,    77,
+      78,    79,    80,    81,    82,    83,    84,    85,    86,    87,
+      88,    89,    90,    91,    92,    93,    94,    95,    96,    97,
+      98,    99,   100,   101,   102,   103,   104,   105,   106,   107,
+     108,   109,   110,   111,   112,   113,   114,   115,   116,     0,
+       0,   117,   118,   119,   120,   121,   122,   123,   124,   125,
+     126,   127,   128,   129,   130,     0,   131,   132,   133,   134,
      135,   136,   137,   138,   139,   140,   141,   142,   143,   144,
-     145,   146,   147,   148,   149,   150,   151,   152,   153,   154,
-     155,   156,   157,   158,   159,   160,   161,   162,   163,   164,
-     165,   166,   167,   168,   169,   170,   171,   172,    19,     0,
-       0,   173,   174,   175,   176,   177,   178,   179,   180,   181,
-     182,   183,   184,   185,   186
+     145,   146,   147,   148,   149,   150,   151,     0,     0,     0,
+     152,   153,   154,   155,   156,   157,   158,   159,   160,   161,
+     162,   163,   164,   165,   166,   167,   168,   169,   170,   171,
+     172,   173,   174,   175,   176,   177,   178,   179,   180,   181,
+     182,   183,   184,   185,   186,   187,   188,   189,   190,   191,
+     192,   193,    22,     0,     0,   194,   195,   196,   197,   198,
+     199,   200,   201,   202,   203,   204,   205,   206,   207
   };
 
   const signed char
   declare::yycheck_[] =
   {
-       0,    21,    21,     3,     4,     5,     6,     7,     8,     9,
+       0,    24,    24,     3,     4,     5,     6,     7,     8,     9,
       10,    11,    12,    13,    14,    15,    16,    17,    18,    19,
-      20,     3,     4,     5,     6,     7,     8,     9,    10,    11,
-      12,    13,    14,    15,    16,    17,    18,    19,    20,    23,
-      21,    21,    21,    21,    21,    21,    21,    21,    21,    21,
-      21,    21,    21,    21,    21,    21,    -1,    -1,    23,    23,
-      23,    23,    23,    23,    23,    23,    23,    23,    23,    23,
-      23,    23,    23,    23,    23,    -1,    -1,    -1,    26,    26,
-      26,    26,    26,    26,    26,    26,    26,    26,    26,    26,
-      26,    26,    26,    26,    26,    26,    23,    23,    23,    23,
-      23,    23,    23,    23,    23,    23,    23,    23,    23,    23,
-      23,    23,    23,    23,    22,    22,    22,    22,    -1,    -1,
+      20,    21,    22,    23,     3,     4,     5,     6,     7,     8,
+       9,    10,    11,    12,    13,    14,    15,    16,    17,    18,
+      19,    20,    21,    22,    23,    26,    24,    24,    24,    24,
       24,    24,    24,    24,    24,    24,    24,    24,    24,    24,
-      24,    24,    24,    24,    -1,    25,    25,    25,    25,    23,
-      23,    23,    23,    23,    23,    23,    23,    23,    23,    23,
-      23,    23,    23,    -1,    -1,    -1,    26,    26,    26,    26,
+      24,    24,    24,    24,    24,    -1,    -1,    26,    26,    26,
       26,    26,    26,    26,    26,    26,    26,    26,    26,    26,
-      23,    23,    23,    23,    23,    23,    23,    23,    23,    23,
-      23,    23,    23,    23,    22,    22,    22,    22,    22,    22,
-      22,    22,    22,    22,    22,    22,    22,    22,     0,    -1,
-      -1,    25,    25,    25,    25,    25,    25,    25,    25,    25,
-      25,    25,    25,    25,    25
+      26,    26,    26,    26,    26,    26,    26,    -1,    -1,    -1,
+      29,    29,    29,    29,    29,    29,    29,    29,    29,    29,
+      29,    29,    29,    29,    29,    29,    29,    29,    29,    29,
+      29,    26,    26,    26,    26,    26,    26,    26,    26,    26,
+      26,    26,    26,    26,    26,    26,    26,    26,    26,    26,
+      26,    26,    25,    25,    25,    25,    25,    25,    25,    -1,
+      -1,    27,    27,    27,    27,    27,    27,    27,    27,    27,
+      27,    27,    27,    27,    27,    -1,    28,    28,    28,    28,
+      28,    28,    28,    26,    26,    26,    26,    26,    26,    26,
+      26,    26,    26,    26,    26,    26,    26,    -1,    -1,    -1,
+      29,    29,    29,    29,    29,    29,    29,    29,    29,    29,
+      29,    29,    29,    29,    26,    26,    26,    26,    26,    26,
+      26,    26,    26,    26,    26,    26,    26,    26,    25,    25,
+      25,    25,    25,    25,    25,    25,    25,    25,    25,    25,
+      25,    25,     0,    -1,    -1,    28,    28,    28,    28,    28,
+      28,    28,    28,    28,    28,    28,    28,    28,    28
   };
 
   const signed char
   declare::yystos_[] =
   {
        0,     3,     4,     5,     6,     7,     8,     9,    10,    11,
-      12,    13,    14,    15,    16,    17,    18,    19,    20,    28,
-      29,    21,    21,    21,    21,    21,    21,    21,    21,    21,
-      21,    21,    21,    21,    21,    21,    21,    21,    21,     0,
-      28,    23,    23,    23,    23,    23,    23,    23,    23,    23,
-      23,    23,    23,    23,    23,    23,    23,    23,    23,    26,
-      26,    26,    26,    26,    26,    26,    26,    26,    26,    26,
-      26,    26,    26,    26,    26,    26,    26,    23,    23,    23,
-      23,    23,    23,    23,    23,    23,    23,    23,    23,    23,
-      23,    23,    23,    23,    23,    22,    22,    22,    22,    24,
+      12,    13,    14,    15,    16,    17,    18,    19,    20,    21,
+      22,    23,    31,    32,    24,    24,    24,    24,    24,    24,
       24,    24,    24,    24,    24,    24,    24,    24,    24,    24,
-      24,    24,    24,    25,    25,    25,    25,    23,    23,    23,
-      23,    23,    23,    23,    23,    23,    23,    23,    23,    23,
-      23,    26,    26,    26,    26,    26,    26,    26,    26,    26,
-      26,    26,    26,    26,    26,    23,    23,    23,    23,    23,
-      23,    23,    23,    23,    23,    23,    23,    23,    23,    22,
-      22,    22,    22,    22,    22,    22,    22,    22,    22,    22,
-      22,    22,    22,    25,    25,    25,    25,    25,    25,    25,
-      25,    25,    25,    25,    25,    25,    25
+      24,    24,    24,    24,    24,     0,    31,    26,    26,    26,
+      26,    26,    26,    26,    26,    26,    26,    26,    26,    26,
+      26,    26,    26,    26,    26,    26,    26,    26,    29,    29,
+      29,    29,    29,    29,    29,    29,    29,    29,    29,    29,
+      29,    29,    29,    29,    29,    29,    29,    29,    29,    26,
+      26,    26,    26,    26,    26,    26,    26,    26,    26,    26,
+      26,    26,    26,    26,    26,    26,    26,    26,    26,    26,
+      25,    25,    25,    25,    25,    25,    25,    27,    27,    27,
+      27,    27,    27,    27,    27,    27,    27,    27,    27,    27,
+      27,    28,    28,    28,    28,    28,    28,    28,    26,    26,
+      26,    26,    26,    26,    26,    26,    26,    26,    26,    26,
+      26,    26,    29,    29,    29,    29,    29,    29,    29,    29,
+      29,    29,    29,    29,    29,    29,    26,    26,    26,    26,
+      26,    26,    26,    26,    26,    26,    26,    26,    26,    26,
+      25,    25,    25,    25,    25,    25,    25,    25,    25,    25,
+      25,    25,    25,    25,    28,    28,    28,    28,    28,    28,
+      28,    28,    28,    28,    28,    28,    28,    28
   };
 
   const signed char
   declare::yyr1_[] =
   {
-       0,    27,    28,    28,    29,    29,    29,    29,    29,    29,
-      29,    29,    29,    29,    29,    29,    29,    29,    29,    29,
-      29,    29
+       0,    30,    31,    31,    32,    32,    32,    32,    32,    32,
+      32,    32,    32,    32,    32,    32,    32,    32,    32,    32,
+      32,    32,    32,    32,    32
   };
 
   const signed char
   declare::yyr2_[] =
   {
-       0,     2,     2,     1,     7,     7,     7,     7,    11,    11,
-      11,    11,    11,    11,    11,    11,    11,    11,    11,    11,
-      11,    11
+       0,     2,     2,     1,     7,     7,     7,     7,     7,     7,
+       7,    11,    11,    11,    11,    11,    11,    11,    11,    11,
+      11,    11,    11,    11,    11
   };
 
 
@@ -1145,12 +1179,13 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
   const declare::yytname_[] =
   {
   "\"end of file\"", "error", "\"invalid token\"", "PARTICIPATION",
-  "AT_MOST_ONE", "INIT", "END", "RESPONDED_EXISTENCE", "RESPONSE",
-  "ALTERNATED_RESPONSE", "CHAIN_RESPONSE", "PRECEDENCE",
-  "ALTERNATED_PRECEDENCE", "CHAIN_PRECEDENCE", "CO_EXISTENCE",
-  "SUCCESSION", "ALTERNATED_SUCCESSION", "CHAIN_SUCCESSION",
-  "NOT_CHAIN_SUCCESSION", "NOT_SUCCESSION", "NOT_CO_EXISTENCE", "OP", "CL",
-  "QUOTE", "COMMA", "EOL", "VAR", "$accept", "exp", "rule", YY_NULLPTR
+  "AT_MOST_ONE", "AT_MOST_TWO", "AT_MOST_THREE", "AT_LEAST_ONE", "INIT",
+  "END", "RESPONDED_EXISTENCE", "RESPONSE", "ALTERNATED_RESPONSE",
+  "CHAIN_RESPONSE", "PRECEDENCE", "ALTERNATED_PRECEDENCE",
+  "CHAIN_PRECEDENCE", "CO_EXISTENCE", "SUCCESSION",
+  "ALTERNATED_SUCCESSION", "CHAIN_SUCCESSION", "NOT_CHAIN_SUCCESSION",
+  "NOT_SUCCESSION", "NOT_CO_EXISTENCE", "OP", "CL", "QUOTE", "COMMA",
+  "EOL", "VAR", "$accept", "exp", "rule", YY_NULLPTR
   };
 #endif
 
@@ -1159,9 +1194,9 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
   const unsigned char
   declare::yyrline_[] =
   {
-       0,    80,    80,    81,    86,    91,    96,   101,   108,   114,
-     120,   126,   132,   138,   144,   150,   156,   162,   168,   174,
-     180,   186
+       0,    83,    83,    84,    89,    94,    99,   104,   109,   114,
+     119,   126,   132,   138,   144,   150,   156,   162,   168,   174,
+     180,   186,   192,   198,   204
   };
 
   void
@@ -1228,10 +1263,10 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    26
+      25,    26,    27,    28,    29
     };
     // Last valid token kind.
-    const int code_max = 281;
+    const int code_max = 284;
 
     if (t <= 0)
       return symbol_kind::S_YYEOF;
@@ -1242,9 +1277,9 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
   }
 
 } // yy
-#line 1246 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
+#line 1281 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
 
-#line 192 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
+#line 210 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
 
 
 // Main code in separated main.cpp file

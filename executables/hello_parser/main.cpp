@@ -10,7 +10,8 @@ int main(int argc, char** argv)
 
     // The Declare Context holds the data given by the DECLARE file.
     // Be aware that this object only holds Data, no further logic.
-    DeclareContext declareContext = parser.parseFromFile("../../../Resources/bpi_2017_kb.txt"); // FIXME: Make a relative path in CMake
+    // DeclareContext declareContext = parser.parseFromFile("../../../Resources/bpi_2017_kb.txt"); // FIXME: Make a relative path in CMake
+    DeclareContext declareContext = parser.parseFromFile("../../../Resources/BPIC2020/models/PrepaidTravelCost.txt"); // FIXME: Make a relative path in CMake
 
     DeclareKnowledgeBase declareKnowledgeBase(declareContext);
 
