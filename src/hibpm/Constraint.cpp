@@ -19,11 +19,11 @@ namespace hibpm
         return m_automaton;
     }
 
-    RuleType Constraint::getType() {
+    ConstraintType Constraint::getType() {
         return m_type;
     }
 
     std::string Constraint::getTypeString() {
-        return m_ruleTypeString;
+        return m_constraintTypeString;
     }
 }

@@ -7,7 +7,7 @@
 
 namespace hibpm
 {
-    enum RuleType
+    enum ConstraintType
     {
         // Unary Types
         PARTICIPATION,
@@ -38,7 +38,7 @@ namespace hibpm
         u_int64_t numericValue; // checking against vector length -> size_t, which is unsigned long long
     };
 
-    ///// Abstract Rule Class /////
+    ///// Abstract Constraint Class /////
 
     class Constraint
     {
@@ -48,16 +48,16 @@ namespace hibpm
         bool isBinary();
         bool isUnary();
         Automaton getAutomata();
-        RuleType getType();
+        ConstraintType getType();
         std::string getTypeString();
 
-        virtual bool eventsMatch(Constraint &rule) = 0;
+        virtual bool eventsMatch(Constraint &constraint) = 0;
 
         virtual void print() = 0;
 
     protected:
-        RuleType m_type;
-        std::string m_ruleTypeString;
+        ConstraintType m_type;
+        std::string m_constraintTypeString;
         size_t m_sigmaSize;
         bool m_isBinary;
         Automaton m_automaton;

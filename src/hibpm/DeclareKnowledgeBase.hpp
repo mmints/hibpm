@@ -16,16 +16,16 @@ namespace hibpm
     public:
         explicit DeclareKnowledgeBase(DeclareContext &declareContext);
 
-        std::vector<std::shared_ptr<Constraint>> getRuleSet();
+        std::vector<std::shared_ptr<Constraint>> getConstraintSet();
         std::vector<Event> getSigma();
         u_int64_t getSigmaSize();
 
     private:
-        std::vector<std::shared_ptr<Constraint>> m_RuleSet;
+        std::vector<std::shared_ptr<Constraint>> m_ConstraintSet;
         std::vector<Event> m_sigma;
         u_int64_t m_sigmaSize;
 
-        void initRuleSet(DeclareContext &declareContext);
+        void initConstraintSet(DeclareContext &declareContext);
 
     };
 }

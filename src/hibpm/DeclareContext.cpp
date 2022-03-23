@@ -4,24 +4,24 @@ namespace hibpm {
 
     DeclareContext::DeclareContext() :
             m_eventData{},
-            m_ruleData{}
+            m_constraintData{}
     {}
 
-    void DeclareContext::addUnaryRuleData(RuleType type, const std::string& event_val) {
+    void DeclareContext::addUnaryConstraintData(ConstraintType type, const std::string& event_val) {
         std::vector<std::string> event_val_in_vec;
         event_val_in_vec.push_back(event_val);
-        addRuleDataAndEventDataToSet(type, event_val_in_vec);
+        addConstraintDataAndEventDataToSet(type, event_val_in_vec);
     }
 
-    void DeclareContext::addBinaryRuleData(RuleType type, const std::string& event_val_1, const std::string& event_val_2) {
+    void DeclareContext::addBinaryConstraintData(ConstraintType type, const std::string& activation_val, const std::string& target_val) {
         std::vector<std::string> event_val_in_vec;
-        event_val_in_vec.push_back(event_val_1);
-        event_val_in_vec.push_back(event_val_2);
-        addRuleDataAndEventDataToSet(type, event_val_in_vec);
+        event_val_in_vec.push_back(activation_val);
+        event_val_in_vec.push_back(target_val);
+        addConstraintDataAndEventDataToSet(type, event_val_in_vec);
     }
 
-    std::vector<DeclareContext::RuleData> DeclareContext::getRuleData() {
-        return m_ruleData;
+    std::vector<DeclareContext::ConstraintData> DeclareContext::getConstraintData() {
+        return m_constraintData;
     }
 
     std::vector<Event> DeclareContext::getEventData() {
@@ -32,26 +32,26 @@ namespace hibpm {
         return m_eventData.size();
     }
 
-    void DeclareContext::addRuleDataAndEventDataToSet(RuleType type, const std::vector<std::string>& event_names) {
+    void DeclareContext::addConstraintDataAndEventDataToSet(ConstraintType type, const std::vector<std::string>& event_names) {
 
-        std::vector<Event> rule_events;
+        std::vector<Event> constraint_events;
 
         for (auto& event_name : event_names)
         {
-            // First check if the used event in a rule are already in the
+            // First check if the used event in a constraint are already in the
             if (! hibpm::DeclareContext::checkEventDataExistence(event_name))
             {
                 Event event {event_name, m_eventData.size()};
-                rule_events.push_back(event);
+                constraint_events.push_back(event);
                 m_eventData.push_back(event); // And if not, add them to it
             }
             else {
                 Event event {event_name, eventNameToNumericValue(event_name)};
-                rule_events.push_back(event);
+                constraint_events.push_back(event);
             }
         }
-        DeclareContext::RuleData ruleData{type, rule_events};
-        m_ruleData.push_back(ruleData);
+        DeclareContext::ConstraintData constraintData{type, constraint_events};
+        m_constraintData.push_back(constraintData);
     }
 
     bool DeclareContext::checkEventDataExistence(const std::string &event_name) {

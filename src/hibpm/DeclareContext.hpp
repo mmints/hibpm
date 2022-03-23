@@ -16,9 +16,9 @@ namespace hibpm
     class DeclareContext
     {
     public:
-        struct RuleData
+        struct ConstraintData
         {
-            RuleType type;
+            ConstraintType type;
             std::vector<Event> events;
         };
 
@@ -26,18 +26,18 @@ namespace hibpm
         ~DeclareContext() = default;
 
         // This is used in declare.yy
-        void addUnaryRuleData(RuleType type, const std::string& event_val);
-        void addBinaryRuleData(RuleType type, const std::string& event_val_1, const std::string& event_val_2);
+        void addUnaryConstraintData(ConstraintType type, const std::string& event_val);
+        void addBinaryConstraintData(ConstraintType type, const std::string& activation_val, const std::string& target_val);
 
-        std::vector<RuleData> getRuleData();
+        std::vector<ConstraintData> getConstraintData();
         std::vector<Event> getEventData();
         u_int64_t getEventDataCount();
 
     private:
         std::vector<Event> m_eventData;
-        std::vector<RuleData> m_ruleData;
+        std::vector<ConstraintData> m_constraintData;
 
-        void addRuleDataAndEventDataToSet(RuleType type, const std::vector<std::string>& event_names);
+        void addConstraintDataAndEventDataToSet(ConstraintType type, const std::vector<std::string>& event_names);
         bool checkEventDataExistence(const std::string &event_name);
         u_int64_t eventNameToNumericValue(const std::string &event_name);
     };
