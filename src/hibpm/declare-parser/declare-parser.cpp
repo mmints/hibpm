@@ -650,7 +650,7 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
   case 6: // rule: AT_MOST_TWO OP QUOTE VAR QUOTE CL EOL
 #line 99 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                             { std::string val = convertCharToString("'", (yystack_[3].value.event_name_val));
-                                                std::cout << "#### !TODO! atMost2 ####" << std::endl;
+                                                declare_ctx.addUnaryConstraintData(hibpm::AT_MOST_TWO, val);
                                               }
 #line 656 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
@@ -658,7 +658,7 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
   case 7: // rule: AT_MOST_THREE OP QUOTE VAR QUOTE CL EOL
 #line 104 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                               { std::string val = convertCharToString("'", (yystack_[3].value.event_name_val));
-                                                std::cout << "#### !TODO! atMost3 ####" << std::endl;
+                                                declare_ctx.addUnaryConstraintData(hibpm::AT_MOST_THREE, val);
                                               }
 #line 664 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;
@@ -666,7 +666,7 @@ yyla.location.begin.filename = yyla.location.end.filename = new std::string("std
   case 8: // rule: AT_LEAST_ONE OP QUOTE VAR QUOTE CL EOL
 #line 109 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare.yy"
                                              { std::string val = convertCharToString("'", (yystack_[3].value.event_name_val));
-                                                std::cout << "#### !TODO! atLeast1 ####" << std::endl;
+                                                declare_ctx.addUnaryConstraintData(hibpm::AT_LEAST_ONE, val);
                                               }
 #line 672 "/Users/markmints/Developer/hibpm/src/hibpm/declare-parser/declare-parser.cpp"
     break;

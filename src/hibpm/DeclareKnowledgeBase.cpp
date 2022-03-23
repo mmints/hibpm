@@ -25,7 +25,24 @@ namespace hibpm
                 case AT_MOST_ONE: {
                     std::shared_ptr<AtMostOne> constraint
                             = std::make_shared<AtMostOne>(m_sigmaSize, constraintData.events.at(0));
-
+                    m_ConstraintSet.push_back(constraint);
+                    break;
+                }
+                case AT_MOST_TWO: {
+                    std::shared_ptr<AtMostTwo> constraint
+                            = std::make_shared<AtMostTwo>(m_sigmaSize, constraintData.events.at(0));
+                    m_ConstraintSet.push_back(constraint);
+                    break;
+                }
+                case AT_MOST_THREE: {
+                    std::shared_ptr<AtMostThree> constraint
+                            = std::make_shared<AtMostThree>(m_sigmaSize, constraintData.events.at(0));
+                    m_ConstraintSet.push_back(constraint);
+                    break;
+                }
+                case AT_LEAST_ONE: {
+                    std::shared_ptr<AtLeastOne> constraint
+                            = std::make_shared<AtLeastOne>(m_sigmaSize, constraintData.events.at(0));
                     m_ConstraintSet.push_back(constraint);
                     break;
                 }

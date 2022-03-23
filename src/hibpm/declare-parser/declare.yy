@@ -97,17 +97,17 @@ rule: AT_MOST_ONE OP QUOTE VAR QUOTE CL EOL { std::string val = convertCharToStr
 ;
 
 rule: AT_MOST_TWO OP QUOTE VAR QUOTE CL EOL { std::string val = convertCharToString("'", $4);
-                                                std::cout << "#### !TODO! atMost2 ####" << std::endl;
+                                                declare_ctx.addUnaryConstraintData(hibpm::AT_MOST_TWO, val);
                                               }
 ;
 
 rule: AT_MOST_THREE OP QUOTE VAR QUOTE CL EOL { std::string val = convertCharToString("'", $4);
-                                                std::cout << "#### !TODO! atMost3 ####" << std::endl;
+                                                declare_ctx.addUnaryConstraintData(hibpm::AT_MOST_THREE, val);
                                               }
 ;
 
 rule: AT_LEAST_ONE OP QUOTE VAR QUOTE CL EOL { std::string val = convertCharToString("'", $4);
-                                                std::cout << "#### !TODO! atLeast1 ####" << std::endl;
+                                                declare_ctx.addUnaryConstraintData(hibpm::AT_LEAST_ONE, val);
                                               }
 ;
 

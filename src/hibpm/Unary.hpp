@@ -30,7 +30,27 @@ namespace hibpm
     class AtMostOne : public Unary {
     public:
         AtMostOne(size_t sigmaSize, Event &event);
+    private:
+        void initializeAutomaton() override;
+    };
 
+    class AtMostTwo : public Unary {
+    public:
+        AtMostTwo(size_t sigmaSize, Event &event);
+    private:
+        void initializeAutomaton() override;
+    };
+
+    class AtMostThree : public Unary {
+    public:
+        AtMostThree(size_t sigmaSize, Event &event);
+    private:
+        void initializeAutomaton() override;
+    };
+
+    class AtLeastOne : public Unary {
+    public:
+        AtLeastOne(size_t sigmaSize, Event &event);
     private:
         void initializeAutomaton() override;
     };
@@ -45,7 +65,6 @@ namespace hibpm
     class End : public Unary {
     public:
         End(size_t sigmaSize, Event &event);
-
     private:
         void initializeAutomaton() override;
     };
