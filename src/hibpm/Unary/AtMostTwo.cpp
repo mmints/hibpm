@@ -7,7 +7,7 @@ namespace hibpm
     {
         m_type = AT_MOST_TWO;
         m_constraintTypeString = "AtMostTwo";
-        m_automaton = Automaton(2, sigmaSize);
+        m_automaton = Automaton(4, sigmaSize);
         AtMostTwo::initializeAutomaton();
     }
 
