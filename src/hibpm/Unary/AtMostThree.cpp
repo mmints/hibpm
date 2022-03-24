@@ -7,7 +7,7 @@ namespace hibpm
     {
         m_type = AT_MOST_THREE;
         m_constraintTypeString = "AtMostThree";
-        m_automaton = Automaton(2, sigmaSize);
+        m_automaton = Automaton(5, sigmaSize);
         AtMostThree::initializeAutomaton();
     }
 
