@@ -15,7 +15,7 @@ namespace hibpm
         bool eventsMatch(Constraint &rule) override;
         Event getTarget();
 
-        void print() override;
+        std::string print() override;
 
     protected:
         // Get the events from the given rule in constructor

@@ -35,8 +35,9 @@ namespace hibpm
         return m_event;
     }
 
-    void Unary::print()
+    std::string Unary::print()
     {
-        std::cout << m_constraintTypeString << "(" << m_event.name << ")" << std::endl;
+        std::string out = m_constraintTypeString + "('" + m_event.name + "')";
+        return out;
     }
 }
