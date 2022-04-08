@@ -39,6 +39,6 @@ namespace hibpm
 
     void Binary::print()
     {
-        std::cout << m_constraintTypeString << "(" << m_activation.name << ", " << m_target.name << ")" << std::endl;
+        std::cout << m_constraintTypeString << "('" << m_activation.name << "','" << m_target.name << "')" << std::endl;
     }
 }
