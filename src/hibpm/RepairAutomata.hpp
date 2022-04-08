@@ -6,18 +6,12 @@
 #include "Automaton.hpp"
 #include "Constraint.hpp"
 #include "DeclareKnowledgeBase.hpp"
+#include "RemainderComposition.hpp"
 
 //#include "GraphSolver.h"
 
 namespace hibpm
 {
-    struct RemainderComposition
-    {
-        list<shared_ptr<Constraint>> hittingSet;
-        list<list<shared_ptr<Constraint>>> kernelSet;
-        list<shared_ptr<Constraint>> solutionSet;
-    };
-
     class RepairAutomata
     {
     public:

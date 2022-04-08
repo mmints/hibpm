@@ -246,7 +246,6 @@ namespace hibpm
         for (int i = 1; i < ruleSet.size(); ++i) {
 
             std::cout << "iteration " << i << std::endl;
-            //std::cout << "iteration " << i << std::endl;
 
             accAutomata.push_back(ruleSet[i]->getAutomata());
             if(!first.lazyProducts(accAutomata)){

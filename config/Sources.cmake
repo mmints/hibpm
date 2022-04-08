@@ -46,6 +46,9 @@ set(hibpm_sources
     ${hibpm_source}/hibpm/RepairAutomata.cpp
     ${hibpm_source}/hibpm/RepairAutomata.hpp
 
+    ${hibpm_source}/hibpm/RemainderComposition.hpp
+
+
     # ${hibpm_source}/hibpm/TopoGraph.cpp
     # ${hibpm_source}/hibpm/TopoGraph.hpp
 

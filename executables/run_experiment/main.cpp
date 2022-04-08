@@ -1,10 +1,19 @@
 #include <hibpm/DeclareParser.hpp>
 #include <hibpm/DeclareKnowledgeBase.hpp>
+#include <hibpm/RemainderComposition.hpp>
+#include <hibpm/RepairAutomata.hpp>
+
 #include <filesystem>
 #include <string.h>
+#include <chrono>
 
 using namespace hibpm;
 namespace fs = std::filesystem;
+using std::chrono::high_resolution_clock;
+using std::chrono::duration_cast;
+using std::chrono::duration;
+using std::chrono::milliseconds;
+
 
 // Enumeration of all different types of experiment that can be performed
 enum ExperimentType {
@@ -46,6 +55,7 @@ void printHelp()
     "\t[-le, --lazy-expand] This message \n" <<
     "\t[-ee, --ego-expand] This message \n" <<
     "\t[-les, --lazy-expand-shrink] This message \n" <<
+    "\t[-ex, --example] This message \n" <<
 
     "\nINPUT_PATH:\n" <<
     "\tPath to a model in HIBPM format (.txt).\n" <<
@@ -55,15 +65,42 @@ void printHelp()
     std::endl;
 }
 
-void writeResultsToFile(fs::path &input,fs::path &output)
+std::string createOutPath(fs::path &input,fs::path &output, ExperimentType experimentType)
 {
-    // TODO: Write correct Data into csv file
-    // For now, this function is just a template for writing printing functions
-    string out = output.string() +"/"+ input.filename().replace_extension("csv").string();
+    std::string out = "";
+    switch (experimentType)
+    {
+        case LAZY_EXPAND: {
+            out = output.string() +"/"+ input.filename().replace_extension("").string();
+            out += "-LAZY-EXPAND.csv";
+            break;
+        }
+        case EGO_EXPAND: {
+            out = output.string() +"/"+ input.filename().replace_extension("").string();
+            out += "-EGO-EXPAND.csv";
+            break;
+        }
+        case LAZY_EXPAND_SHRINK: {
+            out = output.string() +"/"+ input.filename().replace_extension("").string();
+            out += "-LAZY-EXPAND-SHRINK.csv";
+            break;
+        }
+        // TODO: Extant for new test cases
+    }
+    return out;
+}
+
+void writeResultsToFile(fs::path &input,fs::path &output, ExperimentType experimentType,
+                        size_t kernelSetSize, size_t solutionSetSize, double parsingTime, double experimentTime)
+{
+    std::string out = createOutPath(input, output, experimentType);
     std::cout <<"Output dir: " << out << std::endl;
 
     std::ofstream outfile (out);
-    outfile << "my text here!" << std::endl;
+    // Header
+    outfile << "'kernel_set_size';'solution_set_size';'parsing_time';'experiment_time';'overall_time'" << std::endl;
+    outfile << kernelSetSize <<";"<< solutionSetSize <<";"<< parsingTime <<";"<< experimentTime <<";"<< (parsingTime+experimentTime) << std::endl;
+
     outfile.close();
 }
 
@@ -103,14 +140,39 @@ int main(int argc, char** argv)
 
     // Check options for the experiment type and execute the experiment
     ExperimentType experimentType = selectExperimentType(argv[1]);
+
+    if (experimentType == NONE){
+        std::cout << "Unknown Experiment Option." << std::endl;
+        std::cout << "Exit" << std::endl;
+        return 0;
+    }
+
+    DeclareParser parser;
+
+    auto t1 = high_resolution_clock::now();
+    DeclareContext declareContext = parser.parseFromFile(inputFile);
+    auto t2 = high_resolution_clock::now();
+
+    duration<double, std::milli> parsingTime = t2 - t1;
+
+    DeclareKnowledgeBase declareKnowledgeBase(declareContext);
+    RepairAutomata repairAutomata;
+    RemainderComposition remainderComposition;
+
     switch (experimentType)
     {
-        case NONE: {
-            std::cout << "Exit" << std::endl;
-            return 0;
-        }
         case LAZY_EXPAND: {
-            std::cout << "LAZY_EXPAND" << std::endl;
+            std::cout << "Experiment Running: LAZY_EXPAND" << std::endl; // TODO: Add experiment
+
+            auto expT1 = high_resolution_clock::now();
+            remainderComposition = repairAutomata.lazyExpands(declareKnowledgeBase);
+            auto expT2 = high_resolution_clock::now();
+
+            duration<double, std::milli> experimentTime = expT2 - expT1;
+
+            writeResultsToFile(inputFile, outputPath, experimentType,
+                               remainderComposition.kernelSet.size(), remainderComposition.solutionSet.size(),
+                               parsingTime.count(), experimentTime.count());
             break;
         }
         case EGO_EXPAND: {
@@ -122,8 +184,6 @@ int main(int argc, char** argv)
             break;
         }
     }
-
-    writeResultsToFile(inputFile, outputPath);
 
     std::cout << "Done.\n Results of the the experiment on model "
     << inputFile.filename().replace_extension("")
