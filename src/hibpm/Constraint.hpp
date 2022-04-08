@@ -56,7 +56,7 @@ namespace hibpm
 
         virtual bool eventsMatch(Constraint &constraint) = 0;
 
-        virtual void print() = 0;
+        virtual std::string print() = 0;
 
     protected:
         ConstraintType m_type;

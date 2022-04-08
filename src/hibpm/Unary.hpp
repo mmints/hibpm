@@ -14,7 +14,7 @@ namespace hibpm
         u_int64_t getEventNumericValue();
         Event getTarget();
         bool eventsMatch(Constraint &rule) override;
-        void print() override;
+        std::string print() override;
 
     protected:
         Event m_event;

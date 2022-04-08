@@ -65,24 +65,24 @@ void printHelp()
     std::endl;
 }
 
-std::string createOutPath(fs::path &input,fs::path &output, ExperimentType experimentType)
+std::string createOutName(fs::path &input,fs::path &output, ExperimentType experimentType)
 {
     std::string out = "";
     switch (experimentType)
     {
         case LAZY_EXPAND: {
             out = output.string() +"/"+ input.filename().replace_extension("").string();
-            out += "-LAZY-EXPAND.csv";
+            out += "-LAZY-EXPAND";
             break;
         }
         case EGO_EXPAND: {
             out = output.string() +"/"+ input.filename().replace_extension("").string();
-            out += "-EGO-EXPAND.csv";
+            out += "-EGO-EXPAND";
             break;
         }
         case LAZY_EXPAND_SHRINK: {
             out = output.string() +"/"+ input.filename().replace_extension("").string();
-            out += "-LAZY-EXPAND-SHRINK.csv";
+            out += "-LAZY-EXPAND-SHRINK";
             break;
         }
         // TODO: Extant for new test cases
@@ -90,18 +90,40 @@ std::string createOutPath(fs::path &input,fs::path &output, ExperimentType exper
     return out;
 }
 
-void writeResultsToFile(fs::path &input,fs::path &output, ExperimentType experimentType,
-                        size_t kernelSetSize, size_t solutionSetSize, double parsingTime, double experimentTime)
+void writeResultsToCSV(const std::string &out, size_t kernelSetSize, size_t solutionSetSize, double parsingTime, double experimentTime)
 {
-    std::string out = createOutPath(input, output, experimentType);
     std::cout <<"Output dir: " << out << std::endl;
+    std::string outPath = out + ".csv";
 
-    std::ofstream outfile (out);
+    std::ofstream outfile (outPath);
     // Header
     outfile << "'kernel_set_size';'solution_set_size';'parsing_time';'experiment_time';'overall_time'" << std::endl;
     outfile << kernelSetSize <<";"<< solutionSetSize <<";"<< parsingTime <<";"<< experimentTime <<";"<< (parsingTime+experimentTime) << std::endl;
 
     outfile.close();
+}
+
+void printSets(const std::string &out, const RemainderComposition &remainderComposition)
+{
+    std::string outPathKernel = out + "-kernelset.txt";
+    std::string outPathSolution = out + "-solutionset.txt";
+
+    std::ofstream outfileKernel (outPathKernel);
+    for (auto kernel : remainderComposition.kernelSet)
+    {
+        for (auto constraint : kernel)
+        {
+            outfileKernel << constraint->print() << "\n";
+        }
+    }
+    outfileKernel.close();
+
+    std::ofstream outfileSolution (outPathSolution);
+    for (auto solution : remainderComposition.solutionSet)
+    {
+        outfileSolution << solution->print() << "\n";
+    }
+    outfileSolution.close();
 }
 
 int main(int argc, char** argv)
@@ -170,9 +192,12 @@ int main(int argc, char** argv)
 
             duration<double, std::milli> experimentTime = expT2 - expT1;
 
-            writeResultsToFile(inputFile, outputPath, experimentType,
+            std::string out = createOutName(inputFile, outputPath, experimentType);
+            writeResultsToCSV(out,
                                remainderComposition.kernelSet.size(), remainderComposition.solutionSet.size(),
                                parsingTime.count(), experimentTime.count());
+
+            printSets(out, remainderComposition);
             break;
         }
         case EGO_EXPAND: {
