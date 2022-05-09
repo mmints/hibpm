@@ -52,9 +52,9 @@ void printHelp()
 
     "\nOPTIONS:\n" <<
     "\t[-h, --help] This message. \n" <<
-    "\t[-le, --lazy-expand] This message \n" <<
-    "\t[-ee, --ego-expand] This message \n" <<
-    "\t[-les, --lazy-expand-shrink] This message \n" <<
+    "\t[-le, --lazy-expand] Perform lazy expand algorithm on given data set \n" <<
+    "\t[-ee, --ego-expand] WIP! Perform ego expand algorithm on given data set \n" <<
+    "\t[-les, --lazy-expand-shrink] Perform lazy expand shrink algorithm on given data set \n" <<
     "\t[-ex, --example] This message \n" <<
 
     "\nINPUT_PATH:\n" <<
