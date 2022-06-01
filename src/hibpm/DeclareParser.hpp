@@ -1,3 +1,8 @@
+/**
+ * @author: Mark O. Mints
+ * @email: mmints@uni-koblenz.de
+ */
+
 #pragma once
 
 #include <fstream>

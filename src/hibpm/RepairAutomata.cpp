@@ -4,6 +4,7 @@
  */
 
 #include "RepairAutomata.hpp"
+#include "hibpm/Constraint.hpp"
 
 namespace hibpm {
 list<Automaton> RepairAutomata::expand(list<Automaton> &automata) {
@@ -262,15 +263,13 @@ RepairAutomata::lazyExpands(DeclareKnowledgeBase &declareKnowledgeBase) {
     if (!first.lazyProducts(accAutomata)) {
       accAutomata.pop_back();
       remainderComposition.hittingSet.push_back(ruleSet[i]);
-      //                list<shared_ptr<State>> temK =
-      //                oneKernelN(remainderComposition.solutionSet,ruleSet[i],3);
-      //                remainderComposition.kernelSet.push_back(temK);
+      list<shared_ptr<Constraint>> temK =
+          oneKernelN(remainderComposition.solutionSet, ruleSet[i], 3);
+      remainderComposition.kernelSet.push_back(temK);
       std::cout << "FOUNDCONFLICT >>>>>>>>>>>>>>>>>>>>>>> " << i << std::endl;
-      // list<shared_ptr<State>> remL =
-      // lazyShrink(remainderComposition.solutionSet,ruleSet[i]);
-      // remainderComposition.kernelSet.push_back(remL);
-      // std::cout << "FOUNDCONFLICT " << temK.size() << " Sike Kern " <<
-      // std::endl;
+      list<shared_ptr<Constraint>> remL =
+          lazyShrink(remainderComposition.solutionSet, ruleSet[i]);
+      remainderComposition.kernelSet.push_back(remL);
 
       // std::cout << "FOUNDCONFLICT " << i << "HT ::" <<
       // remainderComposition.hittingSet.size() << std::endl;

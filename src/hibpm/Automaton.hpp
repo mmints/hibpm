@@ -1,6 +1,6 @@
 /**
- * @author: Mark O. Mints
- * @email: mmints@uni-koblenz.de
+ * @author:  Dr. Jandson Santos Ribeiro Santos
+ * @email: jandson.ribeiro@fernuni-hagen.de
  */
 
 #pragma once
