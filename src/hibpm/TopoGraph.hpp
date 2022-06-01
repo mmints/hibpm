@@ -1,3 +1,8 @@
+/**
+ * @author:  Dr. Jandson Santos Ribeiro Santos
+ * @email: jandson.ribeiro@fernuni-hagen.de
+ */
+
 #pragma once
 
 #include <memory>
@@ -6,65 +11,63 @@
 
 namespace hibpm {
 
-    class TopoGraph {
+class TopoGraph {
 
-//    struct Cell {
-////        State* value;
-////        list<Cell*> cellsAbove, cellsBelow;
-////        Cell *nextCell, *prevCell;
-////        Cell(State *s){
-////            value = s;
-////        }
-//        State* value;
-//        list<Cell> cellsAbove;
-//    };
+  //    struct Cell {
+  ////        State* value;
+  ////        list<Cell*> cellsAbove, cellsBelow;
+  ////        Cell *nextCell, *prevCell;
+  ////        Cell(State *s){
+  ////            value = s;
+  ////        }
+  //        State* value;
+  //        list<Cell> cellsAbove;
+  //    };
 
+public:
+  vector<pair<Rule, int>> order;
+  vector<vector<vector<int>>> orderMat;
 
+  TopoGraph(vector<std::shared_ptr<Rule>> &process, int numEvents);
 
-    public:
-        vector<pair<Rule, int>> order;
-        vector<vector<vector<int>>> orderMat;
+  list<list<std::shared_ptr<Rule>>> grounded;
 
-        TopoGraph(vector<std::shared_ptr<Rule>> &process, int numEvents);
+  void add(Rule &rule);
 
-        list<list<std::shared_ptr<Rule>>> grounded;
+  ~TopoGraph();
 
-        void add(Rule &rule);
+  bool isLesssThan(shared_ptr<Rule> s1, shared_ptr<Rule> s2);
 
-        ~TopoGraph();
+  void sortN(vector<shared_ptr<Rule>> &vet);
 
-        bool isLesssThan(shared_ptr<Rule> s1, shared_ptr<Rule> s2);
+  void sortTriple(vector<shared_ptr<Rule>> &vet);
 
+  bool isSubSumedBy(Rule &r1, Rule &r2);
 
-        void sortN(vector<shared_ptr<Rule>> &vet);
+  bool isSubSumRel(Rule &r1, Rule &r2);
 
-        void sortTriple(vector<shared_ptr<Rule>> &vet);
+  bool isLessThanByType(Rule &r1, Rule &r2);
 
-        bool isSubSumedBy(Rule &r1, Rule &r2);
+  bool isTypeSubs(Rule &r1, Rule &r2);
 
-        bool isSubSumRel(Rule &r1, Rule &r2);
+  bool isPosition(Rule &r1);
 
-        bool isLessThanByType(Rule &r1, Rule &r2);
+  bool isCardinality(Rule &r1);
 
-        bool isTypeSubs(Rule &r1, Rule &r2);
+  bool isCoupling(Rule &r1);
 
-        bool isPosition(Rule &r1);
+  bool isForwardBackwards(Rule &r1);
 
-        bool isCardinality(Rule &r1);
+  bool isNegative(Rule &r1);
 
-        bool isCoupling(Rule &r1);
+  void buildActivationLink(vector<std::shared_ptr<Rule>> &process,
+                           size_t sigmaSize);
 
-        bool isForwardBackwards(Rule &r1);
+  bool isLessThenActivation(Rule &r1, Rule &r2);
 
-        bool isNegative(Rule &r1);
+  void sortTripleDESC(vector<shared_ptr<Rule>> &vet);
 
-        void buildActivationLink(vector<std::shared_ptr<Rule>> &process, size_t sigmaSize);
-
-        bool isLessThenActivation(Rule &r1, Rule &r2);
-
-        void sortTripleDESC(vector<shared_ptr<Rule>> &vet);
-
-        void buildMatrixEvent(vector<std::shared_ptr<Rule>> &process, size_t sigmaSize);
-
-    };
-}
+  void buildMatrixEvent(vector<std::shared_ptr<Rule>> &process,
+                        size_t sigmaSize);
+};
+} // namespace hibpm

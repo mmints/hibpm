@@ -1,6 +1,7 @@
 # IDE
 .vscode/
 .idea/
+.cache/
 
 # MacOS
 .DS_Store
